@@ -18,8 +18,10 @@ def factory_congress_man(last_name, first_name, district):
     response.district = district
     return response
 
-def factory_party(rate, congressmans):
+def factory_party(name, code, rate, congressmans):
     response = PartyResponse()
+    response.name = name
+    response.code = code
     response.rate = rate
     response.congressmans = congressmans
     return response
