@@ -1,10 +1,14 @@
 from fastapi import APIRouter
 from api.factory import factory_congress_man, factory_district_response, factory_party
+from infrastructure.files.JsonFiles import JsonFiles
 
 router = APIRouter()
 
 @router.get("/elections/{year}/results/{mode}", tags=["elections"])
 async def get_results_elections(year : str, mode : str):
+    json_files = JsonFiles()
+    data = json_files.get_elections_data()
+    print(data)
     first_district = factory_district_response("10ème circonscription", "3310", "33", "Gironde")
     first_congress_man_first_district = factory_congress_man("BOUDIÉ",	"Florent", first_district) #ENS
     second_district = factory_district_response("4ème circonscription", "4204", "42", "Loire")
