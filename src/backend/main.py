@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.backend.api.controllers import elections
+from api.controllers import elections
 
 app = FastAPI()
 

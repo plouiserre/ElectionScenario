@@ -1,4 +1,4 @@
-from src.backend.domain.district import District
+from domain.district import District
 
 class CongressPerson : 
     def __init__(self):

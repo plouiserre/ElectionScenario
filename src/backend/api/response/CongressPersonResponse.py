@@ -1,4 +1,4 @@
-from src.backend.api.response.DistrictResponse import DistrictResponse
+from api.response.DistrictResponse import DistrictResponse
 
 class CongressPersonResponse : 
     def __init__(self):
