@@ -1,5 +1,5 @@
 import unittest
-from backend.usecases.OneTurnElection.OneTurnElectionUseCase import OneTurnElectionUseCase
+from src.backend.usecases.OneTurnElection.OneTurnElectionUseCase import OneTurnElectionUseCase
 
 class OneTurnElectionUseCaseTest(unittest.TestCase):
     def test_one_turn_election_determinate_good_congress_mans(self):
