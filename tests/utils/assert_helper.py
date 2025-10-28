@@ -1,0 +1,10 @@
+def assert_congress_person_with_district(datas, congress_person, unittest):
+        data = datas.split("|")
+        unittest.assertEqual(data[0], congress_person.last_name)
+        unittest.assertEqual(data[1], congress_person.first_name)
+        unittest.assertEqual(int(data[2]), congress_person.vote)
+        unittest.assertEqual(float(data[3]), congress_person.vote_percentage)
+        unittest.assertEqual(data[4], congress_person.district.name)
+        unittest.assertEqual(int(data[5]), congress_person.district.code)
+        unittest.assertEqual(data[6], congress_person.district.department_name)
+        unittest.assertEqual(int(data[7]), congress_person.district.department_code)
