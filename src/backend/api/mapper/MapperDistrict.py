@@ -1,4 +1,4 @@
-from api.response.DistrictResponse import DistrictResponse
+from src.backend.api.response.DistrictResponse import DistrictResponse
 
 def to_mapper_district(district_domain):
     response = DistrictResponse()

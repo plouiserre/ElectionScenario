@@ -1,5 +1,5 @@
-from api.mapper.MapperDistrict import to_mapper_district
-from api.response.CongressPersonResponse import CongressPersonResponse
+from src.backend.api.mapper.MapperDistrict import to_mapper_district
+from src.backend.api.response.CongressPersonResponse import CongressPersonResponse
 
 def to_congress_person_response(congress_person_domain):
     response = CongressPersonResponse()

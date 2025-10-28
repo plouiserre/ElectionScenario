@@ -1,5 +1,5 @@
-from api.mapper.MapperCongressPerson import to_congress_person_response
-from api.response.PartyResponse import PartyResponse
+from src.backend.api.mapper.MapperCongressPerson import to_congress_person_response
+from src.backend.api.response.PartyResponse import PartyResponse
 
 def to_mapper_party_response(party_domain):
     response = PartyResponse()

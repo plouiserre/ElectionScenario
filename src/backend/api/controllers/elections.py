@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from api.mapper.MapperCongress import to_mapper_congress_response
-from usecases.OneTurnElection.OneTurnElectionUseCase import OneTurnElectionUseCase
+from src.backend.api.mapper.MapperCongress import to_mapper_congress_response
+from src.backend.usecases.OneTurnElection.OneTurnElectionUseCase import OneTurnElectionUseCase
 
 router = APIRouter()
 
