@@ -26,29 +26,29 @@ class OneTurnElectionUseCaseTest(unittest.TestCase):
     def __assert_rn(self, rn_party):
         self.assertEqual("Rassemblement National", rn_party.name)
         self.assertEqual("RN", rn_party.code)
-        assert_congress_person_with_district("BOVET|Jorys|17810|34.33|2ème circonscription|302|Allier|3", rn_party.congress_persons[0], self)
-        assert_congress_person_with_district("BAUBRY|Romain|37493|49.48|15ème circonscription|1315|Bouches-du-Rhône|13", rn_party.congress_persons[1], self)
-        assert_congress_person_with_district("DIAZ|Edwige|34590|53.33|11ème circonscription|3311|Gironde|33", rn_party.congress_persons[2], self)
-        assert_congress_person_with_district("CHALUS|BENJAMIN|22290|31.62|4ème circonscription|6304|Puy-de-Dôme|63", rn_party.congress_persons[3], self)
-        assert_congress_person_with_district("BOCCALETTI|Frédéric|32748|48.3|7ème circonscription|8307|Var|83", rn_party.congress_persons[4], self)
+        assert_congress_person_with_district("BOVET|Jorys|MASCULIN|RN|17810|34.33|2ème circonscription|302|Allier|3", rn_party.congress_persons[0], self)
+        assert_congress_person_with_district("BAUBRY|Romain|MASCULIN|RN|37493|49.48|15ème circonscription|1315|Bouches-du-Rhône|13", rn_party.congress_persons[1], self)
+        assert_congress_person_with_district("DIAZ|Edwige|FEMININ|RN|34590|53.33|11ème circonscription|3311|Gironde|33", rn_party.congress_persons[2], self)
+        assert_congress_person_with_district("CHALUS|BENJAMIN|MASCULIN|RN|22290|31.62|4ème circonscription|6304|Puy-de-Dôme|63", rn_party.congress_persons[3], self)
+        assert_congress_person_with_district("BOCCALETTI|Frédéric|MASCULIN|RN|32748|48.3|7ème circonscription|8307|Var|83", rn_party.congress_persons[4], self)
 
     def __assert_lr(self, lr_party):
         self.assertEqual("Les Républicains", lr_party.name)
         self.assertEqual("LR", lr_party.code)
-        assert_congress_person_with_district("WAUQUIEZ|Laurent|27013|36.80|1ère circonscription|4301|Haute Loire|43", lr_party.congress_persons[0], self)
-        assert_congress_person_with_district("BONNIVARD|Emilie|21605|40.86|3ème circonscription|7304|Savoie|73", lr_party.congress_persons[1], self)
+        assert_congress_person_with_district("WAUQUIEZ|Laurent|MASCULIN|LR|27013|36.80|1ère circonscription|4301|Haute Loire|43", lr_party.congress_persons[0], self)
+        assert_congress_person_with_district("BONNIVARD|Emilie|FEMININ|LR|21605|40.86|3ème circonscription|7304|Savoie|73", lr_party.congress_persons[1], self)
 
     def __assert_ens(self, ens_party):
         self.assertEqual("Ensemble ! (Majorité présidentielle)", ens_party.name)
         self.assertEqual("ENS", ens_party.code)
-        assert_congress_person_with_district("BANNIER|Géraldine|18746|35.17|2ème circonscription|5302|Mayenne|53", ens_party.congress_persons[0], self)
+        assert_congress_person_with_district("BANNIER|Géraldine|FEMININ|ENS|18746|35.17|2ème circonscription|5302|Mayenne|53", ens_party.congress_persons[0], self)
 
     def __assert_ug(self, ug_party):
         self.assertEqual("Union de la gauche", ug_party.name)
         self.assertEqual("UG", ug_party.code)
-        assert_congress_person_with_district("AUTIN|Clémentine|22209|62.65|11ème circonscription|9311|Seine-Saint-Denis|93", ug_party.congress_persons[0], self)
+        assert_congress_person_with_district("AUTIN|Clémentine|FEMININ|UG|22209|62.65|11ème circonscription|9311|Seine-Saint-Denis|93", ug_party.congress_persons[0], self)
 
     def __assert_uxd(self, ug_party):
         self.assertEqual("Union de l\'extrême droite", ug_party.name)
         self.assertEqual("UXD", ug_party.code)
-        assert_congress_person_with_district("LENOIR|Bartolomé|20403|33.35|1ère circonscription|2301|Creuse|23", ug_party.congress_persons[0], self)
+        assert_congress_person_with_district("LENOIR|Bartolomé|MASCULIN|UXD|20403|33.35|1ère circonscription|2301|Creuse|23", ug_party.congress_persons[0], self)

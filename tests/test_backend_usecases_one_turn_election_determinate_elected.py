@@ -10,5 +10,5 @@ class DeterminateElectedPersonByDistrictTest(unittest.TestCase):
 
         elected_person = determinate.Find(candidates)
 
-        assert_congress_person_with_district("ROSSET|Marine|18845|33.4|2ème circonscription|7502|Paris|75", elected_person, self)
+        assert_congress_person_with_district("ROSSET|Marine|FEMININ|UG|18845|33.4|2ème circonscription|7502|Paris|75", elected_person, self)
 
