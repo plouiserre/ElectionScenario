@@ -1,8 +1,8 @@
 import unittest
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.generateData import get_candidates_from_all_districts
-from src.backend.usecases.OneTurnElection.DeterminateAllElectedPersons import DeterminateAllElectedPersons
-from src.backend.usecases.OneTurnElection.DeterminateElectedPersonByDistrict import DeterminateElectedPersonByDistrict
+from src.backend.domain.services.OneTurnElection.DeterminateAllElectedPersons import DeterminateAllElectedPersons
+from src.backend.domain.services.OneTurnElection.DeterminateElectedPersonByDistrict import DeterminateElectedPersonByDistrict
 
 class DeterminateAllElectedPersonsTest(unittest.TestCase):
     def test_find_all_elected_persons(self): 

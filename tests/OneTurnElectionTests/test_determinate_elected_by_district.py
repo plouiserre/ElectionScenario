@@ -1,5 +1,5 @@
 import unittest
-from src.backend.usecases.OneTurnElection.DeterminateElectedPersonByDistrict import DeterminateElectedPersonByDistrict
+from src.backend.domain.services.OneTurnElection.DeterminateElectedPersonByDistrict import DeterminateElectedPersonByDistrict
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.generateData import get_candidates_from_seventh_district_choosen
 

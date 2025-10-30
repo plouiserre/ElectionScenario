@@ -1,8 +1,8 @@
 #tmp
-from src.backend.domain.congressPerson import CongressPerson
-from src.backend.domain.congress import Congress
-from src.backend.domain.district import District
-from src.backend.domain.party import Party
+from src.backend.domain.models.congressPerson import CongressPerson
+from src.backend.domain.models.congress import Congress
+from src.backend.domain.models.district import District
+from src.backend.domain.models.party import Party
 
 def factory_district(name, code, department_name, department_code):
     district = District()

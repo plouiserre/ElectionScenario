@@ -1,4 +1,4 @@
-from src.backend.domain.factory import factory_party
+from src.backend.domain.models.factory import factory_party
 
 class DeterminatePartyInfo : 
     def __init__(self, parties_info):
