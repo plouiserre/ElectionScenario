@@ -1,10 +1,10 @@
 import unittest
-from src.backend.usecases.OneTurnElection.OneTurnElectionUseCase import OneTurnElectionUseCase
+from src.backend.domain.services.OneTurnElection.OneTurnElectionService import OneTurnElectionService
 from tests.utils.assert_helper import assert_congress_person_with_district
 
 class OneTurnElectionUseCaseTest(unittest.TestCase):
     def test_one_turn_election_determinate_good_congress_persons(self):
-        election = OneTurnElectionUseCase()
+        election = OneTurnElectionService()
         
         congress = election.Determinate()
 

@@ -1,5 +1,5 @@
 import unittest
-from src.backend.usecases.OneTurnElection.BuildCongress import BuildCongress
+from src.backend.domain.services.OneTurnElection.BuildCongress import BuildCongress
 from tests.utils.generateData import get_parties_with_elected_persons_2024
 
 class BuildCongressTest(unittest.TestCase):

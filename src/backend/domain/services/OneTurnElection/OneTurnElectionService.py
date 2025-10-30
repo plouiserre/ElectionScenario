@@ -1,6 +1,6 @@
 from src.backend.domain.models.factory import factory_congress, factory_congress_person, factory_district, factory_party
 
-class OneTurnElectionUseCase : 
+class OneTurnElectionService : 
     def __init__(self):
         pass
 

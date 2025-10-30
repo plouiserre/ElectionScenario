@@ -1,6 +1,6 @@
 import unittest
 from src.backend.domain.models.factory import factory_congress_person
-from src.backend.usecases.OneTurnElection.DeterminatePartyInfo import DeterminatePartyInfo
+from src.backend.domain.services.OneTurnElection.DeterminatePartyInfo import DeterminatePartyInfo
 from utils.assert_helper import assert_congress_person_with_district, assert_party
 from utils.generateData import build_first_district, build_second_district, build_third_district, build_fourth_district, build_fifth_district, build_sixth_district, build_seventh_district, get_all_parties_without_elected_persons_2024
 
