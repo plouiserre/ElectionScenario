@@ -1,4 +1,4 @@
-from src.backend.domain.congressPerson import CongressPerson
+from src.backend.domain.models.congressPerson import CongressPerson
 class DeterminateElectedPersonByDistrict:
     def __init__(self):
         pass

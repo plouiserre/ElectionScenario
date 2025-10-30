@@ -1,4 +1,4 @@
-from src.backend.domain.factory import factory_congress, factory_congress_person, factory_district, factory_party
+from src.backend.domain.models.factory import factory_congress, factory_congress_person, factory_district, factory_party
 
 class OneTurnElectionUseCase : 
     def __init__(self):

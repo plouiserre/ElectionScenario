@@ -1,4 +1,4 @@
-from src.backend.domain.factory import factory_congress_person, factory_district, factory_party
+from src.backend.domain.models.factory import factory_congress_person, factory_district, factory_party
 
 def get_candidates_from_all_districts():
     all_candidates_from_all_districts =[get_candidates_from_first_district_choosen(), get_candidates_from_second_district_choosen(),

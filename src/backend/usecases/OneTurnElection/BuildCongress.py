@@ -1,4 +1,4 @@
-from src.backend.domain.congress import Congress
+from src.backend.domain.models.congress import Congress
 
 class BuildCongress : 
     def __init__(self):
