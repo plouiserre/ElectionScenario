@@ -1,6 +1,7 @@
 from src.backend.domain.models.factory import factory_congress, factory_congress_person, factory_district, factory_party
+from src.backend.domain.ports.inside.OneTurnElectionPort import OneTurnElectionPort
 
-class OneTurnElectionService : 
+class OneTurnElectionService(OneTurnElectionPort) : 
     def __init__(self):
         pass
 
