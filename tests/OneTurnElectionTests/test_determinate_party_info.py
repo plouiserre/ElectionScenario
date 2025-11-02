@@ -12,6 +12,7 @@ class DeterminatePartyInfoTest(unittest.TestCase):
 
         parties_infos = determinate_party_info.Calculate(elected_persons)
 
+        #TODO factorize with test_json_results_election!!!!
         assert_party("Union de la gauche|UG|42.86", parties_infos[0], self)
         assert_congress_person_with_district("VOYNET|Dominique|FEMININ|UG|19160|34.16|2ème circonscription|2502|Doubs|25", parties_infos[0].congress_persons[0], self)
         assert_congress_person_with_district("LAHAIS|Tristan|MASCULIN|UG|30361|40.31|2ème circonscription|3502|Ille-et-Vilaine|35", parties_infos[0].congress_persons[1], self)

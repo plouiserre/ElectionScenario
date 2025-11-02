@@ -3,5 +3,5 @@ from abc import ABC, abstractmethod
 
 class ResultsElectionsPort(ABC):
     @abstractmethod
-    def get_results():
+    def get_results(self):
         pass
