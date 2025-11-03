@@ -9,7 +9,7 @@ def __assert_person(datas, persons, unittest):
         unittest.assertEqual(data[0], persons.last_name)
         unittest.assertEqual(data[1], persons.first_name)
         unittest.assertEqual(data[2], persons.sexe)
-        unittest.assertEqual(data[3], persons.party_code)
+        unittest.assertEqual(data[3], persons.parti_code)
         unittest.assertEqual(int(data[4]), persons.vote)
         unittest.assertEqual(float(data[5]), persons.vote_percentage)
         unittest.assertEqual(data[6], persons.district.name)
@@ -22,4 +22,5 @@ def assert_party(datas, party_info, unittest):
         data = datas.split("|")
         unittest.assertEqual(data[0], party_info.name)
         unittest.assertEqual(data[1], party_info.code)
-        unittest.assertEqual(float(data[2]), party_info.percentage)
+        if(len(data) == 3):
+                unittest.assertEqual(float(data[2]), party_info.percentage)

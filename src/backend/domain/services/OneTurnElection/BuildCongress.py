@@ -39,13 +39,13 @@ class BuildCongress :
         
     def __remove_percentage_to_have_one_hundred_percentage(self, congress): 
         low_percentage = 100
-        party_code_with_low_percentage = ''
+        parti_code_with_low_percentage = ''
         for party in congress.parties : 
             if party.percentage < low_percentage:
                 low_percentage = party.percentage 
-                party_code_with_low_percentage = party.code
+                parti_code_with_low_percentage = party.code
         for party in congress.parties : 
-            if party.code == party_code_with_low_percentage : 
+            if party.code == parti_code_with_low_percentage : 
                 #I prefer store in float because it is more simple to compare but I calculate in Decimal because it is more accurate
                 if self.is_above_one_hundred_percent :
                     party.percentage = float(Decimal(str(party.percentage)) -  self.difference_to_correct)
