@@ -17,7 +17,7 @@ class DeterminatePartyInfo :
     def __add_elected_persons_in_parties(self):
         for elected_person in self.elected_persons:
             for party in self.parties_info: 
-                if party.code == elected_person.party_code: 
+                if party.code == elected_person.parti_code: 
                     party.congress_persons.append(elected_person)
                 else :
                     continue

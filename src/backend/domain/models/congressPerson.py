@@ -5,7 +5,7 @@ class CongressPerson :
         self.last_name = ''
         self.first_name = ''
         self.sexe = ''
-        self.party_code = ''
+        self.parti_code = ''
         self.vote = 0
         self.vote_percentage = 0.0
         self.district = District()

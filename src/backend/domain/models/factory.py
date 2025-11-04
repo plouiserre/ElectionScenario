@@ -12,12 +12,12 @@ def factory_district(name, code, department_name, department_code):
     district.department_code = department_code
     return district
 
-def factory_congress_person(last_name, first_name, sexe, party_code, vote, vote_percentage, district):
+def factory_congress_person(last_name, first_name, sexe, parti_code, vote, vote_percentage, district):
     congress_person = CongressPerson()
     congress_person.last_name = last_name
     congress_person.first_name = first_name
     congress_person.sexe = sexe
-    congress_person.party_code = party_code
+    congress_person.parti_code = parti_code
     congress_person.vote = vote
     congress_person.vote_percentage = vote_percentage
     congress_person.district = district

@@ -1,8 +1,10 @@
 from src.backend.infrastructure.models.factory_record import factory_candidate_record, factory_department_record, factory_district_record, factory_election_record, factory_elections_result_record
+from tests.utils.data.generateDepartmentsRecord import generate_departments
+from tests.utils.data.generateParties import generate_parties_record
 
 
 def get_results_elections_2024():
-    results = factory_elections_result_record([__construct_election()])
+    results = factory_elections_result_record([__construct_election()], generate_departments(), generate_parties_record())
     return results        
     
 def __construct_election(): 
@@ -103,7 +105,7 @@ def __construct_district_7502():
     fourth_candidate = factory_candidate_record("HERZOG DE COSSÉ BRISSAC", "Félicité", "FEMININ", "DVD", 3792, 5.08, 6.72)
     fifth_candidate = factory_candidate_record("LE GENDRE", "Gilles", "MASCULIN", "DVC", 11071, 14.84, 19.62)
     sixth_candidate = factory_candidate_record("EVANGELISTA", "Ornella", "FEMININ", "REC", 778, 1.04, 1.38)
-    seventh_candidate = factory_candidate_record("LAUSSUCQ", "Jean", "MASCULIN", "RENSN", 13325, 17.87, 23.62)
+    seventh_candidate = factory_candidate_record("LAUSSUCQ", "Jean", "MASCULIN", "ENS", 13325, 17.87, 23.62)
     eighth_candidate = factory_candidate_record("LORANS", "Cécile Marie", "FEMININ", "ECO", 512, 0.68, 0.91)     
     nineth_candidate = factory_candidate_record("MARSILY", "Romain", "MASCULIN", "DVD", 1229, 1.65, 2.18)
     tenth_candidate = factory_candidate_record("MAURIANGE", "Frédéric", "MASCULIN", "DVC", 430, 0.58, 0.76)
