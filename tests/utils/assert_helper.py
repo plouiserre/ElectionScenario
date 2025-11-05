@@ -17,6 +17,16 @@ def __assert_person(datas, persons, unittest):
         unittest.assertEqual(data[8], persons.district.department_name)
         unittest.assertEqual(int(data[9]), persons.district.department_code)
 
+def assert_congress_person_domain(datas, congress_person, unittest):
+        data = datas.split("|")
+        unittest.assertEqual(data[0], congress_person.last_name)
+        unittest.assertEqual(data[1], congress_person.first_name)
+        unittest.assertEqual(data[2], congress_person.sexe)
+        unittest.assertEqual(data[3], congress_person.parti_code)
+        unittest.assertEqual(int(data[4]), congress_person.vote)
+        unittest.assertEqual(float(data[5]), congress_person.vote_by_expressed)
+
+
 
 def assert_party(datas, party_info, unittest):
         data = datas.split("|")
