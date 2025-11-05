@@ -17,7 +17,6 @@ def __assert_person(datas, persons, unittest):
         unittest.assertEqual(data[8], persons.district.department_name)
         unittest.assertEqual(int(data[9]), persons.district.department_code)
 
-
 def assert_party(datas, party_info, unittest):
         data = datas.split("|")
         unittest.assertEqual(data[0], party_info.name)

@@ -3,12 +3,15 @@ from src.backend.domain.models.district import District
 from src.backend.domain.models.party import Party
 
 def mapper_candidates_to_domain_person(results_election):
-    all_candidates = []
+    all_candidates = {}
     for election in results_election.elections:
-        for district in election.districts: 
+        for idx, district in enumerate(election.districts): 
             for candidate in district.candidates:
                 candidate_domain = __mapper_candidate_to_congress_person(candidate, district, results_election.departments)
-                all_candidates.append(candidate_domain)
+                if idx in all_candidates:
+                    all_candidates[idx].append(candidate_domain)
+                else :
+                    all_candidates.update({idx : [candidate_domain]})
     return all_candidates
 
 
