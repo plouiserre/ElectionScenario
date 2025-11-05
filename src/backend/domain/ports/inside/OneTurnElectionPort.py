@@ -2,5 +2,5 @@ from abc import ABC, abstractmethod
 
 class OneTurnElectionPort(ABC):
     @abstractmethod
-    def Determinate(self):
+    def Determinate(self, year, mode):
         pass
