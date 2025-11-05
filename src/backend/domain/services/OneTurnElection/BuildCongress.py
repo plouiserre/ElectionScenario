@@ -6,14 +6,30 @@ class BuildCongress :
        self.difference_to_correct = Decimal(0.0)
        self.percentage_congress_parties = Decimal(0.0)
        self.is_above_one_hundred_percent = False
+       self.parties_ordered = []
 
     def Build(self, year, mode, parties): 
-        congress = self.__build_congress(year, mode, parties)
+        self.__ordered_parties_by_percentage(parties)
+        congress = self.__build_congress(year, mode, self.parties_ordered)
         is_percentage_correct = self.__check_and_correct_parties_percentages(congress)
         if is_percentage_correct == False: 
             self.__determine_difference_to_ajust_for_parties_percentage()
             congress = self.__remove_percentage_to_have_one_hundred_percentage(congress)
         return congress
+    
+    def __ordered_parties_by_percentage(self, parties):
+        while(len(parties) > 0):
+            party_to_delete = None
+            max_percentage = 0
+            for party in parties : 
+                if max_percentage < party.percentage : 
+                    max_percentage = party.percentage
+            for party in parties : 
+                if max_percentage == party.percentage : 
+                    self.parties_ordered.append(party)
+                    party_to_delete = party
+                    break
+            parties.remove(party_to_delete)        
 
     def __build_congress(self, year, mode, parties):
         congress = Congress()
