@@ -1,10 +1,10 @@
-from src.backend.infrastructure.models.factory_record import factory_candidate_record, factory_district_record, factory_election_record
+from src.backend.infrastructure.models.factory_record import factory_candidate_record, factory_district_record, factory_election_record, factory_party_record
 
 def construct_election_2024(): 
         districts = [__construct_district_502(), __construct_district_1502(), __construct_district_2502(), 
                      __construct_district_3502(), __construct_district_4502(), __construct_district_5502(), 
                      __construct_district_6502(), __construct_district_7502()]
-        election = factory_election_record(2024, districts)
+        election = factory_election_record(__construct_parties(), districts)
         return election        
     
 def __construct_district_502():
@@ -109,4 +109,32 @@ def __construct_district_7502():
                     seventh_candidate, eighth_candidate, nineth_candidate, tenth_candidate, eleventh_candidate, 
                     twelth_candidate]
     district = factory_district_record("2ème circonscription", 7502, 75, 74579, 56908, candidates)               
-    return district     
+    return district
+
+def __construct_parties():
+        parties = []
+        parties.append(factory_party_record('Extrême gauche', 'EXG'))
+        parties.append(factory_party_record('Parti communiste français', 'COM'))
+        parties.append(factory_party_record('La France insoumise','FI'))
+        parties.append(factory_party_record('Parti socialiste','SOC'))
+        parties.append(factory_party_record('Parti radical de gauche','RDG'))
+        parties.append(factory_party_record('Les Ecologistes','VEC'))
+        parties.append(factory_party_record('Divers gauche','DVG'))
+        parties.append(factory_party_record('Union de la gauche','UG'))
+        parties.append(factory_party_record('Ecologistes','ECO'))
+        parties.append(factory_party_record('Régionaliste','REG'))
+        parties.append(factory_party_record('Divers','DIV'))
+        parties.append(factory_party_record('Renaissance','REN'))
+        parties.append(factory_party_record('Modem', 'MDM'))
+        parties.append(factory_party_record('Horizons', 'HOR'))
+        parties.append(factory_party_record('Ensemble ! (Majorité présidentielle)', 'ENS'))
+        parties.append(factory_party_record('Divers centre', 'DVC'))
+        parties.append(factory_party_record('Union des Démocrates et Indépendants', 'UDI'))
+        parties.append(factory_party_record('Les Républicains', 'LR'))
+        parties.append(factory_party_record('Divers droite', 'DVD'))
+        parties.append(factory_party_record('Droite souverainiste', 'DSV'))
+        parties.append(factory_party_record('Rassemblement National', 'RN'))
+        parties.append(factory_party_record('Reconquête !', 'REC'))
+        parties.append(factory_party_record('Union de l\'extrême droite', 'UXD'))
+        parties.append(factory_party_record('Extrême droite', 'EXD'))
+        return parties          
