@@ -8,12 +8,13 @@ class OneTurnElectionService(OneTurnElectionPort) :
         self.json_results_election = json_results_election
         self.all_elected_persons = all_elected_persons
         self.build_congress = build_congress
+        self.mode = "OneTurn"
 
-    def Determinate(self, year, mode):
+    def Determinate(self, year):
         results_data_all_years = self.json_results_election.get_results()
         results_data = results_data_all_years[2024]
         congress_persons = self.all_elected_persons.find_them_all(results_data.all_candidates)
         self.determinate_party_info = DeterminatePartyInfo(results_data.all_parties)
         data_parties = self.determinate_party_info.Calculate(congress_persons)
-        congress = self.build_congress.Build(year, mode, data_parties)
+        congress = self.build_congress.Build(year, self.mode, data_parties)
         return congress   
