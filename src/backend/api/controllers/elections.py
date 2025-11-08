@@ -10,11 +10,12 @@ router = APIRouter()
 
 @router.get("/elections/{year}/results/{mode}", tags=["elections"])
 async def get_results_elections(year : str, mode : str):
+    year_param = int(year)
     json_service = JsonResultsElection()
     build_congress = BuildCongress()
     elected_persons_by_district = DeterminateElectedPersonByDistrict()
     all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)
     election = OneTurnElectionService(json_service, all_elected_persons, build_congress)
-    congress_domain = election.Determinate(2024, "OneTurn")
+    congress_domain = election.Determinate(year_param)
     congress = to_mapper_congress_response(congress_domain)
     return {"congress":{"year": congress.year, "mode": congress.mode, "parties" : congress.parties}}

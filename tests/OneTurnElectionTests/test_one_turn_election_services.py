@@ -7,7 +7,7 @@ from src.backend.infrastructure.services.JsonResultsElection import JsonResultsE
 from tests.utils.assert_helper import assert_congress_person_with_district
 
 class OneTurnElectionServiceCaseTest(unittest.TestCase):
-    def test_one_turn_election_determinate_good_congress_persons(self):
+    def test_one_turn_election_2024_determinate_good_congress_persons(self):
         json_service = JsonResultsElection()
         build_congress = BuildCongress()
         elected_persons_by_district = DeterminateElectedPersonByDistrict()
@@ -52,20 +52,33 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         self.assertEqual(12.5, dvd_party.percentage)
         assert_congress_person_with_district("BONY|Jean Yves|MASCULIN|DVD|12383|34.29|2ème circonscription|1502|Cantal|15", dvd_party.congress_persons[0], self)        
     
+    def test_one_turn_election_2022_determinate_good_congress_persons(self):
+        json_service = JsonResultsElection()
+        build_congress = BuildCongress()
+        elected_persons_by_district = DeterminateElectedPersonByDistrict()
+        all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)
+        election = OneTurnElectionService(json_service, all_elected_persons, build_congress)
+        
+        congress = election.Determinate(2022)
+
+        self.__assert_congress_2022(congress)
+
 
     def __assert_congress_2022(self, congress):
         self.assertEqual(2022, congress.year)
         self.assertEqual("OneTurn", congress.mode)
         self.__assert_parties_2022(congress.parties)
 
+
     def __assert_parties_2022(self, parties):
         self.__assert_ens_2022(parties[0])
-        self.__assert_lr_2022(parties[1])
-        self.__assert_nupes_2022(parties[2])
+        self.__assert_nupes_2022(parties[1])
+        self.__assert_lr_2022(parties[2])
         self.__assert_rn_2022(parties[3])
 
+
     def __assert_ens_2022(self, ens_party):
-        self.assertEqual("Ensemble ! (Majorité présidentielle)'", ens_party.name)
+        self.assertEqual("Ensemble ! (Majorité présidentielle)", ens_party.name)
         self.assertEqual("ENS", ens_party.code)        
         self.assertEqual(62.5, ens_party.percentage)
         assert_congress_person_with_district("GIRAUD|Joel|MASCULIN|ENS|10889|38.04|2ème circonscription|2|Hautes-Alpes|5", ens_party.congress_persons[0], self)
