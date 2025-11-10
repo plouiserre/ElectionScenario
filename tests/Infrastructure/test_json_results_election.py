@@ -1,11 +1,16 @@
 import unittest
+from unittest.mock import Mock
+from src.backend.infrastructure.files.JsonFiles import JsonFiles
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
 from tests.utils.assert_helper import assert_candidate_with_district, assert_party
+from tests.utils.mocks import mock_json_results
 
 class JsonResultsElectionTest(unittest.TestCase):
     def test_transform_data_from_json_to_congress_model(self):
-        json_results_election = JsonResultsElection()
-
+        json_files = Mock()
+        json_files.get_elections_data.return_value = mock_json_results()
+        json_results_election = JsonResultsElection(json_files)
+        
         results_elections_datas = json_results_election.get_results()
         
         self.assert_2024_elections(results_elections_datas[2024])
@@ -42,7 +47,7 @@ class JsonResultsElectionTest(unittest.TestCase):
         assert_candidate_with_district("DEFRANCE|Florence|FEMININ|EXG|746|0.99|2ème circonscription|3502|Ille-et-Vilaine|35", all_candidates_by_district[3][0], self)                
         assert_candidate_with_district("DECOURCELLE|Christophe|MASCULIN|LR|5218|6.93|2ème circonscription|3502|Ille-et-Vilaine|35", all_candidates_by_district[3][1], self)                
         assert_candidate_with_district("MAILLART-MÉHAIGNERIE|Laurence|FEMININ|ENS|25792|34.24|2ème circonscription|3502|Ille-et-Vilaine|35", all_candidates_by_district[3][2], self)                
-        assert_candidate_with_district("VUILLEVANHAECKEMIN|Bérénice|FEMININ|RN|13130|17.43|2ème circonscription|3502|Ille-et-Vilaine|35", all_candidates_by_district[3][3], self)                
+        assert_candidate_with_district("VANHAECKE|Bérénice|FEMININ|RN|13130|17.43|2ème circonscription|3502|Ille-et-Vilaine|35", all_candidates_by_district[3][3], self)                
         assert_candidate_with_district("LAHAIS|Tristan|MASCULIN|UG|30361|40.31|2ème circonscription|3502|Ille-et-Vilaine|35", all_candidates_by_district[3][4], self)                
         assert_candidate_with_district("HANNE|Olivier|MASCULIN|ECO|71|0.09|2ème circonscription|3502|Ille-et-Vilaine|35", all_candidates_by_district[3][5], self)                    
     
@@ -57,13 +62,12 @@ class JsonResultsElectionTest(unittest.TestCase):
         assert_candidate_with_district("DUVILLARD|Marie-Odile|FEMININ|REC|716|1.24|2ème circonscription|4502|Loiret|45", all_candidates_by_district[4][7], self)                                
         assert_candidate_with_district("AACHBOUN|Ahmed|MASCULIN|DVG|178|0.31|2ème circonscription|4502|Loiret|45", all_candidates_by_district[4][8], self)                                
     
-        self.assertEqual(6, len(all_candidates_by_district[5]))
+        self.assertEqual(5, len(all_candidates_by_district[5]))
         assert_candidate_with_district("GOULET|Florence|FEMININ|RN|19011|50.63|2ème circonscription|5502|Meuse|55", all_candidates_by_district[5][0], self)                                
-        assert_candidate_with_district("NORDEMANN|Pierre|MASCULIN|ENS|13263|23.03|2ème circonscription|5502|Meuse|55", all_candidates_by_district[5][1], self)                                
-        assert_candidate_with_district("MEGDOUD|Farida|FEMININ|EXG|431|1.15|2ème circonscription|5502|Meuse|55", all_candidates_by_district[5][2], self)                                
-        assert_candidate_with_district("LAFLOTTE|Johan|MASCULIN|UG|5391|14.36|2ème circonscription|5502|Meuse|55", all_candidates_by_district[5][3], self)                                    
-        assert_candidate_with_district("LAFUE|Valentine|FEMININ|ECO|742|1.98|2ème circonscription|5502|Meuse|55", all_candidates_by_district[5][4], self)                                    
-        assert_candidate_with_district("DUMONT|Jerome|MASCULIN|DVD|11976|31.89|2ème circonscription|5502|Meuse|55", all_candidates_by_district[5][5], self)                                    
+        assert_candidate_with_district("NORDEMANN|Pierre|MASCULIN|EXG|431|1.15|2ème circonscription|5502|Meuse|55", all_candidates_by_district[5][1], self)                                
+        assert_candidate_with_district("LAFLOTTE|Johan|MASCULIN|UG|5391|14.36|2ème circonscription|5502|Meuse|55", all_candidates_by_district[5][2], self)                                    
+        assert_candidate_with_district("LAFUE|Valentine|FEMININ|ECO|742|1.98|2ème circonscription|5502|Meuse|55", all_candidates_by_district[5][3], self)                                    
+        assert_candidate_with_district("DUMONT|Jerome|MASCULIN|DVD|11976|31.89|2ème circonscription|5502|Meuse|55", all_candidates_by_district[5][4], self)                                    
     
         self.assertEqual(8, len(all_candidates_by_district[6]))
         assert_candidate_with_district("MEUNIER|François|MASCULIN|EXG|692|1.14|2ème circonscription|6502|Hautes-Pyrénées|65", all_candidates_by_district[6][0], self)                                    
@@ -169,7 +173,7 @@ class JsonResultsElectionTest(unittest.TestCase):
         assert_candidate_with_district("CHAILLOU|Yann|MASCULIN|DVG|1720|4.18|2ème circonscription|2|Loiret|45", all_candidates_by_district[4][2], self)                        
         assert_candidate_with_district("BOYER|Anaïs|FEMININ|ECO|737|1.79|2ème circonscription|2|Loiret|45", all_candidates_by_district[4][3], self)                            
         assert_candidate_with_district("BERTRAN|Sarah|FEMININ|DIV|868|2.11|2ème circonscription|2|Loiret|45", all_candidates_by_district[4][4], self)                        
-        assert_candidate_with_district("EGRON|Maël|MASCULIN|REG|375|0.69|2ème circonscription|2|Loiret|45", all_candidates_by_district[4][5], self)                        
+        assert_candidate_with_district("ACHBOUNE|Abdelrachid|MASCULIN|DIV|257|0.62|2ème circonscription|2|Loiret|45", all_candidates_by_district[4][5], self)                        
         assert_candidate_with_district("JANVIER|Caroline|FEMININ|ENS|11978|29.1|2ème circonscription|2|Loiret|45", all_candidates_by_district[4][6], self)                            
         assert_candidate_with_district("HOUSSARD|Alexandre|MASCULIN|LR|4811|11.69|2ème circonscription|2|Loiret|45", all_candidates_by_district[4][7], self)                                
         assert_candidate_with_district("MALLET|Jean-Paul|MASCULIN|REC|2043|4.96|2ème circonscription|2|Loiret|45", all_candidates_by_district[4][8], self)                                
@@ -203,20 +207,18 @@ class JsonResultsElectionTest(unittest.TestCase):
         assert_candidate_with_district("ALVES DA CUNHA|Claude|MASCULIN|REC|1667|3.64|2ème circonscription|2|Hautes-Pyrénées|65", all_candidates_by_district[6][10], self)                                    
         assert_candidate_with_district("DUMANOIR|Serge|MASCULIN|RN|8483|18.54|2ème circonscription|2|Hautes-Pyrénées|65", all_candidates_by_district[6][11], self)                                    
         
-        self.assertEqual(13, len(all_candidates_by_district[7]))
+        self.assertEqual(11, len(all_candidates_by_district[7]))
         assert_candidate_with_district("JOLIVEAU|Charline|FEMININ|DXG|146|0.33|2ème circonscription|2|Paris|75", all_candidates_by_district[7][0], self)                                    
         assert_candidate_with_district("FRANTZ|Adrien|MASCULIN|DXG|102|0.23|2ème circonscription|2|Paris|75", all_candidates_by_district[7][1], self)                                    
         assert_candidate_with_district("ROSSET|Marine|FEMININ|NUP|11890|27.27|2ème circonscription|2|Paris|75", all_candidates_by_district[7][2], self)                                    
-        assert_candidate_with_district("CASTÉRA|Yves|MASCULIN|DVG|896|1.96|2ème circonscription|2|Paris|75", all_candidates_by_district[7][3], self)                                    
-        assert_candidate_with_district("DREYFUSS|Karine|FEMININ|ECO|682|1.56|2ème circonscription|2|Paris|75", all_candidates_by_district[7][4], self)                                        
-        assert_candidate_with_district("ASSAYAG|Daniel|MASCULIN|DIV|248|0.57|2ème circonscription|2|Paris|75", all_candidates_by_district[7][5], self)                                        
-        assert_candidate_with_district("DE VILLEPIN|Quitterie|FEMININ|DIV|2362|5.42|2ème circonscription|2|Paris|75", all_candidates_by_district[7][6], self)                                        
-        assert_candidate_with_district("MAGNE|Elise|FEMININ|DIV|550|1.26|2ème circonscription|2|Paris|75", all_candidates_by_district[7][7], self)                                        
-        assert_candidate_with_district("DUTREY|Véronique|FEMININ|LR|2770|6.05|2ème circonscription|2|Paris|75", all_candidates_by_district[7][8], self)                                            
-        assert_candidate_with_district("LE GENDRE|Gilles|MASCULIN|ENS|15547|35.66|2ème circonscription|2|Paris|75", all_candidates_by_district[7][9], self)                                            
-        assert_candidate_with_district("LECOQ|Jean-Pierre|MASCULIN|LR|7948|18.23|2ème circonscription|2|Paris|75", all_candidates_by_district[7][10], self)                                            
-        assert_candidate_with_district("GILBERT|Isabelle|FEMININ|REC|2827|6.48|2ème circonscription|2|Paris|75", all_candidates_by_district[7][11], self)
-        assert_candidate_with_district("ROUGÉ|André|MASCULIN|RN|1294|2.97|2ème circonscription|2|Paris|75", all_candidates_by_district[7][12], self)
+        assert_candidate_with_district("DREYFUSS|Karine|FEMININ|ECO|682|1.56|2ème circonscription|2|Paris|75", all_candidates_by_district[7][3], self)                                        
+        assert_candidate_with_district("ASSAYAG|Daniel|MASCULIN|DIV|248|0.57|2ème circonscription|2|Paris|75", all_candidates_by_district[7][4], self)                                        
+        assert_candidate_with_district("DE VILLEPIN|Quitterie|FEMININ|DIV|2362|5.42|2ème circonscription|2|Paris|75", all_candidates_by_district[7][5], self)                                        
+        assert_candidate_with_district("MAGNE|Elise|FEMININ|DIV|550|1.26|2ème circonscription|2|Paris|75", all_candidates_by_district[7][6], self)                                        
+        assert_candidate_with_district("LE GENDRE|Gilles|MASCULIN|ENS|15547|35.66|2ème circonscription|2|Paris|75", all_candidates_by_district[7][7], self)                                            
+        assert_candidate_with_district("LECOQ|Jean-Pierre|MASCULIN|LR|7948|18.23|2ème circonscription|2|Paris|75", all_candidates_by_district[7][8], self)                                            
+        assert_candidate_with_district("GILBERT|Isabelle|FEMININ|REC|2827|6.48|2ème circonscription|2|Paris|75", all_candidates_by_district[7][9], self)
+        assert_candidate_with_district("ROUGÉ|André|MASCULIN|RN|1294|2.97|2ème circonscription|2|Paris|75", all_candidates_by_district[7][10], self)           
         
         assert_party('Divers extrême gauche|DXG', all_parties[0], self)
         assert_party('Parti radical de gauche|RDG', all_parties[1], self)

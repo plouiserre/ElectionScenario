@@ -4,18 +4,18 @@ def assert_congress_person_with_district(datas, congress_person, unittest):
 def assert_candidate_with_district(datas, candidates, unittest):
         __assert_person(datas, candidates, unittest)
 
-def __assert_person(datas, persons, unittest):
+def __assert_person(datas, person, unittest):
         data = datas.split("|")
-        unittest.assertEqual(data[0], persons.last_name)
-        unittest.assertEqual(data[1], persons.first_name)
-        unittest.assertEqual(data[2], persons.sexe)
-        unittest.assertEqual(data[3], persons.parti_code)
-        unittest.assertEqual(int(data[4]), persons.vote)
-        unittest.assertEqual(float(data[5]), persons.vote_percentage)
-        unittest.assertEqual(data[6], persons.district.name)
-        unittest.assertEqual(int(data[7]), persons.district.code)
-        unittest.assertEqual(data[8], persons.district.department_name)
-        unittest.assertEqual(int(data[9]), persons.district.department_code)
+        unittest.assertEqual(data[0], person.last_name)
+        unittest.assertEqual(data[1], person.first_name)
+        unittest.assertEqual(data[2], person.sexe)
+        unittest.assertEqual(data[3], person.parti_code)
+        unittest.assertEqual(int(data[4]), person.vote)
+        unittest.assertEqual(float(data[5]), person.vote_percentage)
+        unittest.assertEqual(data[6], person.district.name)
+        unittest.assertEqual(int(data[7]), person.district.code)
+        unittest.assertEqual(data[8], person.district.department_name)
+        unittest.assertEqual(int(data[9]), person.district.department_code)
 
 def assert_party(datas, party_info, unittest):
         data = datas.split("|")

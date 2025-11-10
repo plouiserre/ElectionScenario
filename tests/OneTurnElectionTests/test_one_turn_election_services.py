@@ -1,14 +1,19 @@
 import unittest
+from unittest.mock import Mock
 from src.backend.domain.services.OneTurnElection.BuildCongress import BuildCongress
 from src.backend.domain.services.OneTurnElection.DeterminateAllElectedPersons import DeterminateAllElectedPersons
 from src.backend.domain.services.OneTurnElection.DeterminateElectedPersonByDistrict import DeterminateElectedPersonByDistrict
 from src.backend.domain.services.OneTurnElection.OneTurnElectionService import OneTurnElectionService
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
 from tests.utils.assert_helper import assert_congress_person_with_district
+from tests.utils.mocks import mock_json_results
+
 
 class OneTurnElectionServiceCaseTest(unittest.TestCase):
     def test_one_turn_election_2024_determinate_good_congress_persons(self):
-        json_service = JsonResultsElection()
+        json_files = Mock()
+        json_files.get_elections_data.return_value = mock_json_results()
+        json_service = JsonResultsElection(json_files)
         build_congress = BuildCongress()
         elected_persons_by_district = DeterminateElectedPersonByDistrict()
         all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)
@@ -53,7 +58,9 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         assert_congress_person_with_district("BONY|Jean Yves|MASCULIN|DVD|12383|34.29|2ème circonscription|1502|Cantal|15", dvd_party.congress_persons[0], self)        
     
     def test_one_turn_election_2022_determinate_good_congress_persons(self):
-        json_service = JsonResultsElection()
+        json_files = Mock()
+        json_files.get_elections_data.return_value = mock_json_results()
+        json_service = JsonResultsElection(json_files)
         build_congress = BuildCongress()
         elected_persons_by_district = DeterminateElectedPersonByDistrict()
         all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)

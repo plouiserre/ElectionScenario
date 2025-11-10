@@ -4,6 +4,7 @@ from src.backend.domain.services.OneTurnElection.BuildCongress import BuildCongr
 from src.backend.domain.services.OneTurnElection.DeterminateAllElectedPersons import DeterminateAllElectedPersons
 from src.backend.domain.services.OneTurnElection.DeterminateElectedPersonByDistrict import DeterminateElectedPersonByDistrict
 from src.backend.domain.services.OneTurnElection.OneTurnElectionService import OneTurnElectionService
+from src.backend.infrastructure.files.JsonFiles import JsonFiles
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
 
 router = APIRouter()
@@ -11,7 +12,8 @@ router = APIRouter()
 @router.get("/elections/{year}/results/{mode}", tags=["elections"])
 async def get_results_elections(year : str, mode : str):
     year_param = int(year)
-    json_service = JsonResultsElection()
+    json_files = JsonFiles()
+    json_service = JsonResultsElection(json_files)
     build_congress = BuildCongress()
     elected_persons_by_district = DeterminateElectedPersonByDistrict()
     all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)
