@@ -3,7 +3,7 @@ from unittest.mock import Mock
 from src.backend.infrastructure.files.JsonFiles import JsonFiles
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
 from tests.utils.assert_helper import assert_candidate_with_district, assert_party
-from tests.utils.mocks import mock_json_results
+from tests.utils.mocks import mock_json_results, mock_json_results_corsica
 
 class JsonResultsElectionTest(unittest.TestCase):
     def test_transform_data_from_json_to_congress_model(self):
@@ -236,3 +236,27 @@ class JsonResultsElectionTest(unittest.TestCase):
         assert_party('Reconquête !|REC', all_parties[13], self)
         assert_party('Rassemblement National|RN', all_parties[14], self)
         assert_party('Divers extrême droite|DXD', all_parties[15], self)     
+
+    def test_transform_data_corsica__only_two_candidates_by_districtsfrom_json_to_congress_model(self):
+        json_files = Mock()
+        json_files.get_elections_data.return_value = mock_json_results_corsica()
+        json_results_election = JsonResultsElection(json_files)
+        
+        results_elections_datas = json_results_election.get_results()
+        
+        self.assert_2024_elections_corsica(results_elections_datas[2024])
+
+    def assert_2024_elections_corsica(self, results_elections_datas_2024):
+        all_candidates_by_district = results_elections_datas_2024.all_candidates
+        
+        assert_candidate_with_district("QUILICHINI|Didier|MASCULIN|EXG|133|0.40|1ère circonscription|2001|Corse-du-Sud|20", all_candidates_by_district[0][0], self)
+        assert_candidate_with_district("LUCIANI|Lisandru|MASCULIN|REG|1202|3.61|1ère circonscription|2001|Corse-du-Sud|20", all_candidates_by_district[0][1], self)
+        
+        assert_candidate_with_district("COLOMBANI|Paul-André|MASCULIN|REG|10266|26.45|2ème circonscription|2002|Corse-du-Sud|20", all_candidates_by_district[1][0], self)
+        assert_candidate_with_district("LUCCIONI|Jean-Baptiste|MASCULIN|SOC|4780|12.32|2ème circonscription|2002|Corse-du-Sud|20", all_candidates_by_district[1][1], self)        
+             
+        assert_candidate_with_district("MORGANTI|Julien|MASCULIN|DVC|5436|14.42|1ère circonscription|2001|Haute-Corse|20", all_candidates_by_district[2][0], self)
+        assert_candidate_with_district("CASTELLANI|Michel|MASCULIN|REG|11962|31.74|1ère circonscription|2001|Haute-Corse|20", all_candidates_by_district[2][1], self)    
+        
+        assert_candidate_with_district("BARONNE MARIE-LOUISE MARIANI|-|FEMININ|DIV|50|0.11|2ème circonscription|2002|Haute-Corse|20", all_candidates_by_district[3][0], self)        
+        assert_candidate_with_district("ACQUAVIVA|Jean-Félix|MASCULIN|REG|12698|28.63|2ème circonscription|2002|Haute-Corse|20", all_candidates_by_district[3][1], self)        
