@@ -88,7 +88,7 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         self.assertEqual("Ensemble ! (Majorité présidentielle)", ens_party.name)
         self.assertEqual("ENS", ens_party.code)        
         self.assertEqual(62.5, ens_party.percentage)
-        assert_congress_person_with_district("GIRAUD|Joel|MASCULIN|ENS|10889|38.04|2ème circonscription|2|Hautes-Alpes|5", ens_party.congress_persons[0], self)
+        assert_congress_person_with_district("GIRAUD|Joel|MASCULIN|ENS|10889|38.04|2ème circonscription|2|Hautes-Alpes|05", ens_party.congress_persons[0], self)
         assert_congress_person_with_district("MAILLART-MÉHAIGNERIE|Laurence|FEMININ|ENS|22630|41.41|2ème circonscription|2|Ille-et-Vilaine|35", ens_party.congress_persons[1], self)                            
         assert_congress_person_with_district("JANVIER|Caroline|FEMININ|ENS|11978|29.1|2ème circonscription|2|Loiret|45", ens_party.congress_persons[2], self)                          
         assert_congress_person_with_district("MOURNET|Benoit|MASCULIN|ENS|10870|23.75|2ème circonscription|2|Hautes-Pyrénées|65", ens_party.congress_persons[3], self)
