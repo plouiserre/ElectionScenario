@@ -13,9 +13,9 @@ def __assert_person(datas, person, unittest):
         unittest.assertEqual(int(data[4]), person.vote)
         unittest.assertEqual(float(data[5]), person.vote_percentage)
         unittest.assertEqual(data[6], person.district.name)
-        unittest.assertEqual(int(data[7]), person.district.code)
+        unittest.assertEqual(data[7], str(person.district.code))
         unittest.assertEqual(data[8], person.district.department_name)
-        unittest.assertEqual(int(data[9]), person.district.department_code)
+        unittest.assertEqual(data[9], str(person.district.department_code))
 
 def assert_party(datas, party_info, unittest):
         data = datas.split("|")

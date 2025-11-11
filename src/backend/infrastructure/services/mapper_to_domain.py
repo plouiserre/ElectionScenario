@@ -49,28 +49,15 @@ def __manage_vote_percentage(candidate):
 
 def __mapper_district_infra_to_district_domain(district, departments):
     district_domain = District()    
-    district_domain.code = __manage_corsica_district_data_with_number(district, "number") 
+    district_domain.code = district["number"]# __manage_corsica_district_data_with_number(district, "number") 
     district_domain.name = district["label"]
-    district_domain.department_code = __manage_corsica_district_data_with_number(district, "department code")
+    district_domain.department_code = district["department code"] #__manage_corsica_district_data_with_number(district, "department code")
     for department in departments : 
         department_code = __adapt_department_code(district, department)
         if department_code == district["department code"] :
             district_domain.department_name = department["name"]
             break
     return district_domain
-
-def __manage_corsica_district_data_with_number(district, key):
-    district_code = 0
-    if("2A" in district[key]):
-        district_number_updated = district[key].replace("2A", "20")
-        district_code = int(district_number_updated)
-    elif("2B" in district[key]):
-        district_number_updated = district[key].replace("2B", "20")
-        district_code = int(district_number_updated)
-    else :
-        district_code = int(district[key])
-    return district_code
-
 
 def __adapt_department_code(district, department):
     if  len(department["code"]) == 1 and len(district["department code"]) == 2 :
