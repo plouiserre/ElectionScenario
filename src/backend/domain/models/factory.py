@@ -35,6 +35,7 @@ def factory_party(name, code, congress_persons):
     party.name = name
     party.code = code
     party.congress_persons = congress_persons
+    party.elected_congress_persons = len(party.congress_persons)
     return party
 
 def factory_congress(year, mode, parties):
