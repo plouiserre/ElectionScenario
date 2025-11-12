@@ -30,11 +30,10 @@ def factory_elections(candidates, parties):
     elections.all_parties = parties 
     return elections
 
-def factory_party(name, code, percentage, congress_persons): 
+def factory_party(name, code, congress_persons): 
     party = Party()
     party.name = name
     party.code = code
-    party.percentage = percentage
     party.congress_persons = congress_persons
     return party
 
