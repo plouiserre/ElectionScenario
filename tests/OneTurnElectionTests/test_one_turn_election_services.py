@@ -37,7 +37,8 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
     def __assert_rn_2024(self, rn_party):
         self.assertEqual("Rassemblement National", rn_party.name)
         self.assertEqual("RN", rn_party.code)
-        self.assertEqual(50.0, rn_party.percentage)
+        #self.assertEqual(50.0, rn_party.percentage)
+        self.assertEqual(4, rn_party.elected_congress_persons)
         assert_congress_person_with_district("ALBRAND|Louis|MASCULIN|RN|13115|33.88|2ème circonscription|502|Hautes-Alpes|5", rn_party.congress_persons[0], self)
         assert_congress_person_with_district("BABIN|Elodie|FEMININ|RN|18957|32.91|2ème circonscription|4502|Loiret|45", rn_party.congress_persons[1], self)                            
         assert_congress_person_with_district("GOULET|Florence|FEMININ|RN|19011|50.63|2ème circonscription|5502|Meuse|55", rn_party.congress_persons[2], self)                          
@@ -46,7 +47,8 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
     def __assert_ug_2024(self, ug_party):
         self.assertEqual("Union de la gauche", ug_party.name)
         self.assertEqual("UG", ug_party.code)
-        self.assertEqual(37.5, ug_party.percentage)
+        #self.assertEqual(37.5, ug_party.percentage)
+        self.assertEqual(3, ug_party.elected_congress_persons)
         assert_congress_person_with_district("VOYNET|Dominique|FEMININ|UG|19160|34.16|2ème circonscription|2502|Doubs|25", ug_party.congress_persons[0], self)        
         assert_congress_person_with_district("LAHAIS|Tristan|MASCULIN|UG|30361|40.31|2ème circonscription|3502|Ille-et-Vilaine|35", ug_party.congress_persons[1], self)
         assert_congress_person_with_district("ROSSET|Marine|FEMININ|UG|18845|33.4|2ème circonscription|7502|Paris|75", ug_party.congress_persons[2], self)
@@ -54,7 +56,8 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
     def __assert_dvd_2024(self, dvd_party):
         self.assertEqual("Divers droite", dvd_party.name)
         self.assertEqual("DVD", dvd_party.code)
-        self.assertEqual(12.5, dvd_party.percentage)
+        #self.assertEqual(12.5, dvd_party.percentage)
+        self.assertEqual(1, dvd_party.elected_congress_persons)
         assert_congress_person_with_district("BONY|Jean Yves|MASCULIN|DVD|12383|34.29|2ème circonscription|1502|Cantal|15", dvd_party.congress_persons[0], self)        
     
     def test_one_turn_election_2022_determinate_good_congress_persons(self):
@@ -87,7 +90,8 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
     def __assert_ens_2022(self, ens_party):
         self.assertEqual("Ensemble ! (Majorité présidentielle)", ens_party.name)
         self.assertEqual("ENS", ens_party.code)        
-        self.assertEqual(62.5, ens_party.percentage)
+        #self.assertEqual(62.5, ens_party.percentage)
+        self.assertEqual(5, ens_party.elected_congress_persons)
         assert_congress_person_with_district("GIRAUD|Joel|MASCULIN|ENS|10889|38.04|2ème circonscription|2|Hautes-Alpes|05", ens_party.congress_persons[0], self)
         assert_congress_person_with_district("MAILLART-MÉHAIGNERIE|Laurence|FEMININ|ENS|22630|41.41|2ème circonscription|2|Ille-et-Vilaine|35", ens_party.congress_persons[1], self)                            
         assert_congress_person_with_district("JANVIER|Caroline|FEMININ|ENS|11978|29.1|2ème circonscription|2|Loiret|45", ens_party.congress_persons[2], self)                          
@@ -97,18 +101,21 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
     def __assert_lr_2022(self, lr_party):
         self.assertEqual("Les Républicains", lr_party.name)
         self.assertEqual("LR", lr_party.code)
-        self.assertEqual(12.5, lr_party.percentage)        
+        #self.assertEqual(12.5, lr_party.percentage)     
+        self.assertEqual(1, lr_party.elected_congress_persons)   
         assert_congress_person_with_district("BONY|Jean-Yves|MASCULIN|LR|10472|37.71|2ème circonscription|2|Cantal|15", lr_party.congress_persons[0], self)        
         
     def __assert_nupes_2022(self, nup_party):
         self.assertEqual("Nouvelle union populaire écologique et sociale", nup_party.name)
         self.assertEqual("NUP", nup_party.code)
-        self.assertEqual(12.5, nup_party.percentage)
+        #self.assertEqual(12.5, nup_party.percentage)     
+        self.assertEqual(1, nup_party.elected_congress_persons)
         assert_congress_person_with_district("RAVACLEY|Stéphane|MASCULIN|NUP|13112|32.51|2ème circonscription|2|Doubs|25", nup_party.congress_persons[0], self)        
     
     def __assert_rn_2022(self, rn_party):
         self.assertEqual("Rassemblement National", rn_party.name)
         self.assertEqual("RN", rn_party.code)
-        self.assertEqual(12.5, rn_party.percentage)
+        #self.assertEqual(12.5, rn_party.percentage)     
+        self.assertEqual(1, rn_party.elected_congress_persons)
         assert_congress_person_with_district("GOULET|Florence|FEMININ|RN|8693|32.68|2ème circonscription|2|Meuse|55", rn_party.congress_persons[0], self)        
     

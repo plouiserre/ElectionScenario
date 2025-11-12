@@ -1,5 +1,3 @@
-from src.backend.domain.models.factory import factory_party
-
 class DeterminatePartyInfo : 
     def __init__(self, parties_info):
         self.parties_info = parties_info
@@ -24,10 +22,7 @@ class DeterminatePartyInfo :
 
     def __update_parties_info(self):
         for party in self.parties_info: 
-            congress_persons_for_this_party = len(party.congress_persons)
-            if congress_persons_for_this_party != 0:
-                percentage = round(congress_persons_for_this_party/self.elected_persons_count * 100, 2) 
-                party.percentage = percentage      
+            party.elected_congress_persons = len(party.congress_persons)              
 
     def __delete_empty_parties_info(self):
         parties = []
