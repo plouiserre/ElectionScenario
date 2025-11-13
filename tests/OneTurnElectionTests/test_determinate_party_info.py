@@ -2,8 +2,8 @@ import unittest
 from src.backend.domain.models.factory import factory_congress_person
 from src.backend.domain.services.OneTurnElection.DeterminatePartyInfo import DeterminatePartyInfo
 from utils.assert_helper import assert_congress_person_with_district, assert_party
-from utils.data.generateDataDistricts import build_first_district, build_second_district, build_third_district, build_fourth_district, build_fifth_district, build_sixth_district, build_seventh_district
 from utils.data.generateParties import get_all_parties_without_elected_persons_2024
+from utils.data.catalogData import generate_datas
 
 class DeterminatePartyInfoTest(unittest.TestCase):
     def test_calculate_party_info(self):
@@ -28,15 +28,15 @@ class DeterminatePartyInfoTest(unittest.TestCase):
 
 
     def __build_elected_persons(self):
-        first_elected_person = factory_congress_person("ALBRAND", "Louis", "MASCULIN", "RN", 13115, 33.88, build_first_district())
-        second_elected_person = factory_congress_person("BONY", "Jean-Yves", "MASCULIN", "LR", 12383, 34.29, build_second_district())
-        third_elected_person = factory_congress_person("VOYNET", "Dominique", "FEMININ", "UG", 19160, 34.16, build_third_district())
-        fourth_elected_person = factory_congress_person("LAHAIS", "Tristan", "MASCULIN", "UG", 30361, 40.31, build_fourth_district())
-        fifth_elected_person = factory_congress_person("BABIN", "Elodie", "FEMININ", "RN", 18957, 32.91, build_fifth_district())
-        sixth_elected_person =factory_congress_person("GOULET", "Florence", "FEMININ", "RN", 19011, 50.63, build_sixth_district())
-        seventh_elected_person = factory_congress_person("ROSSET", "Marine", "FEMININ", "UG",18845, 33.40, build_seventh_district())
+        first_elected_person = factory_congress_person("ALBRAND", "Louis", "MASCULIN", "RN", 13115, 33.88, generate_datas("district","first_district", ""))
+        second_elected_person = factory_congress_person("BONY", "Jean-Yves", "MASCULIN", "LR", 12383, 34.29, generate_datas("district", "second_district", ""))
+        third_elected_person = factory_congress_person("VOYNET", "Dominique", "FEMININ", "UG", 19160, 34.16, generate_datas("district","third_district", ""))
+        fourth_elected_person = factory_congress_person("LAHAIS", "Tristan", "MASCULIN", "UG", 30361, 40.31, generate_datas("district","fourth_district", ""))
+        fifth_elected_person = factory_congress_person("BABIN", "Elodie", "FEMININ", "RN", 18957, 32.91,  generate_datas("district","fifth_district", ""))
+        sixth_elected_person =factory_congress_person("GOULET", "Florence", "FEMININ", "RN", 19011, 50.63, generate_datas("district","sixth_district", ""))
+        seventh_elected_person = factory_congress_person("ROSSET", "Marine", "FEMININ", "UG",18845, 33.40, generate_datas("district","seventh_district", ""))
         elected_persons = [first_elected_person, second_elected_person, third_elected_person, fourth_elected_person, 
-                           fifth_elected_person, sixth_elected_person, seventh_elected_person]
+                            fifth_elected_person, sixth_elected_person, seventh_elected_person]
         return elected_persons
 
 
