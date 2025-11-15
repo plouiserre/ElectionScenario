@@ -3,7 +3,7 @@ from tests.utils.data.generateDataDistricts import build_first_district, build_s
 __districts_keys = ["first_district", "second_district", "third_district", "fourth_district",
                     "fifth_district", "sixth_district", "seventh_district", "eleventh_district"]
 
-def generate_datas(type_data, key, json_data):
+def generate_datas(type_data, key):
     if type_data == "district":
         return __generate_district_datas(key)
     return ""

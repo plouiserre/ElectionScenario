@@ -54,16 +54,16 @@ class BuildCongressTest(unittest.TestCase):
 
     def __low_stable_parties_with_elected_persons_2024(self):
         parties = []
-        _first_elected_person_ug = factory_congress_person("VOYNET", "Dominique", "FEMININ", "UG", 19160, 34.16, generate_datas("district","third_district",""))
-        _second_elected_person_ug = factory_congress_person("LAHAIS", "Tristan", "MASCULIN", "UG", 30361, 40.31, generate_datas("district","fourth_district",""))
+        _first_elected_person_ug = factory_congress_person("VOYNET", "Dominique", "FEMININ", "UG", 19160, 34.16, generate_datas("district","third_district"))
+        _second_elected_person_ug = factory_congress_person("LAHAIS", "Tristan", "MASCULIN", "UG", 30361, 40.31, generate_datas("district","fourth_district"))
         parties.append(factory_party('Union de la gauche','UG', [_first_elected_person_ug, _second_elected_person_ug]))
-        first_elected_person_lr = factory_congress_person("BONY", "Jean-Yves", "MASCULIN", "LR", 12383, 34.29, generate_datas("district","second_district",""))
+        first_elected_person_lr = factory_congress_person("BONY", "Jean-Yves", "MASCULIN", "LR", 12383, 34.29, generate_datas("district","second_district"))
         parties.append(factory_party('Les Républicains', 'LR', [first_elected_person_lr]))
-        first_elected_person_rn = factory_congress_person("ALBRAND", "Louis", "MASCULIN", "RN", 13115, 33.88, generate_datas("district", "first_district", ""))
-        second_elected_person_rn = factory_congress_person("BABIN", "Elodie", "FEMININ", "RN", 18957, 32.91, generate_datas("district","fifth_district",""))
+        first_elected_person_rn = factory_congress_person("ALBRAND", "Louis", "MASCULIN", "RN", 13115, 33.88, generate_datas("district", "first_district"))
+        second_elected_person_rn = factory_congress_person("BABIN", "Elodie", "FEMININ", "RN", 18957, 32.91, generate_datas("district","fifth_district"))
         parties.append(factory_party('Rassemblement National', 'RN', [first_elected_person_rn, second_elected_person_rn]))
-        first_elected_person_ens = factory_congress_person("FINE", "Sébastien", "MASCULIN", "ENS", 10338, 26.70, generate_datas("district", "first_district", ""))
-        second_elected_person_ens = factory_congress_person("MAILLART-MÉHAIGNERIE", "Laurence", "FEMININ", "ENS", 25792, 34.24, generate_datas("district","fourth_district",""))
+        first_elected_person_ens = factory_congress_person("FINE", "Sébastien", "MASCULIN", "ENS", 10338, 26.70, generate_datas("district", "first_district"))
+        second_elected_person_ens = factory_congress_person("MAILLART-MÉHAIGNERIE", "Laurence", "FEMININ", "ENS", 25792, 34.24, generate_datas("district","fourth_district"))
         parties.append(factory_party('Ensemble ! (Majorité présidentielle)', 'ENS', [first_elected_person_ens, second_elected_person_ens]))
         return parties
   
