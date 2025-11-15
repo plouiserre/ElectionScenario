@@ -1,5 +1,5 @@
 import unittest
-from src.backend.domain.models.factory import factory_congress_person, factory_district, factory_party
+from src.backend.domain.models.factory import factory_congress_person, factory_party
 from src.backend.domain.services.OneTurnElection.BuildCongress import BuildCongress
 from tests.utils.assert_helper import assert_party
 from tests.utils.data.generateParties import get_parties_with_elected_persons_2024
@@ -7,7 +7,7 @@ from tests.utils.data.catalogData import generate_datas
 
 class BuildCongressTest(unittest.TestCase):
     def test_build_high_stable_congress(self):
-        new_district = factory_district("11ème circonscription", 9311, "Seine-Saint-Denis", 93)       
+        new_district = generate_datas("district", "eleventh_district", "")       
         new_congress_persons = factory_congress_person("AUTAIN", "Clémentine", "FEMININ", "UG", 22209, 62.65, new_district)        
         parties_2024 = get_parties_with_elected_persons_2024()
         parties_2024[0].congress_persons.append(new_congress_persons)
