@@ -28,13 +28,13 @@ class DeterminatePartyInfoTest(unittest.TestCase):
 
 
     def __build_elected_persons(self):
-        first_elected_person = factory_congress_person("ALBRAND", "Louis", "MASCULIN", "RN", 13115, 33.88, generate_datas("district","first_district", ""))
-        second_elected_person = factory_congress_person("BONY", "Jean-Yves", "MASCULIN", "LR", 12383, 34.29, generate_datas("district", "second_district", ""))
-        third_elected_person = factory_congress_person("VOYNET", "Dominique", "FEMININ", "UG", 19160, 34.16, generate_datas("district","third_district", ""))
-        fourth_elected_person = factory_congress_person("LAHAIS", "Tristan", "MASCULIN", "UG", 30361, 40.31, generate_datas("district","fourth_district", ""))
-        fifth_elected_person = factory_congress_person("BABIN", "Elodie", "FEMININ", "RN", 18957, 32.91,  generate_datas("district","fifth_district", ""))
-        sixth_elected_person =factory_congress_person("GOULET", "Florence", "FEMININ", "RN", 19011, 50.63, generate_datas("district","sixth_district", ""))
-        seventh_elected_person = factory_congress_person("ROSSET", "Marine", "FEMININ", "UG",18845, 33.40, generate_datas("district","seventh_district", ""))
+        first_elected_person = factory_congress_person("ALBRAND", "Louis", "MASCULIN", "RN", 13115, 33.88, generate_datas("district","first_district"))
+        second_elected_person = factory_congress_person("BONY", "Jean-Yves", "MASCULIN", "LR", 12383, 34.29, generate_datas("district", "second_district"))
+        third_elected_person = factory_congress_person("VOYNET", "Dominique", "FEMININ", "UG", 19160, 34.16, generate_datas("district","third_district"))
+        fourth_elected_person = factory_congress_person("LAHAIS", "Tristan", "MASCULIN", "UG", 30361, 40.31, generate_datas("district","fourth_district"))
+        fifth_elected_person = factory_congress_person("BABIN", "Elodie", "FEMININ", "RN", 18957, 32.91,  generate_datas("district","fifth_district"))
+        sixth_elected_person =factory_congress_person("GOULET", "Florence", "FEMININ", "RN", 19011, 50.63, generate_datas("district","sixth_district"))
+        seventh_elected_person = factory_congress_person("ROSSET", "Marine", "FEMININ", "UG",18845, 33.40, generate_datas("district","seventh_district"))
         elected_persons = [first_elected_person, second_elected_person, third_elected_person, fourth_elected_person, 
                             fifth_elected_person, sixth_elected_person, seventh_elected_person]
         return elected_persons
