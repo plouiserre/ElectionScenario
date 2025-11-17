@@ -6,7 +6,7 @@ from src.backend.domain.services.OneTurnElection.DeterminateElectedPersonByDistr
 
 class DeterminateAllElectedPersonsTest(unittest.TestCase):
     def test_find_all_elected_persons(self): 
-        candidates = generate_datas("candidates", "district")
+        candidates = generate_datas("candidate", "groupby_district")
         determinate_by_district = DeterminateElectedPersonByDistrict()
         determinate = DeterminateAllElectedPersons(determinate_by_district)
 

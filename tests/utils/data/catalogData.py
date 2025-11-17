@@ -7,7 +7,7 @@ __districts_keys = ["first_district", "second_district", "third_district", "four
 def generate_datas(type_data, key):
     if type_data == "district":
         return __generate_district_datas(key)
-    elif type_data == "candidates":
+    elif type_data == "candidate":
         return __generate_candidate_datas(key)
     return ""
 
@@ -30,8 +30,10 @@ def __generate_district_datas(key):
         return build_eleventh_district()   
     
 def __generate_candidate_datas(key):
-    if(key == "district"):
+    if(key == "groupby_district"):
         return __load_all_candidates_by_district()
+    elif("where_districtcode_" in key):
+        return __load_all_candidates_from_specific_district(key)
     else :
         return load_all_candidates()
     
@@ -51,3 +53,12 @@ def __load_all_candidates_by_district():
         all_candidates.append(candidates)
     return all_candidates
 
+def __load_all_candidates_from_specific_district(key):
+    results = []
+    key_element = str.split(key, "_")
+    specific_district_code = key_element[2]
+    all_candidates = load_all_candidates()
+    for candidate in all_candidates : 
+        if candidate.district.code == int(specific_district_code):
+            results.append(candidate)
+    return results

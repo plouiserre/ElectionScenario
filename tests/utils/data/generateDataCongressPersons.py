@@ -1,8 +1,6 @@
 import json
-from src.backend.domain.models.factory import factory_congress_person
 from src.backend.domain.models.congressPerson import CongressPerson
 from src.backend.domain.models.district import District
-# from tests.utils.data.catalogData import generate_datas
 
 def load_all_candidates():
     all_candidates = []
