@@ -2,12 +2,11 @@ import unittest
 from src.backend.domain.models.factory import factory_congress_person
 from src.backend.domain.services.OneTurnElection.DeterminatePartyInfo import DeterminatePartyInfo
 from utils.assert_helper import assert_congress_person_with_district, assert_party
-from utils.data.generateParties import get_all_parties_without_elected_persons_2024
 from utils.data.catalogData import generate_datas
 
 class DeterminatePartyInfoTest(unittest.TestCase):
     def test_calculate_party_info(self):
-        parties = get_all_parties_without_elected_persons_2024()
+        parties = generate_datas("party", "2024")
         elected_persons = self.__build_elected_persons()
         determinate_party_info = DeterminatePartyInfo(parties)
 
