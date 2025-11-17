@@ -1,6 +1,6 @@
 import unittest
 from tests.utils.assert_helper import assert_congress_person_with_district
-from tests.utils.data.catalog.catalogData import generate_datas
+from tests.utils.data.catalogData import generate_datas
 from src.backend.domain.services.OneTurnElection.DeterminateAllElectedPersons import DeterminateAllElectedPersons
 from src.backend.domain.services.OneTurnElection.DeterminateElectedPersonByDistrict import DeterminateElectedPersonByDistrict
 
