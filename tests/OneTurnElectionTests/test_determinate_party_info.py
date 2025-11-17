@@ -2,7 +2,7 @@ import unittest
 from src.backend.domain.models.factory import factory_congress_person
 from src.backend.domain.services.OneTurnElection.DeterminatePartyInfo import DeterminatePartyInfo
 from utils.assert_helper import assert_congress_person_with_district, assert_party
-from utils.data.catalogData import generate_datas
+from tests.utils.data.catalog.catalogData import generate_datas
 
 class DeterminatePartyInfoTest(unittest.TestCase):
     def test_calculate_party_info(self):

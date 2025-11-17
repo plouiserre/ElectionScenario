@@ -1,6 +1,6 @@
 from src.backend.domain.models.factory import factory_congress_person, factory_party
 from src.backend.infrastructure.models.factory_record import factory_party_record
-from tests.utils.data.catalogData import generate_datas
+from tests.utils.data.catalog.catalogData import generate_datas
 
 def get_parties_with_elected_persons_2024():
     parties = []

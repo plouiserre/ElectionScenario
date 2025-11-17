@@ -3,7 +3,7 @@ from src.backend.domain.models.factory import factory_congress_person, factory_d
 from src.backend.domain.services.OneTurnElection.BuildCongress import BuildCongress
 from tests.utils.assert_helper import assert_party
 from tests.utils.data.generateParties import get_parties_with_elected_persons_2024
-from tests.utils.data.catalogData import generate_datas
+from tests.utils.data.catalog.catalogData import generate_datas
 
 class BuildCongressTest(unittest.TestCase):
     def test_build_high_stable_congress(self):
