@@ -10,6 +10,7 @@ def load_all_candidates():
     all_candidates.extend(__load_all_candidates_from_thirty_fifth_hundred_second_district())
     all_candidates.extend(__load_all_candidates_from_fourty_fifth_hundred_second_district())
     all_candidates.extend(__load_all_candidates_from_fifty_fifth_hundred_second_district())
+    all_candidates.extend(__load_all_candidates_from_sixty_fifth_hundred_second_district())
     all_candidates.extend(__load_all_candidates_from_seventy_fifth_hundred_second_district())
     return all_candidates
 
@@ -51,6 +52,12 @@ def __load_all_candidates_from_fifty_fifth_hundred_second_district():
     candidates = __transform_to_candidates_array(candidates_obj)
     return candidates
 
+def __load_all_candidates_from_sixty_fifth_hundred_second_district():
+    json_candidates = "[{\"last_name\":\"MEUNIER\",\"first_name\":\"François\",\"sexe\":\"MASCULIN\",\"parti_code\":\"EXG\",\"vote\":692,\"vote_percentage\":1.14,\"district\":{\"name\":\"2ème circonscription\",\"code\":6502,\"department_name\":\"Hautes-Pyrénées\",\"department_code\":65}},{\"last_name\":\"BÉHAGUE\",\"first_name\":\"Jacques\",\"sexe\":\"MASCULIN\",\"parti_code\":\"LR\",\"vote\":3184,\"vote_percentage\":5.24,\"district\":{\"name\":\"2ème circonscription\",\"code\":6502,\"department_name\":\"Hautes-Pyrénées\",\"department_code\":65}},{\"last_name\":\"DABAT\",\"first_name\":\"Jean-Marc\",\"sexe\":\"MASCULIN\",\"parti_code\":\"REG\",\"vote\":1486,\"vote_percentage\":2.45,\"district\":{\"name\":\"2ème circonscription\",\"code\":6502,\"department_name\":\"Hautes-Pyrénées\",\"department_code\":65}},{\"last_name\":\"MOURNET\",\"first_name\":\"Benoit\",\"sexe\":\"MASCULIN\",\"parti_code\":\"ENS\",\"vote\":15121,\"vote_percentage\":24.91,\"district\":{\"name\":\"2ème circonscription\",\"code\":6502,\"department_name\":\"Hautes-Pyrénées\",\"department_code\":65}},{\"last_name\":\"FÉGNÉ\",\"first_name\":\"Denis\",\"sexe\":\"MASCULIN\",\"parti_code\":\"UG\",\"vote\":17055,\"vote_percentage\":28.09,\"district\":{\"name\":\"2ème circonscription\",\"code\":6502,\"department_name\":\"Hautes-Pyrénées\",\"department_code\":65}},{\"last_name\":\"EL MARSNI\",\"first_name\":\"Ali\",\"sexe\":\"MASCULIN\",\"parti_code\":\"DIV\",\"vote\":0,\"vote_percentage\":0,\"district\":{\"name\":\"2ème circonscription\",\"code\":6502,\"department_name\":\"Hautes-Pyrénées\",\"department_code\":65}},{\"last_name\":\"MONTEIL\",\"first_name\":\"Olivier\",\"sexe\":\"MASCULIN\",\"parti_code\":\"RN\",\"vote\":22436,\"vote_percentage\":36.96,\"district\":{\"name\":\"2ème circonscription\",\"code\":6502,\"department_name\":\"Hautes-Pyrénées\",\"department_code\":65}},{\"last_name\":\"ALVES DA CUNHA\",\"first_name\":\"Claude\",\"sexe\":\"MASCULIN\",\"parti_code\":\"REC\",\"vote\":735,\"vote_percentage\":36.96,\"district\":{\"name\":\"2ème circonscription\",\"code\":6502,\"department_name\":\"Hautes-Pyrénées\",\"department_code\":65}}]"
+    candidates_obj = json.loads(json_candidates)
+    candidates = __transform_to_candidates_array(candidates_obj)
+    return candidates
+
 def __load_all_candidates_from_seventy_fifth_hundred_second_district():
     json_candidates = "[{\"last_name\" : \"JOLIVEAU\", \"first_name\" : \"Charline\", \"sexe\" : \"FEMININ\", \"parti_code\": \"EXG\", \"vote\": 168, \"vote_percentage\": 0.30, \"district\":{\"name\":\"2ème circonscription\", \"code\":7502, \"department_name\" : \"Paris\", \"department_code\" : 75}}, {\"last_name\" : \"DE WITTE\", \"first_name\" : \"Melody\", \"sexe\" : \"FEMININ\", \"parti_code\": \"RN\", \"vote\": 6206, \"vote_percentage\": 11.00, \"district\":{\"name\":\"2ème circonscription\", \"code\":7502, \"department_name\" : \"Paris\", \"department_code\" : 75}}, {\"last_name\" : \"SACASA\", \"first_name\" : \"Clara\", \"sexe\" : \"FEMININ\", \"parti_code\": \"EXG\", \"vote\": 0, \"vote_percentage\": 0.00, \"district\":{\"name\":\"2ème circonscription\", \"code\":7502, \"department_name\" : \"Paris\", \"department_code\" : 75}}, {\"last_name\" : \"HERZOG DE COSSÉ BRISSAC\", \"first_name\" : \"Félicité\", \"sexe\" : \"FEMININ\", \"parti_code\": \"DVD\", \"vote\": 3792, \"vote_percentage\": 6.72, \"district\":{\"name\":\"2ème circonscription\", \"code\":7502, \"department_name\" : \"Paris\", \"department_code\" : 75}}, {\"last_name\" : \"LE GENDRE\", \"first_name\" : \"Gilles\", \"sexe\" : \"MASCULIN\", \"parti_code\": \"DVC\", \"vote\": 11071, \"vote_percentage\": 19.62, \"district\":{\"name\":\"2ème circonscription\", \"code\":7502, \"department_name\" : \"Paris\", \"department_code\" : 75}}, {\"last_name\" : \"EVANGELISTA\", \"first_name\" : \"Ornella\", \"sexe\" : \"FEMININ\", \"parti_code\": \"REC\", \"vote\": 778, \"vote_percentage\": 1.38, \"district\":{\"name\":\"2ème circonscription\", \"code\":7502, \"department_name\" : \"Paris\", \"department_code\" : 75}}, {\"last_name\" : \"LAUSSUCQ\", \"first_name\" : \"Jean\", \"sexe\" : \"MASCULIN\", \"parti_code\": \"ENS\", \"vote\": 13325, \"vote_percentage\": 23.62, \"district\":{\"name\":\"2ème circonscription\", \"code\":7502, \"department_name\" : \"Paris\", \"department_code\" : 75}}, {\"last_name\" : \"LORANS\", \"first_name\" : \"Cécile Marie\", \"sexe\" : \"FEMININ\", \"parti_code\": \"ECO\", \"vote\": 512, \"vote_percentage\": 0.91, \"district\":{\"name\":\"2ème circonscription\", \"code\":7502, \"department_name\" : \"Paris\", \"department_code\" : 75}}, {\"last_name\" : \"MARSILY\", \"first_name\" : \"Romain\", \"sexe\" : \"MASCULIN\", \"parti_code\": \"DVD\", \"vote\": 1229, \"vote_percentage\": 2.18, \"district\":{\"name\":\"2ème circonscription\", \"code\":7502, \"department_name\" : \"Paris\", \"department_code\" : 75}}, {\"last_name\" : \"MAURIANGE\", \"first_name\" : \"Frédéric\", \"sexe\" : \"MASCULIN\", \"parti_code\": \"DVC\", \"vote\": 430, \"vote_percentage\": 0.76, \"district\":{\"name\":\"2ème circonscription\", \"code\":7502, \"department_name\" : \"Paris\", \"department_code\" : 75}}, {\"last_name\" : \"MAGNE\", \"first_name\" : \"Elise\", \"sexe\" : \"FEMININ\", \"parti_code\": \"DVG\", \"vote\": 60, \"vote_percentage\": 0.11, \"district\":{\"name\":\"2ème circonscription\", \"code\":7502, \"department_name\" : \"Paris\", \"department_code\" : 75}}, {\"last_name\" : \"ROSSET\", \"first_name\" : \"Marine\", \"sexe\" : \"FEMININ\", \"parti_code\": \"UG\", \"vote\": 18845, \"vote_percentage\": 33.40, \"district\":{\"name\":\"2ème circonscription\", \"code\":7502, \"department_name\" : \"Paris\", \"department_code\" : 75}}]"
     candidates_obj = json.loads(json_candidates)
@@ -79,3 +86,15 @@ def __transform_district_json_to_district_obj(district_obj):
     district.department_name = district_obj["department_name"]
     district.name = district_obj["name"]
     return district
+
+
+def load_candidates_from_name(last_names):
+    candidates_search  =[]
+    all_candidates = load_all_candidates()
+    for candidate in all_candidates : 
+        for last_name in last_names : 
+            if candidate.last_name == last_name: 
+                candidates_search.append(candidate)
+            else :
+                continue
+    return candidates_search

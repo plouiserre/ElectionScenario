@@ -8,6 +8,7 @@ class DeterminatePartyInfoTest(unittest.TestCase):
     def test_calculate_party_info(self):
         parties = generate_datas("party", "2024")
         elected_persons = self.__build_elected_persons()
+        elected_persons = generate_datas("candidate", ["ALBRAND", "BONY", "VOYNET", "LAHAIS", "BABIN", "MONTEIL", "ROSSET"])
         determinate_party_info = DeterminatePartyInfo(parties)
 
         parties_infos = determinate_party_info.Calculate(elected_persons)
@@ -22,9 +23,8 @@ class DeterminatePartyInfoTest(unittest.TestCase):
         assert_party("Rassemblement National|RN|3", parties_infos[2], self)
         assert_congress_person_with_district("ALBRAND|Louis|MASCULIN|RN|13115|33.88|2ème circonscription|502|Hautes-Alpes|5", parties_infos[2].congress_persons[0], self)
         assert_congress_person_with_district("BABIN|Elodie|FEMININ|RN|18957|32.91|2ème circonscription|4502|Loiret|45", parties_infos[2].congress_persons[1], self)
-        assert_congress_person_with_district("GOULET|Florence|FEMININ|RN|19011|50.63|2ème circonscription|5502|Meuse|55", parties_infos[2].congress_persons[2], self)
-        
-
+        assert_congress_person_with_district("MONTEIL|Olivier|MASCULIN|RN|22436|36.96|2ème circonscription|6502|Hautes-Pyrénées|65", parties_infos[2].congress_persons[2], self)
+   
 
     def __build_elected_persons(self):
         first_elected_person = factory_congress_person("ALBRAND", "Louis", "MASCULIN", "RN", 13115, 33.88, generate_datas("district","first_district"))
