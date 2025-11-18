@@ -1,5 +1,6 @@
 from tests.utils.data.generateDataCongressPersons import load_all_candidates
 from tests.utils.data.generateDataDistricts import build_first_district, build_second_district, build_third_district, build_fourth_district, build_fifth_district, build_sixth_district, build_seventh_district, build_eleventh_district
+from tests.utils.data.generateDataParties import load_all_parties, load_all_parties_with_candidates, load_all_parties_with_candidates_but_not_stability
 
 __districts_keys = ["first_district", "second_district", "third_district", "fourth_district",
                     "fifth_district", "sixth_district", "seventh_district", "eleventh_district"]
@@ -9,6 +10,8 @@ def generate_datas(type_data, key):
         return __generate_district_datas(key)
     elif type_data == "candidate":
         return __generate_candidate_datas(key)
+    elif type_data == "party" : 
+        return __generate_party_datas(key)
     return ""
 
 def __generate_district_datas(key):
@@ -62,3 +65,14 @@ def __load_all_candidates_from_specific_district(key):
         if candidate.district.code == int(specific_district_code):
             results.append(candidate)
     return results
+
+def __generate_party_datas(key):
+    all_parties = load_all_parties()
+    if key =="":
+        return all_parties
+    elif key == "with_candidates_2024":
+        return load_all_parties_with_candidates()
+    elif key == "low_stable_with_candidates_2024":
+        return load_all_parties_with_candidates_but_not_stability()
+    else: 
+        return all_parties[key]
