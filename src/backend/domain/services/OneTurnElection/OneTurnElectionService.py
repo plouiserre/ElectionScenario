@@ -1,4 +1,3 @@
-from src.backend.domain.models.factory import factory_congress, factory_congress_person, factory_district, factory_party
 from src.backend.domain.services.OneTurnElection.DeterminatePartyInfo import DeterminatePartyInfo
 from src.backend.domain.ports.inside.OneTurnElectionPort import OneTurnElectionPort
 

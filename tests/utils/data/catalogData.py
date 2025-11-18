@@ -1,6 +1,6 @@
-from tests.utils.data.generateDataCongressPersons import load_all_candidates
+from tests.utils.data.generateDataCongressPersons import load_all_candidates, load_candidates_from_name
 from tests.utils.data.generateDataDistricts import build_first_district, build_second_district, build_third_district, build_fourth_district, build_fifth_district, build_sixth_district, build_seventh_district, build_eleventh_district
-from tests.utils.data.generateDataParties import load_all_parties, load_all_parties_with_candidates, load_all_parties_with_candidates_but_not_stability
+from tests.utils.data.generateDataParties import load_all_parties, load_all_parties_with_candidates, load_all_parties_with_candidates_but_not_stability, load_all_parties_with_candidates_and_big_stability
 
 __districts_keys = ["first_district", "second_district", "third_district", "fourth_district",
                     "fifth_district", "sixth_district", "seventh_district", "eleventh_district"]
@@ -33,13 +33,16 @@ def __generate_district_datas(key):
         return build_eleventh_district()   
     
 def __generate_candidate_datas(key):
-    if(key == "groupby_district"):
+    if key == "groupby_district":
         return __load_all_candidates_by_district()
-    elif("where_districtcode_" in key):
+    elif "where_districtcode_" in key:
         return __load_all_candidates_from_specific_district(key)
-    else :
+    elif key == '': 
         return load_all_candidates()
+    else :
+        return load_candidates_from_name(key)
     
+#TODO move the two method below
 def __load_all_candidates_by_district():
     all_candidates = []
     all_candidates_by_districts = {}
@@ -74,5 +77,7 @@ def __generate_party_datas(key):
         return load_all_parties_with_candidates()
     elif key == "low_stable_with_candidates_2024":
         return load_all_parties_with_candidates_but_not_stability()
+    elif key =="high_stable_with_candidates_2024":
+        return load_all_parties_with_candidates_and_big_stability()
     else: 
         return all_parties[key]
