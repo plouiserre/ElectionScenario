@@ -2,7 +2,8 @@ from src.backend.domain.models.factory import  factory_congress, factory_congres
 from src.backend.domain.ports.inside.ProportionalNationalElectionPort import ProportionalNationalElectionPort
 
 class ProportionalNationalElectionService(ProportionalNationalElectionPort):
-    def __init__(self):
+    def __init__(self, determinate_vote_by_party):
+        self.determinate_vote_by_party = determinate_vote_by_party
         self.all_parties = []
         self.candidates_results = []
         self.year = 0
@@ -33,8 +34,9 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         # REG : 1486 + 735 + 778 = 2 999
         # DVC : 11071 + 430 = 11 501
         #Total : 418 558
-        results = {"EXG" : 3905, "ENS":95884, "UG":124540, "DIV":2260, "RN":121673, "REC":936, "DVD":20345, "LR":29527, 
-                   "ECO":2799, "DVG":2189, "REG":2999, "DVC":11501}
+        # results = {"EXG" : 3905, "ENS":95884, "UG":124540, "DIV":2260, "RN":121673, "REC":936, "DVD":20345, "LR":29527, 
+        #            "ECO":2799, "DVG":2189, "REG":2999, "DVC":11501}
+        results = self.determinate_vote_by_party.Calculate(self.candidates_results)
         return results
     
     def __calculate_each_vote_percentage(self, parties_by_vote):
@@ -75,9 +77,9 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
 
         return party_with_congress_persons_elected
     
-    def __find_party(self, party_code) : 
+    def __find_party(self, parti_code) : 
         for party in self.all_parties: 
-            if party.code == party_code : 
+            if party.code == parti_code : 
                 return party
     
     def __build_congress_elected(self, year, parties) : 
