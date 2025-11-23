@@ -2,10 +2,11 @@ from src.backend.domain.models.factory import  factory_congress, factory_congres
 from src.backend.domain.ports.inside.ProportionalNationalElectionPort import ProportionalNationalElectionPort
 
 class ProportionalNationalElectionService(ProportionalNationalElectionPort):
-    def __init__(self, determinate_vote_by_party, determine_percentage_vote_by_party, remove_small_parties):
+    def __init__(self, determinate_vote_by_party, determine_percentage_vote_by_party, remove_small_parties, determinate_seats_by_party):
         self.determinate_vote_by_party = determinate_vote_by_party
         self.determine_percentage_vote_by_party = determine_percentage_vote_by_party
         self.remove_small_parties = remove_small_parties
+        self.determinate_seats_by_party = determinate_seats_by_party
         self.all_parties = []
         self.candidates_results = []
         self.year = 0
@@ -48,7 +49,7 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         return importantes_parties_with_percentage
     
     def __calculate_number_congress_persons_elected_by_parties(self, percentages_for_parties_importants):
-        number_congress_persons_by_parties = {"ENS":2, "UG":3, "RN":3, "LR":0}
+        number_congress_persons_by_parties = self.determinate_seats_by_party.Calculate(percentages_for_parties_importants)
         return number_congress_persons_by_parties
     
     def __choose_congress_persons_elected_for_parties(self, number_congress_persons_elected_by_parties): 
