@@ -2,11 +2,12 @@ from src.backend.domain.models.factory import  factory_congress, factory_congres
 from src.backend.domain.ports.inside.ProportionalNationalElectionPort import ProportionalNationalElectionPort
 
 class ProportionalNationalElectionService(ProportionalNationalElectionPort):
-    def __init__(self, determinate_vote_by_party, determine_percentage_vote_by_party, remove_small_parties, determinate_seats_by_party):
+    def __init__(self, determinate_vote_by_party, determine_percentage_vote_by_party, remove_small_parties, determinate_seats_by_party, select_congress_person):
         self.determinate_vote_by_party = determinate_vote_by_party
         self.determine_percentage_vote_by_party = determine_percentage_vote_by_party
         self.remove_small_parties = remove_small_parties
         self.determinate_seats_by_party = determinate_seats_by_party
+        self.select_congress_person = select_congress_person
         self.all_parties = []
         self.candidates_results = []
         self.year = 0
@@ -53,26 +54,21 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         return number_congress_persons_by_parties
     
     def __choose_congress_persons_elected_for_parties(self, number_congress_persons_elected_by_parties): 
-        _first_ens_congress_persons_elected = factory_congress_person("MAILLART-MÉHAIGNERIE", "Laurence", "FEMININ", "ENS", 25792, 34.24, factory_district("2ème circonscription", 3502, "Ille-et-Vilaine", 35))
-        _second_ens_congress_persons_elected = factory_congress_person("VUILLEMIN", "Benoît", "MASCULIN", "ENS", 15026, 26.79, factory_district("2ème circonscription", 2502, "Doubs", 25))
-        ens_party = self.__find_party("ENS")
-        ens_party.congress_persons.append(_first_ens_congress_persons_elected)
-        ens_party.congress_persons.append(_second_ens_congress_persons_elected)
+        congress_persons_elected = self.select_congress_person.Choose(number_congress_persons_elected_by_parties, self.candidates_results)
         ug_party = self.__find_party("UG")
-        _first_ug_congress_person_elected = factory_congress_person("LAHAIS", "Tristan", "MASCULIN", "UG", 30361, 40.31, factory_district("2ème circonscription", 3502, "Ille-et-Vilaine", 35))
-        _second_ug_congress_person_elected = factory_congress_person("VOYNET", "Dominique", "FEMININ", "UG", 19160, 34.16, factory_district("2ème circonscription", 2502, "Doubs", 25))
-        _third_ug_congress_person_elected = factory_congress_person("ROSSET", "Marine", "FEMININ", "UG", 18845, 33.4, factory_district("2ème circonscription", 7502, "Paris", 75))
-        ug_party.congress_persons.append(_first_ug_congress_person_elected)
-        ug_party.congress_persons.append(_second_ug_congress_person_elected)
-        ug_party.congress_persons.append(_third_ug_congress_person_elected)
-        rn_party = self.__find_party("RN")
-        _first_rn_congress_person_elected = factory_congress_person("GOULET", "Florence", "FEMININ", "RN", 19011, 50.63, factory_district("2ème circonscription", 5502, "Meuse", 55))
-        _second_rn_congress_person_elected = factory_congress_person("MONTEIL", "Olivier", "MASCULIN", "RN", 22436, 36.96, factory_district("2ème circonscription", 6502, "Hautes-Pyrénées", 65))
-        _third_rn_congress_person_elected = factory_congress_person("ALBRAND", "Louis", "MASCULIN", "RN", 13115, 33.88, factory_district("2ème circonscription", 502, "Hautes-Alpes", 5))        
-        rn_party.congress_persons.append(_first_rn_congress_person_elected)
-        rn_party.congress_persons.append(_second_rn_congress_person_elected)
-        rn_party.congress_persons.append(_third_rn_congress_person_elected)
+        ug_party.congress_persons.append(congress_persons_elected[0])
+        ug_party.congress_persons.append(congress_persons_elected[1])
+        ug_party.congress_persons.append(congress_persons_elected[2])
 
+        rn_party = self.__find_party("RN")
+        rn_party.congress_persons.append(congress_persons_elected[3])
+        rn_party.congress_persons.append(congress_persons_elected[4])
+        rn_party.congress_persons.append(congress_persons_elected[5])
+
+        ens_party = self.__find_party("ENS")
+        ens_party.congress_persons.append(congress_persons_elected[6])
+        ens_party.congress_persons.append(congress_persons_elected[7])
+        
         party_with_congress_persons_elected = [ens_party, ug_party, rn_party ]
 
         return party_with_congress_persons_elected

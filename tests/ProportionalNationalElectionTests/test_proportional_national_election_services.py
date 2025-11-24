@@ -4,6 +4,7 @@ from src.backend.domain.services.ProportionalNationalElection.DeterminePercentag
 from src.backend.domain.services.ProportionalNationalElection.DeterminateSeatsByParty import DeterminateSeatsByParty
 from src.backend.domain.services.ProportionalNationalElection.DetermineVoteByParty import DetermineVoteByParty
 from src.backend.domain.services.ProportionalNationalElection.RemoveSmallParties import RemoveSmallParties
+from src.backend.domain.services.ProportionalNationalElection.SelectCongressPerson import SelectCongressPersons
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.data.catalogData import generate_datas
 
@@ -14,8 +15,9 @@ class ProportionalNationalElectionServiceTest(unittest.TestCase):
         vote_by_party_service = DetermineVoteByParty()
         percentage_vote_by_party_service = DeterminePercentageVoteByParty()
         remove = RemoveSmallParties()
-        determine_seats_by_party = DeterminateSeatsByParty(7)
-        proportional_national_election_service = ProportionalNationalElectionService(vote_by_party_service, percentage_vote_by_party_service, remove, determine_seats_by_party)
+        determine_seats_by_party = DeterminateSeatsByParty(8)
+        select_congress_persons = SelectCongressPersons()
+        proportional_national_election_service = ProportionalNationalElectionService(vote_by_party_service, percentage_vote_by_party_service, remove, determine_seats_by_party, select_congress_persons)
 
         congress = proportional_national_election_service.Determinate(2024, all_candidates_data, all_parties)
 
