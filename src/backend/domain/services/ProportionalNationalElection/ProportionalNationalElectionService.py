@@ -2,12 +2,14 @@ from src.backend.domain.models.factory import  factory_congress, factory_congres
 from src.backend.domain.ports.inside.ProportionalNationalElectionPort import ProportionalNationalElectionPort
 
 class ProportionalNationalElectionService(ProportionalNationalElectionPort):
-    def __init__(self, determinate_vote_by_party, determine_percentage_vote_by_party, remove_small_parties, determinate_seats_by_party, select_congress_person):
+    def __init__(self, determinate_vote_by_party, determine_percentage_vote_by_party, remove_small_parties, 
+                 determinate_seats_by_party, select_congress_person, regroup_by_parties):
         self.determinate_vote_by_party = determinate_vote_by_party
         self.determine_percentage_vote_by_party = determine_percentage_vote_by_party
         self.remove_small_parties = remove_small_parties
         self.determinate_seats_by_party = determinate_seats_by_party
         self.select_congress_person = select_congress_person
+        self.regroup_by_parties = regroup_by_parties
         self.all_parties = []
         self.candidates_results = []
         self.year = 0
@@ -20,7 +22,8 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         _percentage_by_parties = self.__calculate_each_vote_percentage(_votes_by_parties)
         _percentages_for_parties_importants = self.__keep_only_important_parties(_percentage_by_parties)
         _number_congress_persons_elected_by_parties = self.__calculate_number_congress_persons_elected_by_parties(_percentages_for_parties_importants)
-        _parties_with_congress_persons = self.__choose_congress_persons_elected_for_parties(_number_congress_persons_elected_by_parties)
+        _congress_persons_elected = self.__choose_congress_persons_elected_for_parties(_number_congress_persons_elected_by_parties)
+        _parties_with_congress_persons = self.__regroup_congress_persons_by_parties(_congress_persons_elected)
         congress = self.__build_congress_elected(year, _parties_with_congress_persons)
         return congress    
 
@@ -55,28 +58,11 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
     
     def __choose_congress_persons_elected_for_parties(self, number_congress_persons_elected_by_parties): 
         congress_persons_elected = self.select_congress_person.Choose(number_congress_persons_elected_by_parties, self.candidates_results)
-        ug_party = self.__find_party("UG")
-        ug_party.congress_persons.append(congress_persons_elected[0])
-        ug_party.congress_persons.append(congress_persons_elected[1])
-        ug_party.congress_persons.append(congress_persons_elected[2])
-
-        rn_party = self.__find_party("RN")
-        rn_party.congress_persons.append(congress_persons_elected[3])
-        rn_party.congress_persons.append(congress_persons_elected[4])
-        rn_party.congress_persons.append(congress_persons_elected[5])
-
-        ens_party = self.__find_party("ENS")
-        ens_party.congress_persons.append(congress_persons_elected[6])
-        ens_party.congress_persons.append(congress_persons_elected[7])
-        
-        party_with_congress_persons_elected = [ens_party, ug_party, rn_party ]
-
-        return party_with_congress_persons_elected
+        return congress_persons_elected
     
-    def __find_party(self, parti_code) : 
-        for party in self.all_parties: 
-            if party.code == parti_code : 
-                return party
+    def __regroup_congress_persons_by_parties(self, congress_persons_elected):
+        parties_with_congress_persons_elected = self.regroup_by_parties.sort(congress_persons_elected, self.all_parties)
+        return parties_with_congress_persons_elected
     
     def __build_congress_elected(self, year, parties) : 
         _congress = factory_congress(year, "PROPORTIONALITYNATIONAL", parties)
