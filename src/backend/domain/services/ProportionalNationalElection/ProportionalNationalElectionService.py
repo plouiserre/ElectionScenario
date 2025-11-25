@@ -2,8 +2,9 @@ from src.backend.domain.models.factory import  factory_congress, factory_congres
 from src.backend.domain.ports.inside.ProportionalNationalElectionPort import ProportionalNationalElectionPort
 
 class ProportionalNationalElectionService(ProportionalNationalElectionPort):
-    def __init__(self, determinate_vote_by_party, determine_percentage_vote_by_party, remove_small_parties, 
+    def __init__(self, json_results_election, determinate_vote_by_party, determine_percentage_vote_by_party, remove_small_parties, 
                  determinate_seats_by_party, select_congress_person, regroup_by_parties):
+        self.json_results_election = json_results_election
         self.determinate_vote_by_party = determinate_vote_by_party
         self.determine_percentage_vote_by_party = determine_percentage_vote_by_party
         self.remove_small_parties = remove_small_parties
@@ -14,10 +15,11 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         self.candidates_results = []
         self.year = 0
 
-    def Determinate(self, year, all_candidates_datas, all_parties):
+    def Determinate(self, year):
         self.year = year
-        self.all_parties = all_parties[str(year)]
-        self.candidates_results = all_candidates_datas
+        all_datas_needed = self.__get_all_datas_needed(year)
+        self.all_parties = all_datas_needed.all_parties
+        self.candidates_results = self.__mixed_all_candidates_from_everywhere(all_datas_needed.all_candidates)
         _votes_by_parties = self.__calculate_each_party_votes()
         _percentage_by_parties = self.__calculate_each_vote_percentage(_votes_by_parties)
         _percentages_for_parties_importants = self.__keep_only_important_parties(_percentage_by_parties)
@@ -26,6 +28,18 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         _parties_with_congress_persons = self.__regroup_congress_persons_by_parties(_congress_persons_elected)
         congress = self.__build_congress_elected(year, _parties_with_congress_persons)
         return congress    
+    
+    def __get_all_datas_needed(self, year):
+        results_data_all_years = self.json_results_election.get_results()
+        results_data = results_data_all_years[year]
+        return results_data
+    
+    def __mixed_all_candidates_from_everywhere(self, all_candidates_by_districts): 
+        all_candidates_mixed = []
+        for all_candidates_from_specific_district in all_candidates_by_districts: 
+            for candidate in all_candidates_from_specific_district :
+                all_candidates_mixed.append(candidate)
+        return all_candidates_mixed
 
     def __calculate_each_party_votes(self):
         #EXG : 394 + 298 + 788 + 746 + 388 + 431 + 692 + 168 = 3 905

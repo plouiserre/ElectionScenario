@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import Mock
 from src.backend.domain.services.ProportionalNationalElection.ProportionalNationalElectionService import ProportionalNationalElectionService
 from src.backend.domain.services.ProportionalNationalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
 from src.backend.domain.services.ProportionalNationalElection.DeterminateSeatsByParty import DeterminateSeatsByParty
@@ -6,23 +7,26 @@ from src.backend.domain.services.ProportionalNationalElection.DetermineVoteByPar
 from src.backend.domain.services.ProportionalNationalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
 from src.backend.domain.services.ProportionalNationalElection.RemoveSmallParties import RemoveSmallParties
 from src.backend.domain.services.ProportionalNationalElection.SelectCongressPerson import SelectCongressPersons
+from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
 from tests.utils.assert_helper import assert_congress_person_with_district
-from tests.utils.data.catalogData import generate_datas
+from tests.utils.mocks import mock_json_results
 
 class ProportionalNationalElectionServiceTest(unittest.TestCase):
     def test_determinate_congress_with_proportional_election(self):
-        all_candidates_data = generate_datas("candidate", "")        
-        all_parties = generate_datas("party", "")
+        json_files = Mock()
+        json_files.get_elections_data.return_value = mock_json_results()
+        json_service = JsonResultsElection(json_files)
+
         vote_by_party_service = DetermineVoteByParty()
         percentage_vote_by_party_service = DeterminePercentageVoteByParty()
         remove = RemoveSmallParties()
         determine_seats_by_party = DeterminateSeatsByParty(8)
         select_congress_persons = SelectCongressPersons()
         regroup_by_parties = RegroupCongressPersonsByParties()
-        proportional_national_election_service = ProportionalNationalElectionService(vote_by_party_service, percentage_vote_by_party_service, 
+        proportional_national_election_service = ProportionalNationalElectionService(json_service, vote_by_party_service, percentage_vote_by_party_service, 
                                                 remove, determine_seats_by_party, select_congress_persons, regroup_by_parties)
 
-        congress = proportional_national_election_service.Determinate(2024, all_candidates_data, all_parties)
+        congress = proportional_national_election_service.Determinate(2024)
 
         self.assertEqual(2024, congress.year)
         self.assertEqual("PROPORTIONALITYNATIONAL", congress.mode)
