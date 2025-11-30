@@ -1,4 +1,4 @@
-from tests.utils.data.generateDataCongress import load_congress_very_stable
+from tests.utils.data.generateDataCongress import load_congress_very_stable, load_congress_stable, load_congress_quite_stable
 from tests.utils.data.generateDataCongressPersons import load_all_candidates, load_candidates_from_name
 from tests.utils.data.generateDataDistricts import build_first_district, build_second_district, build_third_district, build_fourth_district, build_fifth_district, build_sixth_district, build_seventh_district, build_eleventh_district
 from tests.utils.data.generateDataParties import load_all_parties, load_all_parties_with_candidates, load_all_parties_with_candidates_but_not_stability, load_all_parties_with_candidates_and_big_stability
@@ -86,4 +86,9 @@ def __generate_party_datas(key):
         return all_parties[key]
     
 def __generate_congress_datas(key):
-    return load_congress_very_stable()
+    if key == "very_stable":
+        return load_congress_very_stable()
+    elif key == "stable":
+        return load_congress_stable()
+    else : 
+        return load_congress_quite_stable()
