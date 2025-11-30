@@ -34,36 +34,43 @@ class StabilityCongress :
             i += 1
         return is_one_family_majority
     
-    #TODO rewrite
     def __check_is_quite_stability(self): 
         is_majority = False
         i = 1
         while i < 6: 
-            all_elected_persons_above = 0
-            all_parties_this_family = self.__get_all_parties_in_this_family(i)
-            all_elected_persons = self.__get_all_elected_persons_in_this_family(all_parties_this_family)
-            if i < 5 : 
-                all_parties_above_family = self.__get_all_parties_in_this_family(i+1)
-                all_elected_persons_above = self.__get_all_elected_persons_in_this_family(all_parties_above_family)
-            all_group_elected_persons = all_elected_persons_above + all_elected_persons
-            is_majority = all_group_elected_persons > self.total_congress_persons / 2
+            is_majority = self.__is_majority_with_vamily_above(i)
             if is_majority : 
                 break
             i += 1
         while i < 6 : 
-            all_elected_persons_below = 0
-            all_parties_this_family = self.__get_all_parties_in_this_family(i)
-            all_elected_persons = self.__get_all_elected_persons_in_this_family(all_parties_this_family)
-            if i > 1 : 
-                all_parties_below_family = self.__get_all_parties_in_this_family(i-1)
-                all_elected_persons_below = self.__get_all_elected_persons_in_this_family(all_parties_below_family)
-            all_group_elected_persons = all_elected_persons_below + all_elected_persons
-            is_majority = all_group_elected_persons > self.total_congress_persons / 2
+            is_majority = self.__is_majority_with_family_below(i)
             if is_majority : 
                 break
             i += 1
         return is_majority
 
+    def __is_majority_with_vamily_above(self, id_family):
+        all_elected_persons_above = 0
+        all_elected_persons = self.__get_number_elected_persons_for_this_family(id_family)
+        if id_family < 5 : 
+            all_elected_persons_above = self.__get_number_elected_persons_for_this_family(id_family+1)
+        all_group_elected_persons = all_elected_persons_above + all_elected_persons
+        is_majority = all_group_elected_persons > self.total_congress_persons / 2
+        return is_majority
+    
+    def __is_majority_with_family_below(self, id_family):
+        all_elected_persons_below = 0
+        all_elected_persons = self.__get_number_elected_persons_for_this_family(id_family)
+        if id_family > 1 : 
+            all_elected_persons_below = self.__get_number_elected_persons_for_this_family(id_family-1)
+        all_group_elected_persons = all_elected_persons_below + all_elected_persons
+        is_majority = all_group_elected_persons > self.total_congress_persons / 2
+        return is_majority
+
+    def __get_number_elected_persons_for_this_family(self, id_family):
+        all_parties_this_family = self.__get_all_parties_in_this_family(id_family)
+        all_elected_persons = self.__get_all_elected_persons_in_this_family(all_parties_this_family)
+        return all_elected_persons
 
     def __get_all_parties_in_this_family(self, family_id) :
         family_parties = []
