@@ -22,6 +22,12 @@ def load_congress_quite_stable():
     congress = __transform_to_congress(congress_data)
     return congress
 
+def load_congress_low_stable():
+    json_congress = "{\"congress\":{\"year\":2024,\"mode\":\"PROPORTIONALITYNATIONAL\",\"parties\":[{\"name\":\"Union de la gauche\",\"code\":\"UG\",\"elected_congress_persons\":3,\"family\":\"2\",\"congress_persons\":[{\"district\":{\"name\":\"2ème circonscription\",\"code\":\"9302\",\"department_name\":\"Seine-Saint-Denis\",\"department_code\":\"93\"},\"last_name\":\"PEU\",\"first_name\":\"Stéphane\",\"vote\":22055,\"vote_percentage\":71.8},{\"district\":{\"name\":\"6ème circonscription\",\"code\":\"9306\",\"department_name\":\"Seine-Saint-Denis\",\"department_code\":\"93\"},\"last_name\":\"LACHAUD\",\"first_name\":\"Bastien\",\"vote\":25777,\"vote_percentage\":71.68}]},{\"name\":\"Ensemble ! (Majorité présidentielle)\",\"code\":\"ENS\",\"elected_congress_persons\":1,\"family\":\"3\",\"congress_persons\":[{\"district\":{\"name\":\"3ème circonscription\",\"code\":\"103\",\"department_name\":\"Ain\",\"department_code\":\"1\"},\"last_name\":\"GIVERNET\",\"first_name\":\"Olga\",\"vote\":17420,\"vote_percentage\":32.43}]},{\"name\":\"Rassemblement National\",\"code\":\"RN\",\"elected_congress_persons\":2,\"family\":\"5\",\"congress_persons\":[{\"district\":{\"name\":\"10ème circonscription\",\"code\":\"6210\",\"department_name\":\"Pas-de-Calais\",\"department_code\":\"62\"},\"last_name\":\"FRAPPÉ\",\"first_name\":\"Thierry\",\"vote\":32530,\"vote_percentage\":60.61},{\"district\":{\"name\":\"2ème circonscription\",\"code\":\"102\",\"department_name\":\"Ain\",\"department_code\":\"1\"},\"last_name\":\"KOTARAC\",\"first_name\":\"Andréa\",\"vote\":28189,\"vote_percentage\":39.2}]},{\"name\":\"Les Republicains\",\"code\":\"LR\",\"elected_congress_persons\":1,\"family\":\"4\",\"congress_persons\":[{\"district\":{\"name\":\"3ème circonscription\",\"code\":\"303\",\"department_name\":\"Allier\",\"department_code\":\"03\"},\"last_name\":\"RAY\",\"first_name\":\"Nicolas\",\"vote\":21464,\"vote_percentage\":40.05}]}],\"stability_majority\":\"\"}}"
+    congress_data = json.loads(json_congress)
+    congress = __transform_to_congress(congress_data)
+    return congress
+
 def __transform_to_congress(congress_data):
     congress_obj = congress_data["congress"]
     congress = Congress()
