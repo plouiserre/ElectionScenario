@@ -21,5 +21,6 @@ def assert_party(datas, party_info, unittest):
         data = datas.split("|")
         unittest.assertEqual(data[0], party_info.name)
         unittest.assertEqual(data[1], party_info.code)
-        if(len(data) == 3):
-                unittest.assertEqual(float(data[2]), party_info.elected_congress_persons)
+        unittest.assertEqual(int(data[2]), party_info.family)
+        if(len(data) == 4):
+                unittest.assertEqual(float(data[3]), party_info.elected_congress_persons)

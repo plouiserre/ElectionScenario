@@ -82,4 +82,5 @@ def __mapper_party_to_domain(party):
     party_domain = Party()
     party_domain.code = party["code"]
     party_domain.name = party["name"]
+    party_domain.family = party["family"]
     return party_domain
