@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
 from src.backend.domain.services.OneTurnElection.BuildCongress import BuildCongress
 from src.backend.domain.services.OneTurnElection.DeterminateAllElectedPersons import DeterminateAllElectedPersons
 from src.backend.domain.services.OneTurnElection.DeterminateElectedPersonByDistrict import DeterminateElectedPersonByDistrict
@@ -14,7 +15,8 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         json_files = Mock()
         json_files.get_elections_data.return_value = mock_json_results()
         json_service = JsonResultsElection(json_files)
-        build_congress = BuildCongress()
+        stability_congress = StabilityCongress(8)
+        build_congress = BuildCongress(stability_congress)
         elected_persons_by_district = DeterminateElectedPersonByDistrict()
         all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)
         election = OneTurnElectionService(json_service, all_elected_persons, build_congress)
@@ -27,6 +29,7 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
     def __assert_congress_2024(self, congress):
         self.assertEqual(2024, congress.year)
         self.assertEqual("OneTurn", congress.mode)
+        self.assertEqual("QUITE", congress.stability_majority)
         self.__assert_parties_2024(congress.parties)
 
     def __assert_parties_2024(self, parties):
@@ -57,11 +60,13 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         self.assertEqual(1, dvd_party.elected_congress_persons)
         assert_congress_person_with_district("BONY|Jean Yves|MASCULIN|DVD|12383|34.29|2ème circonscription|1502|Cantal|15", dvd_party.congress_persons[0], self)        
     
+    
     def test_one_turn_election_2022_determinate_good_congress_persons(self):
         json_files = Mock()
         json_files.get_elections_data.return_value = mock_json_results()
         json_service = JsonResultsElection(json_files)
-        build_congress = BuildCongress()
+        stability_congress = StabilityCongress(8)
+        build_congress = BuildCongress(stability_congress)
         elected_persons_by_district = DeterminateElectedPersonByDistrict()
         all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)
         election = OneTurnElectionService(json_service, all_elected_persons, build_congress)
@@ -74,6 +79,7 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
     def __assert_congress_2022(self, congress):
         self.assertEqual(2022, congress.year)
         self.assertEqual("OneTurn", congress.mode)
+        self.assertEqual("PERFECT", congress.stability_majority)
         self.__assert_parties_2022(congress.parties)
 
 
