@@ -1,4 +1,5 @@
 import unittest
+from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
 from src.backend.domain.services.OneTurnElection.BuildCongress import BuildCongress
 from tests.utils.assert_helper import assert_party
 from tests.utils.data.catalogData import generate_datas
@@ -6,13 +7,14 @@ from tests.utils.data.catalogData import generate_datas
 class BuildCongressTest(unittest.TestCase):
     def test_build_high_stable_congress(self):        
         parties_2024 = generate_datas("party", "high_stable_with_candidates_2024")
-        build_congress = BuildCongress()
+        stability_congress = StabilityCongress(7)
+        build_congress = BuildCongress(stability_congress)
 
         congress = build_congress.Build(2024, "OneTurn", parties_2024)
 
         self.assertEqual(2024, congress.year)
         self.assertEqual("OneTurn", congress.mode)
-        self.assertEqual("HIGH", congress.stability_majority )
+        self.assertEqual("PERFECT", congress.stability_majority )
         assert_party('Union de la gauche|UG|2|4', congress.parties[0], self)
         assert_party('Rassemblement National|RN|5|3', congress.parties[1], self)
         assert_party('Les Républicains|LR|4|1', congress.parties[2], self)
@@ -35,13 +37,14 @@ class BuildCongressTest(unittest.TestCase):
 
     def test_build_low_stable_congress(self):
         parties_2024 = generate_datas("party", "low_stable_with_candidates_2024")
-        build_congress = BuildCongress()
+        stability_congress = StabilityCongress(7)
+        build_congress = BuildCongress(stability_congress)
 
         congress = build_congress.Build(2024, "OneTurn", parties_2024)
 
         self.assertEqual(2024, congress.year)
         self.assertEqual("OneTurn", congress.mode)
-        self.assertEqual("LOW", congress.stability_majority )
+        self.assertEqual("QUITE", congress.stability_majority )
         assert_party('Union de la gauche|UG|2|2', congress.parties[0], self)
         assert_party('Rassemblement National|RN|5|2', congress.parties[1], self)
         assert_party('Ensemble ! (Majorité présidentielle)|ENS|3|2', congress.parties[2], self)

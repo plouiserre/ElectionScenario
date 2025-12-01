@@ -1,5 +1,7 @@
 import unittest
 from unittest.mock import Mock
+from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
+from src.backend.domain.services.OneTurnElection.BuildCongress import BuildCongress
 from src.backend.domain.services.ProportionalNationalElection.ProportionalNationalElectionService import ProportionalNationalElectionService
 from src.backend.domain.services.ProportionalNationalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
 from src.backend.domain.services.ProportionalNationalElection.DeterminateSeatsByParty import DeterminateSeatsByParty
@@ -15,6 +17,8 @@ class ProportionalNationalElectionServiceTest(unittest.TestCase):
     def test_determinate_congress_with_proportional_election(self):
         json_files = Mock()
         json_files.get_elections_data.return_value = mock_json_results()
+        stability_congress = StabilityCongress(8)
+        build_congress = BuildCongress(stability_congress)
         json_service = JsonResultsElection(json_files)
 
         vote_by_party_service = DetermineVoteByParty()
@@ -24,7 +28,7 @@ class ProportionalNationalElectionServiceTest(unittest.TestCase):
         select_congress_persons = SelectCongressPersons()
         regroup_by_parties = RegroupCongressPersonsByParties()
         proportional_national_election_service = ProportionalNationalElectionService(json_service, vote_by_party_service, percentage_vote_by_party_service, 
-                                                remove, determine_seats_by_party, select_congress_persons, regroup_by_parties)
+                                                remove, determine_seats_by_party, select_congress_persons, regroup_by_parties, build_congress)
 
         congress = proportional_national_election_service.Determinate(2024)
 
