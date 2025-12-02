@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
-from src.backend.domain.services.OneTurnElection.BuildCongress import BuildCongress
+from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
 from src.backend.domain.services.OneTurnElection.DeterminateAllElectedPersons import DeterminateAllElectedPersons
 from src.backend.domain.services.OneTurnElection.DeterminateElectedPersonByDistrict import DeterminateElectedPersonByDistrict
 from src.backend.domain.services.OneTurnElection.OneTurnElectionService import OneTurnElectionService

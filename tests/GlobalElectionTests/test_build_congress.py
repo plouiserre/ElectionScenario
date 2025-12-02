@@ -1,6 +1,6 @@
 import unittest
 from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
-from src.backend.domain.services.OneTurnElection.BuildCongress import BuildCongress
+from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
 from tests.utils.assert_helper import assert_party
 from tests.utils.data.catalogData import generate_datas
 
