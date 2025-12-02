@@ -1,4 +1,3 @@
-from decimal import Decimal
 from src.backend.domain.models.congress import Congress
 
 class BuildCongress : 
