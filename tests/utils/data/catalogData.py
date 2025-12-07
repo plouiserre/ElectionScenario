@@ -2,6 +2,7 @@ from tests.utils.data.generateDataCongress import load_congress_very_stable, loa
 from tests.utils.data.generateDataCongressPersons import load_all_candidates, load_candidates_from_name
 from tests.utils.data.generateDataDistricts import build_first_district, build_second_district, build_third_district, build_fourth_district, build_fifth_district, build_sixth_district, build_seventh_district, build_eleventh_district
 from tests.utils.data.generateDataParties import load_all_parties, load_all_parties_with_candidates, load_all_parties_with_candidates_but_not_stability, load_all_parties_with_candidates_and_big_stability
+from tests.utils.data.generateDataResults import load_20_perfect_districts_results, load_20_good_districts_results, load_20_quite_districts_results, load_20_low_districts_results
 
 __districts_keys = ["first_district", "second_district", "third_district", "fourth_district",
                     "fifth_district", "sixth_district", "seventh_district", "eleventh_district"]
@@ -15,6 +16,8 @@ def generate_datas(type_data, key):
         return __generate_party_datas(key)
     elif type_data == "congress":
         return __generate_congress_datas(key)
+    elif type_data == "results_elections":
+        return __generate_results_elections(key)
     return ""
 
 def __generate_district_datas(key):
@@ -94,3 +97,13 @@ def __generate_congress_datas(key):
         return load_congress_quite_stable()
     else:
         return load_congress_low_stable()
+    
+def __generate_results_elections(key):
+    if key =="perfect" :
+        return load_20_perfect_districts_results()
+    elif key =="good":
+        return load_20_good_districts_results()
+    elif key == "quite" : 
+        return load_20_quite_districts_results()
+    else :
+        return load_20_low_districts_results()
