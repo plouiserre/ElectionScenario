@@ -6,8 +6,17 @@ class RepresentativeCongressTest(unittest.TestCase):
     def test_determine_congress_have_perfect_representative(self):
         results_elections = generate_datas("results_elections", "perfect")
         congress = generate_datas("congress", "perfectly_representative")
-        representative_congress = RepresentativeCongress()
+        representative_congress = RepresentativeCongress(20, 2024)
         
         representative = representative_congress.Calculate(congress, results_elections)
 
         self.assertEqual("PERFECT", representative)
+
+    def test_determine_congress_have_good_representative(self):
+        results_elections = generate_datas("results_elections", "perfect")
+        congress = generate_datas("congress", "good_representative")
+        representative_congress = RepresentativeCongress(20, 2024)
+        
+        representative = representative_congress.Calculate(congress, results_elections)
+
+        self.assertEqual("GOOD", representative)
