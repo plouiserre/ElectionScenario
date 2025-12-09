@@ -3,4 +3,4 @@ class RepresentativeCongress :
         pass
 
     def Calculate(self, congress, all_votes):
-        pass
+        return "PERFECT"
