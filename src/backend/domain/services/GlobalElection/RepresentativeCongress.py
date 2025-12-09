@@ -59,5 +59,9 @@ class RepresentativeCongress :
     def __get_representative_from_big_difference(self, big_difference): 
         if big_difference < 5 : 
             return "PERFECT"
-        else : 
+        elif big_difference < 10 : 
             return "GOOD"
+        elif big_difference < 25 : 
+            return "QUITE"
+        else : 
+            return "LOW"
