@@ -42,15 +42,24 @@ def __transform_results_json(results_obj):
     return elections_results
 
 def __transform_all_candidates_json(districts_obj):
-    candidates = []
-    for district_obj in districts_obj:
+    # candidates = []
+    # for district_obj in districts_obj:
+    #     district = District()
+    #     district.code = district_obj["number"]
+    #     district.department_code = district_obj["department code"]
+    #     district.name = district_obj["label"]
+    #     all_candidates_in_this_district = __transform_candidate_json(district_obj["candidates"], district)
+    #     candidates.extend(all_candidates_in_this_district)
+    # return candidates
+    candidates_districts = []
+    for district_obj in districts_obj : 
         district = District()
         district.code = district_obj["number"]
         district.department_code = district_obj["department code"]
         district.name = district_obj["label"]
         all_candidates_in_this_district = __transform_candidate_json(district_obj["candidates"], district)
-        candidates.extend(all_candidates_in_this_district)
-    return candidates
+        candidates_districts.append(all_candidates_in_this_district)
+    return candidates_districts
 
 def __transform_candidate_json(candidates_obj, district):
     candidates = []

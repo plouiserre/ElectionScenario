@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+from src.backend.domain.services.GlobalElection.RepresentativeCongress import RepresentativeCongress
 from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
 from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
 from src.backend.domain.services.ProportionalNationalElection.ProportionalNationalElectionService import ProportionalNationalElectionService
@@ -15,25 +16,30 @@ from tests.utils.mocks import mock_json_results
 
 class ProportionalNationalElectionServiceTest(unittest.TestCase):
     def test_determinate_congress_with_proportional_election(self):
+        total_elected_congress_persons = 8
+        year = 2024
         json_files = Mock()
         json_files.get_elections_data.return_value = mock_json_results()
-        stability_congress = StabilityCongress(8)
-        build_congress = BuildCongress(stability_congress)
+        representative_congress = RepresentativeCongress(total_elected_congress_persons)
+        stability_congress = StabilityCongress(total_elected_congress_persons)
+        build_congress = BuildCongress(stability_congress, representative_congress)
         json_service = JsonResultsElection(json_files)
 
         vote_by_party_service = DetermineVoteByParty()
         percentage_vote_by_party_service = DeterminePercentageVoteByParty()
         remove = RemoveSmallParties()
-        determine_seats_by_party = DeterminateSeatsByParty(8)
+        determine_seats_by_party = DeterminateSeatsByParty(total_elected_congress_persons)
         select_congress_persons = SelectCongressPersons()
         regroup_by_parties = RegroupCongressPersonsByParties()
         proportional_national_election_service = ProportionalNationalElectionService(json_service, vote_by_party_service, percentage_vote_by_party_service, 
                                                 remove, determine_seats_by_party, select_congress_persons, regroup_by_parties, build_congress)
 
-        congress = proportional_national_election_service.Determinate(2024)
+        congress = proportional_national_election_service.Determinate(year)
 
-        self.assertEqual(2024, congress.year)
+        self.assertEqual(year, congress.year)
         self.assertEqual("PROPORTIONALITYNATIONAL", congress.mode)
+        self.assertEqual("QUITE", congress.stability_majority)
+        self.assertEqual("GOOD", congress.representative_congress)
         self.assertEqual(3, len(congress.parties))
 
         assert_congress_person_with_district("LAHAIS|Tristan|MASCULIN|UG|30361|40.31|2ème circonscription|3502|Ille-et-Vilaine|35", congress.parties[0].congress_persons[0], self)

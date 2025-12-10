@@ -6,6 +6,7 @@ def to_mapper_congress_response(congress_domain):
     response.year = congress_domain.year
     response.mode = congress_domain.mode 
     response.stability_majority = congress_domain.stability_majority
+    response.representative_congress = congress_domain.representative_congress
     for party_domain in congress_domain.parties : 
         party_response = to_mapper_party_response(party_domain)
         response.parties.append(party_response)

@@ -4,3 +4,4 @@ class CongressResponse :
         self.mode = ''
         self.parties = []
         self.stability_majority = ''
+        self.representative_congress = ''

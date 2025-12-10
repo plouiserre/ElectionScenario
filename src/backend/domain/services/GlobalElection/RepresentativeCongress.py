@@ -1,11 +1,11 @@
 class RepresentativeCongress : 
-    def __init__(self, total_congress_persons, year):
+    def __init__(self, total_congress_persons):
         self.congress = None
         self.all_votes = None
         self.total_congress_persons = total_congress_persons
-        self.year = year
 
-    def Calculate(self, congress, all_votes):
+    def Calculate(self, congress, all_votes, year):
+        self.year = year
         self.congress = congress
         self.all_votes = all_votes
         percentage_congress_persons_by_parties = self.__calculate_percentage_for_congress()  
@@ -25,16 +25,18 @@ class RepresentativeCongress :
 
     def __group_votes_by_parties(self): 
         all_votes_by_parties = {}
-        for candidate in self.all_votes[self.year].all_candidates : 
-            if (candidate.parti_code in all_votes_by_parties.keys()) == False : 
-                all_votes_by_parties[candidate.parti_code] = 0
-            all_votes_by_parties[candidate.parti_code] += candidate.vote
+        for candidates_in_districts in self.all_votes[self.year].all_candidates : 
+            for candidate in candidates_in_districts : 
+                if (candidate.parti_code in all_votes_by_parties.keys()) == False : 
+                    all_votes_by_parties[candidate.parti_code] = 0
+                all_votes_by_parties[candidate.parti_code] += candidate.vote
         return all_votes_by_parties
     
     def __count_all_votes(self) : 
         all_votes = 0
-        for candidate in self.all_votes[self.year].all_candidates : 
-            all_votes += candidate.vote
+        for candidates_in_districts in self.all_votes[self.year].all_candidates : 
+            for candidate in candidates_in_districts : 
+                all_votes += candidate.vote
         return all_votes
 
     def __calculate_percentage_for_vote(self, votes_by_parties, all_votes): 
