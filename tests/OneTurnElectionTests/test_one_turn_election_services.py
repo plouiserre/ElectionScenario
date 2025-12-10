@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+from src.backend.domain.services.GlobalElection.RepresentativeCongress import RepresentativeCongress
 from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
 from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
 from src.backend.domain.services.OneTurnElection.DeterminateAllElectedPersons import DeterminateAllElectedPersons
@@ -12,16 +13,20 @@ from tests.utils.mocks import mock_json_results
 
 class OneTurnElectionServiceCaseTest(unittest.TestCase):
     def test_one_turn_election_2024_determinate_good_congress_persons(self):
+        total_congress_persons = 8
+        year = 2024
         json_files = Mock()
         json_files.get_elections_data.return_value = mock_json_results()
         json_service = JsonResultsElection(json_files)
-        stability_congress = StabilityCongress(8)
-        build_congress = BuildCongress(stability_congress)
+        votes_results = self.__get_votes_results_data()
+        representative_congress = RepresentativeCongress(total_congress_persons, year)
+        stability_congress = StabilityCongress(total_congress_persons)
+        build_congress = BuildCongress(stability_congress, representative_congress, votes_results)
         elected_persons_by_district = DeterminateElectedPersonByDistrict()
         all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)
         election = OneTurnElectionService(json_service, all_elected_persons, build_congress)
         
-        congress = election.Determinate(2024)
+        congress = election.Determinate(year)
 
         self.__assert_congress_2024(congress)
 
@@ -30,6 +35,7 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         self.assertEqual(2024, congress.year)
         self.assertEqual("OneTurn", congress.mode)
         self.assertEqual("QUITE", congress.stability_majority)
+        self.assertEqual("QUITE", congress.representative_congress)
         self.__assert_parties_2024(congress.parties)
 
     def __assert_parties_2024(self, parties):
@@ -62,16 +68,20 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
     
     
     def test_one_turn_election_2022_determinate_good_congress_persons(self):
+        total_congress_persons = 8
+        year = 2022
         json_files = Mock()
         json_files.get_elections_data.return_value = mock_json_results()
         json_service = JsonResultsElection(json_files)
-        stability_congress = StabilityCongress(8)
-        build_congress = BuildCongress(stability_congress)
+        votes_results = self.__get_votes_results_data()
+        representative_congress = RepresentativeCongress(total_congress_persons, year)
+        stability_congress = StabilityCongress(total_congress_persons)
+        build_congress = BuildCongress(stability_congress, representative_congress, votes_results)
         elected_persons_by_district = DeterminateElectedPersonByDistrict()
         all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)
         election = OneTurnElectionService(json_service, all_elected_persons, build_congress)
         
-        congress = election.Determinate(2022)
+        congress = election.Determinate(year)
 
         self.__assert_congress_2022(congress)
 
@@ -80,6 +90,7 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         self.assertEqual(2022, congress.year)
         self.assertEqual("OneTurn", congress.mode)
         self.assertEqual("PERFECT", congress.stability_majority)
+        self.assertEqual("LOW", congress.representative_congress)
         self.__assert_parties_2022(congress.parties)
 
 
@@ -118,3 +129,10 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         self.assertEqual(1, rn_party.elected_congress_persons)
         assert_congress_person_with_district("GOULET|Florence|FEMININ|RN|8693|32.68|2ème circonscription|2|Meuse|55", rn_party.congress_persons[0], self)        
     
+
+    def __get_votes_results_data(self) : 
+        json_files = Mock()
+        json_files.get_elections_data.return_value = mock_json_results()
+        json_service = JsonResultsElection(json_files)
+        all_results = json_service.get_results()
+        return all_results

@@ -3,4 +3,5 @@ class Congress :
         self.year = 0
         self.mode = ''
         self.stability_majority = ''
+        self.representative_congress = ''
         self.parties = []
