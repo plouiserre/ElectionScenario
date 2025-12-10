@@ -20,10 +20,9 @@ class ProportionalNationalElectionServiceTest(unittest.TestCase):
         year = 2024
         json_files = Mock()
         json_files.get_elections_data.return_value = mock_json_results()
-        votes_results = self.__get_votes_results_data()
-        representative_congress = RepresentativeCongress(total_elected_congress_persons, year)
+        representative_congress = RepresentativeCongress(total_elected_congress_persons)
         stability_congress = StabilityCongress(total_elected_congress_persons)
-        build_congress = BuildCongress(stability_congress, representative_congress, votes_results)
+        build_congress = BuildCongress(stability_congress, representative_congress)
         json_service = JsonResultsElection(json_files)
 
         vote_by_party_service = DetermineVoteByParty()
@@ -53,11 +52,3 @@ class ProportionalNationalElectionServiceTest(unittest.TestCase):
 
         assert_congress_person_with_district("MAILLART-MÉHAIGNERIE|Laurence|FEMININ|ENS|25792|34.24|2ème circonscription|3502|Ille-et-Vilaine|35", congress.parties[2].congress_persons[0], self)
         assert_congress_person_with_district("VUILLEMIN|Benoît|MASCULIN|ENS|15026|26.79|2ème circonscription|2502|Doubs|25", congress.parties[2].congress_persons[1], self)
-
-
-    def __get_votes_results_data(self) : 
-        json_files = Mock()
-        json_files.get_elections_data.return_value = mock_json_results()
-        json_service = JsonResultsElection(json_files)
-        all_results = json_service.get_results()
-        return all_results

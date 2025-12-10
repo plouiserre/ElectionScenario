@@ -1,11 +1,11 @@
 class RepresentativeCongress : 
-    def __init__(self, total_congress_persons, year):
+    def __init__(self, total_congress_persons):
         self.congress = None
         self.all_votes = None
         self.total_congress_persons = total_congress_persons
-        self.year = year
 
-    def Calculate(self, congress, all_votes):
+    def Calculate(self, congress, all_votes, year):
+        self.year = year
         self.congress = congress
         self.all_votes = all_votes
         percentage_congress_persons_by_parties = self.__calculate_percentage_for_congress()  

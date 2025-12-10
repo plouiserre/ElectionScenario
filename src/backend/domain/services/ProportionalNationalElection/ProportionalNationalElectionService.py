@@ -19,7 +19,8 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
 
     def Determinate(self, year):
         self.year = year
-        all_datas_needed = self.__get_all_datas_needed(year)
+        results_data_all_years = self.json_results_election.get_results()
+        all_datas_needed = results_data_all_years[year]
         self.all_parties = all_datas_needed.all_parties
         self.candidates_results = self.__mixed_all_candidates_from_everywhere(all_datas_needed.all_candidates)
         _votes_by_parties = self.__calculate_each_party_votes()
@@ -28,13 +29,8 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         _number_congress_persons_elected_by_parties = self.__calculate_number_congress_persons_elected_by_parties(_percentages_for_parties_importants)
         _congress_persons_elected = self.__choose_congress_persons_elected_for_parties(_number_congress_persons_elected_by_parties)
         _parties_with_congress_persons = self.__regroup_congress_persons_by_parties(_congress_persons_elected)
-        congress = self.build_congress.Build(year, self.mode, _parties_with_congress_persons)
+        congress = self.build_congress.Build(year, self.mode, _parties_with_congress_persons, results_data_all_years)
         return congress    
-    
-    def __get_all_datas_needed(self, year):
-        results_data_all_years = self.json_results_election.get_results()
-        results_data = results_data_all_years[year]
-        return results_data
     
     def __mixed_all_candidates_from_everywhere(self, all_candidates_by_districts): 
         all_candidates_mixed = []

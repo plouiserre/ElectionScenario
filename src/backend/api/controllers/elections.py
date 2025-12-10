@@ -11,10 +11,10 @@ async def get_results_elections(year : str, mode : str, one_election_service = D
     if mode == "oneTurnMajority":
         congress_domain = one_election_service.Determinate(year_param)
         congress = to_mapper_congress_response(congress_domain)
-        return {"congress":{"year": congress.year, "mode": congress.mode, "parties" : congress.parties, "stability_majority" : congress.stability_majority}}
+        return {"congress":{"year": congress.year, "mode": congress.mode, "parties" : congress.parties, "stability_majority" : congress.stability_majority, "representative_congress" : congress.representative_congress}}
     elif mode =="proportionalNational":
         congress_domain = proportional_nationalElection_service.Determinate(year_param)
         congress = to_mapper_congress_response(congress_domain)
-        return {"congress":{"year": congress.year, "mode": congress.mode, "parties" : congress.parties, "stability_majority" : congress.stability_majority}}
+        return {"congress":{"year": congress.year, "mode": congress.mode, "parties" : congress.parties, "stability_majority" : congress.stability_majority, "representative_congress" : congress.representative_congress}}
     else : 
         raise HTTPException(status_code=404, detail="Results Mode unknown")

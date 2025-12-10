@@ -1,24 +1,19 @@
 from src.backend.domain.models.congress import Congress
 
 class BuildCongress : 
-    def __init__(self, study_stability, study_representative, votes_results):
+    def __init__(self, study_stability, study_representative):
        self.parties_ordered = []
        self.total_congress_person = 0
        self.study_stability = study_stability
        self.study_representative = study_representative
-       self.votes_results = votes_results
 
-    # def __init__(self, study_stability):
-    #    self.parties_ordered = []
-    #    self.total_congress_person = 0
-    #    self.study_stability = study_stability
-
-    def Build(self, year, mode, parties): 
+    def Build(self, year, mode, parties, votes_results): 
+        self.votes_results = votes_results
         self.__ordered_parties_by_percentage(parties)
         self.__count_congress_person_totality()
         congress = self.__build_congress(year, mode, self.parties_ordered)
         congress.stability_majority = self.study_stability.Calculate(congress)
-        congress.representative_congress = self.study_representative.Calculate(congress, self.votes_results)
+        congress.representative_congress = self.study_representative.Calculate(congress, self.votes_results, year)
         return congress
     
     def __ordered_parties_by_percentage(self, parties):

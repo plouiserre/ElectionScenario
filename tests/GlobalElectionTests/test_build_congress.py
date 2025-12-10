@@ -16,10 +16,10 @@ class BuildCongressTest(unittest.TestCase):
         parties_2024 = generate_datas("party", "high_stable_with_candidates_2024")
         votes_results = self.__get_votes_results_data(year)
         stability_congress = StabilityCongress(all_congress_persons_number)
-        representative_congress = RepresentativeCongress(all_congress_persons_number, year)
-        build_congress = BuildCongress(stability_congress, representative_congress, votes_results)
+        representative_congress = RepresentativeCongress(all_congress_persons_number)
+        build_congress = BuildCongress(stability_congress, representative_congress)
 
-        congress = build_congress.Build(year, "OneTurn", parties_2024)
+        congress = build_congress.Build(year, "OneTurn", parties_2024, votes_results)
 
         self.assertEqual(year, congress.year)
         self.assertEqual("OneTurn", congress.mode)
@@ -51,10 +51,10 @@ class BuildCongressTest(unittest.TestCase):
         parties_2024 = generate_datas("party", "low_stable_with_candidates_2024")
         votes_results = self.__get_votes_results_data(year)
         stability_congress = StabilityCongress(all_congress_persons_number)
-        representative_congress = RepresentativeCongress(all_congress_persons_number, year)
-        build_congress = BuildCongress(stability_congress, representative_congress, votes_results)
+        representative_congress = RepresentativeCongress(all_congress_persons_number)
+        build_congress = BuildCongress(stability_congress, representative_congress)
 
-        congress = build_congress.Build(year, "OneTurn", parties_2024)
+        congress = build_congress.Build(year, "OneTurn", parties_2024, votes_results)
 
         self.assertEqual(2024, congress.year)
         self.assertEqual("OneTurn", congress.mode)
