@@ -1,4 +1,4 @@
-from src.backend.domain.models.factory import  factory_congress, factory_congress_person, factory_district
+from src.backend.domain.models.factory import  factory_congress_datas
 from src.backend.domain.ports.inside.ProportionalNationalElectionPort import ProportionalNationalElectionPort
 
 class ProportionalNationalElectionService(ProportionalNationalElectionPort):
@@ -29,7 +29,8 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         _number_congress_persons_elected_by_parties = self.__calculate_number_congress_persons_elected_by_parties(_percentages_for_parties_importants)
         _congress_persons_elected = self.__choose_congress_persons_elected_for_parties(_number_congress_persons_elected_by_parties)
         _parties_with_congress_persons = self.__regroup_congress_persons_by_parties(_congress_persons_elected)
-        congress = self.build_congress.Build(year, self.mode, _parties_with_congress_persons, results_data_all_years)
+        congress_datas = factory_congress_datas(year, self.mode, _parties_with_congress_persons)
+        congress = self.build_congress.Build(congress_datas, results_data_all_years)
         return congress    
     
     def __mixed_all_candidates_from_everywhere(self, all_candidates_by_districts): 
