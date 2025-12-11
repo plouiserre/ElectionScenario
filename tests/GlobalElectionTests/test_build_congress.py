@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+from src.backend.domain.models.factory import factory_congress_datas
 from src.backend.domain.services.GlobalElection.RepresentativeCongress import RepresentativeCongress
 from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
 from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
@@ -16,9 +17,10 @@ class BuildCongressTest(unittest.TestCase):
         votes_results = self.__get_votes_results_data()
         stability_congress = StabilityCongress(all_congress_persons_number)
         representative_congress = RepresentativeCongress(all_congress_persons_number)
-        build_congress = BuildCongress(stability_congress, representative_congress)
+        build_congress = BuildCongress(stability_congress, representative_congress)  
+        congress_datas = factory_congress_datas(year, "OneTurn", parties_2024)      
 
-        congress = build_congress.Build(year, "OneTurn", parties_2024, votes_results)
+        congress = build_congress.Build(congress_datas, votes_results)
 
         self.assertEqual(year, congress.year)
         self.assertEqual("OneTurn", congress.mode)
@@ -37,8 +39,9 @@ class BuildCongressTest(unittest.TestCase):
         stability_congress = StabilityCongress(all_congress_persons_number)
         representative_congress = RepresentativeCongress(all_congress_persons_number)
         build_congress = BuildCongress(stability_congress, representative_congress)
+        congress_datas = factory_congress_datas(year, "OneTurn", parties_2024)
 
-        congress = build_congress.Build(2024, "OneTurn", parties_2024, votes_results)
+        congress = build_congress.Build(congress_datas, votes_results)
 
         self.assertEqual(2024, congress.year)
         self.assertEqual("OneTurn", congress.mode)
@@ -56,8 +59,9 @@ class BuildCongressTest(unittest.TestCase):
         stability_congress = StabilityCongress(all_congress_persons_number)
         representative_congress = RepresentativeCongress(all_congress_persons_number)
         build_congress = BuildCongress(stability_congress, representative_congress)
+        congress_datas = factory_congress_datas(year, "OneTurn", parties_2024)
 
-        congress = build_congress.Build(year, "OneTurn", parties_2024, votes_results)
+        congress = build_congress.Build(congress_datas, votes_results)
 
         self.assertEqual(2024, congress.year)
         self.assertEqual("OneTurn", congress.mode)

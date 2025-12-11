@@ -7,7 +7,10 @@ class BuildCongress :
        self.study_stability = study_stability
        self.study_representative = study_representative
 
-    def Build(self, year, mode, parties, votes_results): 
+    def Build(self, congress_datas, votes_results): 
+        parties = congress_datas.parties
+        year = congress_datas.year
+        mode = congress_datas.mode
         self.votes_results = votes_results
         self.__ordered_parties_by_percentage(parties)
         self.__count_congress_person_totality()
