@@ -8,7 +8,7 @@ from src.backend.domain.services.OneTurnElection.DeterminateElectedPersonByDistr
 from src.backend.domain.services.OneTurnElection.OneTurnElectionService import OneTurnElectionService
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
 from tests.utils.assert_helper import assert_congress_person_with_district
-from tests.utils.mocks import mock_json_results
+from tests.utils.data.catalogData import generate_datas
 
 
 class OneTurnElectionServiceCaseTest(unittest.TestCase):
@@ -16,7 +16,7 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         total_congress_persons = 8
         year = 2024
         json_files = Mock()
-        json_files.get_elections_data.return_value = mock_json_results()
+        json_files.get_elections_data.return_value = generate_datas("results_elections", "json_results")
         json_service = JsonResultsElection(json_files)
         representative_congress = RepresentativeCongress(total_congress_persons)
         stability_congress = StabilityCongress(total_congress_persons)
@@ -70,7 +70,7 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         total_congress_persons = 8
         year = 2022
         json_files = Mock()
-        json_files.get_elections_data.return_value = mock_json_results()
+        json_files.get_elections_data.return_value = generate_datas("results_elections", "json_results")
         json_service = JsonResultsElection(json_files)
         representative_congress = RepresentativeCongress(total_congress_persons)
         stability_congress = StabilityCongress(total_congress_persons)

@@ -6,7 +6,6 @@ from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongre
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
 from tests.utils.assert_helper import assert_party
 from tests.utils.data.catalogData import generate_datas
-from tests.utils.mocks import mock_json_results
 
 class BuildCongressTest(unittest.TestCase):
     #TODO remove 95 from high_stable_with_candidates_2024
@@ -14,7 +13,7 @@ class BuildCongressTest(unittest.TestCase):
         year = 2024     
         all_congress_persons_number = 7   
         parties_2024 = generate_datas("party", "high_stable_with_candidates_2024")
-        votes_results = self.__get_votes_results_data(year)
+        votes_results = self.__get_votes_results_data()
         stability_congress = StabilityCongress(all_congress_persons_number)
         representative_congress = RepresentativeCongress(all_congress_persons_number)
         build_congress = BuildCongress(stability_congress, representative_congress)
@@ -49,7 +48,7 @@ class BuildCongressTest(unittest.TestCase):
         year = 2024
         all_congress_persons_number = 7        
         parties_2024 = generate_datas("party", "low_stable_with_candidates_2024")
-        votes_results = self.__get_votes_results_data(year)
+        votes_results = self.__get_votes_results_data()
         stability_congress = StabilityCongress(all_congress_persons_number)
         representative_congress = RepresentativeCongress(all_congress_persons_number)
         build_congress = BuildCongress(stability_congress, representative_congress)
@@ -66,9 +65,6 @@ class BuildCongressTest(unittest.TestCase):
         assert_party('Les Républicains|LR|4|1', congress.parties[3], self)
   
 
-    def __get_votes_results_data(self, year):
-        json_files = Mock()
-        json_files.get_elections_data.return_value = mock_json_results()
-        json_service = JsonResultsElection(json_files)
-        all_results = json_service.get_results()
+    def __get_votes_results_data(self):
+        all_results = generate_datas("results_elections", "default7")
         return all_results
