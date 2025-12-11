@@ -38,7 +38,7 @@ class StabilityCongress :
         is_majority = False
         i = 1
         while i < 6: 
-            is_majority = self.__is_majority_with_vamily_above(i)
+            is_majority = self.__is_majority_with_family_above(i)
             if is_majority : 
                 break
             i += 1
@@ -49,7 +49,7 @@ class StabilityCongress :
             i += 1
         return is_majority
 
-    def __is_majority_with_vamily_above(self, id_family):
+    def __is_majority_with_family_above(self, id_family):
         all_elected_persons_above = 0
         all_elected_persons = self.__get_number_elected_persons_for_this_family(id_family)
         if id_family < 5 : 
