@@ -29,19 +29,23 @@ class BuildCongressTest(unittest.TestCase):
         assert_party('Les Républicains|LR|4|1', congress.parties[2], self)
 
 
-    #TODO recode this test because I must have an true stable congress or delete it
-    # def test_build_medium_stable_congress(self):
-    #     parties_2024 = generate_datas("party", "with_candidates_2024")
-    #     build_congress = BuildCongress()
+    def test_build_quite_stable_congress(self):
+        year = 2024     
+        all_congress_persons_number = 7   
+        parties_2024 = generate_datas("party", "with_candidates_2024")
+        votes_results = self.__get_votes_results_data()
+        stability_congress = StabilityCongress(all_congress_persons_number)
+        representative_congress = RepresentativeCongress(all_congress_persons_number)
+        build_congress = BuildCongress(stability_congress, representative_congress)
 
-    #     congress = build_congress.Build(2024, "OneTurn", parties_2024)
+        congress = build_congress.Build(2024, "OneTurn", parties_2024, votes_results)
 
-    #     self.assertEqual(2024, congress.year)
-    #     self.assertEqual("OneTurn", congress.mode)
-    #     self.assertEqual("MEDIUM", congress.stability_majority )
-    #     assert_party('Union de la gauche|UG|2|3', congress.parties[0], self)
-    #     assert_party('Rassemblement National|RN|5|3', congress.parties[1], self)
-    #     assert_party('Les Républicains|LR|4|1', congress.parties[2], self)
+        self.assertEqual(2024, congress.year)
+        self.assertEqual("OneTurn", congress.mode)
+        self.assertEqual("QUITE", congress.stability_majority )
+        assert_party('Union de la gauche|UG|2|3', congress.parties[0], self)
+        assert_party('Rassemblement National|RN|5|3', congress.parties[1], self)
+        assert_party('Les Républicains|LR|4|1', congress.parties[2], self)
 
 
     def test_build_low_stable_congress(self):
