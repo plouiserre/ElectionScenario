@@ -12,14 +12,14 @@ from src.backend.domain.services.ProportionalNationalElection.RemoveSmallParties
 from src.backend.domain.services.ProportionalNationalElection.SelectCongressPerson import SelectCongressPersons
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
 from tests.utils.assert_helper import assert_congress_person_with_district
-from tests.utils.mocks import mock_json_results
+from tests.utils.data.catalogData import generate_datas
 
 class ProportionalNationalElectionServiceTest(unittest.TestCase):
     def test_determinate_congress_with_proportional_election(self):
         total_elected_congress_persons = 8
         year = 2024
         json_files = Mock()
-        json_files.get_elections_data.return_value = mock_json_results()
+        json_files.get_elections_data.return_value = generate_datas("results_elections", "json_results")
         representative_congress = RepresentativeCongress(total_elected_congress_persons)
         stability_congress = StabilityCongress(total_elected_congress_persons)
         build_congress = BuildCongress(stability_congress, representative_congress)

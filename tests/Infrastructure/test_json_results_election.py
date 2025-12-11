@@ -3,12 +3,12 @@ from unittest.mock import Mock
 from src.backend.infrastructure.files.JsonFiles import JsonFiles
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
 from tests.utils.assert_helper import assert_candidate_with_district, assert_party
-from tests.utils.mocks import mock_json_results
+from tests.utils.data.catalogData import generate_datas
 
 class JsonResultsElectionTest(unittest.TestCase):
     def test_transform_data_from_json_to_congress_model(self):
         json_files = Mock()
-        json_files.get_elections_data.return_value = mock_json_results()
+        json_files.get_elections_data.return_value = generate_datas("results_elections", "json_results")
         json_results_election = JsonResultsElection(json_files)
         
         results_elections_datas = json_results_election.get_results()
