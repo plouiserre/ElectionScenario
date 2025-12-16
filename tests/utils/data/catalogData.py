@@ -2,7 +2,7 @@ from tests.utils.data.generateDataCongress import load_congress_very_stable, loa
 from tests.utils.data.generateDataCongressPersons import load_all_candidates, load_candidates_from_name
 from tests.utils.data.generateDataDistricts import build_first_district, build_second_district, build_third_district, build_fourth_district, build_fifth_district, build_sixth_district, build_seventh_district, build_eleventh_district
 from tests.utils.data.generateDataParties import load_all_parties, load_all_parties_with_candidates, load_all_parties_with_candidates_but_not_stability, load_all_parties_with_candidates_and_big_stability
-from tests.utils.data.generateDataResults import load_json_districts_results, load_7_districts_results, load_20_perfect_districts_results, load_20_good_districts_results, load_20_quite_districts_results, load_20_low_districts_results, load_json_districts_three_departments_results, load_json_districts_departement_with_one_district_results, load_json_districts_department_with_three_districts_results, load_json_districts_department_with_twelve_districts_results
+from tests.utils.data.generateDataResults import load_json_districts_results, load_7_districts_results, load_20_perfect_districts_results, load_20_good_districts_results, load_20_quite_districts_results, load_20_low_districts_results, load_json_districts_three_departments_results, load_json_districts_departement_with_one_district_results, load_json_districts_department_with_three_districts_results, load_json_districts_department_with_twelve_districts_results, load_json_districts_three_departments_tmp_results
 
 __districts_keys = ["first_district", "second_district", "third_district", "fourth_district",
                     "fifth_district", "sixth_district", "seventh_district", "eleventh_district"]
@@ -119,6 +119,8 @@ def __generate_results_elections(key):
         return load_json_districts_results()
     elif key == "three_departments":
         return load_json_districts_three_departments_results()
+    elif key == "three_departments_tmp":
+        return load_json_districts_three_departments_tmp_results()
     elif key == "one_district":
         return load_json_districts_departement_with_one_district_results()
     elif key =="three_districts":

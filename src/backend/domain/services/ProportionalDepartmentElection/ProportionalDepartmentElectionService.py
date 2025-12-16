@@ -52,8 +52,8 @@ class ProportionalDepartmentElectionService(ProportionalDepartmentElectionPort) 
     def __construct_uxd_party(self) : 
         first_congress_person = self.__construct_congress_person("LENOIR", "Bartolomé", "MASCULIN", "UXD", 20403, 33.35, "1ère circonscription", 1501, "Cantal", 15)
         congress_persons = [first_congress_person]
-        ens_party = self.__construct_party("Union de l'extrême droite", "UXD", 5, 1, congress_persons)
-        return ens_party
+        uxd_party = self.__construct_party("Union de l'extrême droite", "UXD", 5, 1, congress_persons)
+        return uxd_party
     
             
     
