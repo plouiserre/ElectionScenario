@@ -1,6 +1,7 @@
 import json
 from src.backend.domain.models.congressPerson import CongressPerson
 from src.backend.domain.models.district import District
+from src.backend.domain.models.party import Party
 
 def load_all_candidates():
     all_candidates = []
@@ -63,6 +64,41 @@ def __load_all_candidates_from_seventy_fifth_hundred_second_district():
     candidates_obj = json.loads(json_candidates)
     candidates = __transform_to_candidates_array(candidates_obj)
     return candidates
+
+def load_congress_persons_by_departments():
+    results = {}
+    json_congress_persons_by_departments = "{\"3\":[{\"code\":\"RN\",\"name\":\"Rassemblement National\",\"elected_congress_persons\":2,\"family\":5,\"congress_persons\":[{\"first_name\":\"Anne-Marie\",\"last_name\":\"THÈS\",\"parti_code\":\"RN\",\"sexe\":\"FEMININ\",\"vote\":22816,\"vote_percentage\":38.61,\"district\":{\"name\":\"1ère circonscription\",\"code\":\"301\",\"department_code\":\"3\",\"department_name\":\"Allier\"}},{\"first_name\":\"Rémy\",\"last_name\":\"QUENEY\",\"parti_code\":\"RN\",\"sexe\":\"MASCULIN\",\"vote\":20270,\"vote_percentage\":37.82,\"district\":{\"name\":\"3ème circonscription\",\"code\":\"303\",\"department_code\":\"3\",\"department_name\":\"Allier\"}}]},{\"code\":\"UG\",\"name\":\"Union de la gauche\",\"elected_congress_persons\":1,\"family\":2,\"congress_persons\":[{\"first_name\":\"Yannick\",\"last_name\":\"MONNET\",\"parti_code\":\"UG\",\"sexe\":\"MASCULIN\",\"vote\":17043,\"vote_percentage\":28.84,\"district\":{\"name\":\"1ère circonscription\",\"code\":\"301\",\"department_code\":\"3\",\"department_name\":\"Allier\"}}]}],\"15\":[{\"code\":\"UXD\",\"name\":\"Union de l'extrême droite\",\"elected_congress_persons\":1,\"family\":5,\"congress_persons\":[{\"first_name\":\"Bartolomé\",\"last_name\":\"LENOIR\",\"parti_code\":\"UXD\",\"sexe\":\"MASCULIN\",\"vote\":20403,\"vote_percentage\":33.35,\"district\":{\"name\":\"1ère circonscription\",\"code\":\"1501\",\"department_code\":\"15\",\"department_name\":\"Cantal\"}}]}],\"33\":[{\"code\":\"UG\",\"name\":\"Union de la gauche\",\"elected_congress_persons\":4,\"family\":2,\"congress_persons\":[{\"first_name\":\"Loïc\",\"last_name\":\"PRUD'HOMME\",\"parti_code\":\"UG\",\"sexe\":\"MASCULIN\",\"vote\":30664,\"vote_percentage\":49.83,\"district\":{\"name\":\"3ème circonscription\",\"code\":\"3303\",\"department_code\":\"33\",\"department_name\":\"Gironde\"}},{\"first_name\":\"Marie\",\"last_name\":\"RECALDE\",\"parti_code\":\"UG\",\"sexe\":\"FEMININ\",\"vote\":27564,\"vote_percentage\":35.24,\"district\":{\"name\":\"6ème circonscription\",\"code\":\"3306\",\"department_code\":\"33\",\"department_name\":\"Gironde\"}},{\"first_name\":\"Alain\",\"last_name\":\"DAVID\",\"parti_code\":\"UG\",\"sexe\":\"MASCULIN\",\"vote\":27092,\"vote_percentage\":42.36,\"district\":{\"name\":\"4ème circonscription\",\"code\":\"3304\",\"department_code\":\"33\",\"department_name\":\"Gironde\"}},{\"first_name\":\"Pascale\",\"last_name\":\"GOT\",\"parti_code\":\"UG\",\"sexe\":\"FEMININ\",\"vote\":26631,\"vote_percentage\":31.79,\"district\":{\"name\":\"5ème circonscription\",\"code\":\"3305\",\"department_code\":\"33\",\"department_name\":\"Gironde\"}}]},{\"code\":\"RN\",\"name\":\"Rassemblement National\",\"elected_congress_persons\":4,\"family\":5,\"congress_persons\":[{\"first_name\":\"Grégoire\",\"last_name\":\"DE FOURNAS\",\"parti_code\":\"RN\",\"sexe\":\"MASCULIN\",\"vote\":35457,\"vote_percentage\":42.32,\"district\":{\"name\":\"5ème circonscription\",\"code\":\"3305\",\"department_code\":\"33\",\"department_name\":\"Gironde\"}},{\"first_name\":\"Edwige\",\"last_name\":\"DIAZ\",\"parti_code\":\"RN\",\"sexe\":\"FEMININ\",\"vote\":34590,\"vote_percentage\":53.33,\"district\":{\"name\":\"11ème circonscription\",\"code\":\"3311\",\"department_code\":\"33\",\"department_name\":\"Gironde\"}},{\"first_name\":\"Laurent\",\"last_name\":\"LAMARA\",\"parti_code\":\"RN\",\"sexe\":\"MASCULIN\",\"vote\":31248,\"vote_percentage\":36.86,\"district\":{\"name\":\"8ème circonscription\",\"code\":\"3308\",\"department_code\":\"33\",\"department_name\":\"Gironde\"}},{\"first_name\":\"François-Xavier\",\"last_name\":\"MARQUES\",\"parti_code\":\"RN\",\"sexe\":\"MASCULIN\",\"vote\":27868,\"vote_percentage\":38.54,\"district\":{\"name\":\"9ème circonscription\",\"code\":\"3309\",\"department_code\":\"33\",\"department_name\":\"Gironde\"}}]},{\"code\":\"ENS\",\"name\":\"Ensemble ! (Majorité présidentielle)\",\"elected_congress_persons\":4,\"family\":3,\"congress_persons\":[{\"first_name\":\"Thomas\",\"last_name\":\"CAZENAVE\",\"parti_code\":\"ENS\",\"sexe\":\"MASCULIN\",\"vote\":28564,\"vote_percentage\":38.31,\"district\":{\"name\":\"1ère circonscription\",\"code\":\"3301\",\"department_code\":\"33\",\"department_name\":\"Gironde\"}},{\"first_name\":\"Sophie\",\"last_name\":\"PANONACLE\",\"parti_code\":\"ENS\",\"sexe\":\"FEMININ\",\"vote\":26881,\"vote_percentage\":31.71,\"district\":{\"name\":\"8ème circonscription\",\"code\":\"3308\",\"department_code\":\"33\",\"department_name\":\"Gironde\"}},{\"first_name\":\"Eric\",\"last_name\":\"POULLIAT\",\"parti_code\":\"ENS\",\"sexe\":\"MASCULIN\",\"vote\":25636,\"vote_percentage\":32.78,\"district\":{\"name\":\"6ème circonscription\",\"code\":\"3306\",\"department_code\":\"33\",\"department_name\":\"Gironde\"}},{\"first_name\":\"Sophie\",\"last_name\":\"METTE\",\"parti_code\":\"ENS\",\"sexe\":\"FEMININ\",\"vote\":21714,\"vote_percentage\":30.03,\"district\":{\"name\":\"9ème circonscription\",\"code\":\"3309\",\"department_code\":\"33\",\"department_name\":\"Gironde\"}}]}]}"
+    parties_obj = json.loads(json_congress_persons_by_departments)
+    for key in parties_obj : 
+        parties_department = parties_obj[key]
+        parties = __transform_to_parties_array(parties_department)
+        results[key] = parties
+    return results
+
+#TODO improve 
+def __transform_to_parties_array(parties_obj):
+    all_parties = []
+    for party_obj in parties_obj:
+            party = Party()
+            party.code = party_obj["code"]
+            party.name = party_obj["name"]
+            party.family = party_obj["family"]
+            party.congress_persons = __transform_to_candidates_array(party_obj["congress_persons"])
+            all_parties.append(party)
+    return all_parties
+
+def __transform_to_candidates_array_second_form(candidates_obj):
+    all_candidates = []
+    for candidate_obj in candidates_obj:
+        candidate = CongressPerson()
+        candidate.first_name = candidate_obj["first_name"]
+        candidate.last_name = candidate_obj["last_name"]
+        candidate.sexe = candidate_obj["sexe"]
+        candidate.parti_code = candidate_obj["party_code"]
+        candidate.vote = candidate_obj["vote"]
+        candidate.vote_percentage = candidate_obj["vote_percentage"]
+        all_candidates.append(candidate)
+    return all_candidates
 
 def __transform_to_candidates_array(candidates_obj):
     all_candidates = []
