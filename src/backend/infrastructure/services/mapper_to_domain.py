@@ -1,4 +1,5 @@
 from src.backend.domain.models.congressPerson import CongressPerson
+from src.backend.domain.models.department import Department
 from src.backend.domain.models.district import District
 from src.backend.domain.models.factory import factory_elections
 from src.backend.domain.models.party import Party
@@ -7,10 +8,11 @@ def mapper_all_elections_results(data_results_elections):
     all_elections_results = {}
     all_candidates = __mapper_candidates_to_domain_person(data_results_elections)
     all_parties = __mapper_parties_to_domain(data_results_elections)
+    all_departments = __mapper_departments_to_domain(data_results_elections)
     for year in all_parties : 
         all_candidates_this_year = all_candidates[year]
         all_parties_this_year = all_parties[year]
-        elections = factory_elections(all_candidates_this_year, all_parties_this_year)
+        elections = factory_elections(all_candidates_this_year, all_parties_this_year, all_departments)
         all_elections_results[year] = elections
     return all_elections_results
     
@@ -84,3 +86,13 @@ def __mapper_party_to_domain(party):
     party_domain.name = party["name"]
     party_domain.family = int(party["family"])
     return party_domain
+
+def __mapper_departments_to_domain(data_results_elections): 
+    all_departments_domain = []
+    all_departments = data_results_elections["departments"]
+    for dpt in all_departments : 
+       department = Department()
+       department.code = dpt["code"]
+       department.name = dpt["name"]
+       all_departments_domain.append(department)
+    return all_departments_domain

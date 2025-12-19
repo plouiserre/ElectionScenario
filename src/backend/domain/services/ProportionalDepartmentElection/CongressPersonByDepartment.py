@@ -8,13 +8,13 @@ class CongressPersonByDepartment :
         pass
 
     def Choose(self, elections_results, department_code):
-        if department_code == 15:
+        if department_code == "15":
             department_congress = self.__construct_cantal_department_congress()
             return department_congress
-        elif department_code == 3: 
+        elif department_code == "3": 
             department_congress = self.__construct_allier_department_congress()
             return department_congress
-        elif department_code == 33:
+        elif department_code == "33":
             department_congress = self.__construct_gironde_department_congress()
             return department_congress
     

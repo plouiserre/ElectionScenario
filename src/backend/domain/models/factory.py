@@ -13,10 +13,11 @@ def factory_congress_person(last_name, first_name, sexe, parti_code, vote, vote_
     congress_person.district = district
     return congress_person
 
-def factory_elections(candidates, parties):
+def factory_elections(candidates, parties, departments):
     elections = Elections()
     elections.all_candidates = candidates
     elections.all_parties = parties 
+    elections.all_departments = departments
     return elections
 
 def factory_congress_datas(year, mode, parties):
