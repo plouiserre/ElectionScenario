@@ -6,7 +6,7 @@ from tests.utils.data.catalogData import generate_datas
 class CongressPersonByDepartmentTest(unittest.TestCase):
     def test_choose_congress_persons_for_cantal_department(self):
         elections_results = generate_datas("results_elections", "three_departments_tmp")
-        department_code = 15
+        department_code = "15"
         congress_persons_by_department = CongressPersonByDepartment()
 
         department_congress = congress_persons_by_department.Choose(elections_results, department_code)
@@ -18,7 +18,7 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
 
     def test_choose_congress_persons_for_allier_department(self):
         elections_results = generate_datas("results_elections", "three_departments_tmp")
-        department_code = 3
+        department_code = "3"
         congress_persons_by_department = CongressPersonByDepartment()
 
         department_congress = congress_persons_by_department.Choose(elections_results, department_code)
@@ -31,7 +31,7 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         
     def test_choose_congress_persons_for_gironde_department(self):
         elections_results = generate_datas("results_elections", "three_departments_tmp")
-        department_code = 33
+        department_code = "33"
         congress_persons_by_department = CongressPersonByDepartment()
 
         department_congress = congress_persons_by_department.Choose(elections_results, department_code)
