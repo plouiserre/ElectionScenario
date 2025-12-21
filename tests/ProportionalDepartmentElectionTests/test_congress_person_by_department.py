@@ -1,5 +1,6 @@
 import unittest
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
+from src.backend.domain.services.ProportionalDepartmentElection.NumberCongressPerson import NumberCongressPerson
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.data.catalogData import generate_datas
 
@@ -7,9 +8,10 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
     def test_choose_congress_persons_for_cantal_department(self):
         elections_results = generate_datas("results_elections", "three_departments_tmp")
         department_code = "15"
-        congress_persons_by_department = CongressPersonByDepartment()
+        number_congress_person = NumberCongressPerson()
+        congress_persons_by_department = CongressPersonByDepartment(number_congress_person)
 
-        department_congress = congress_persons_by_department.Choose(elections_results, department_code)
+        department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
 
         self.assertEqual(15, department_congress.department_code)
         self.assertEqual("Cantal", department_congress.department_name)
@@ -19,9 +21,10 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
     def test_choose_congress_persons_for_allier_department(self):
         elections_results = generate_datas("results_elections", "three_departments_tmp")
         department_code = "3"
-        congress_persons_by_department = CongressPersonByDepartment()
+        number_congress_person = NumberCongressPerson()
+        congress_persons_by_department = CongressPersonByDepartment(number_congress_person)
 
-        department_congress = congress_persons_by_department.Choose(elections_results, department_code)
+        department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
 
         self.assertEqual(3, department_congress.department_code)
         self.assertEqual("Allier", department_congress.department_name)
@@ -32,9 +35,10 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
     def test_choose_congress_persons_for_gironde_department(self):
         elections_results = generate_datas("results_elections", "three_departments_tmp")
         department_code = "33"
-        congress_persons_by_department = CongressPersonByDepartment()
+        number_congress_person = NumberCongressPerson()
+        congress_persons_by_department = CongressPersonByDepartment(number_congress_person)
 
-        department_congress = congress_persons_by_department.Choose(elections_results, department_code)
+        department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
 
         self.assertEqual(33, department_congress.department_code)
         self.assertEqual("Gironde", department_congress.department_name)

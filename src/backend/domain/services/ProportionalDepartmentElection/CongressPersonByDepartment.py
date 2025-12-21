@@ -4,10 +4,11 @@ from src.backend.domain.models.district import District
 from src.backend.domain.models.party import Party
 
 class CongressPersonByDepartment : 
-    def __init__(self):
-        pass
+    def __init__(self, number_congress_person):
+        self.number_congress_person = number_congress_person
 
-    def Choose(self, elections_results, department_code):
+    def Choose(self, elections_results, year , department_code):
+        total_congress_person = self.number_congress_person.Calculate(department_code, elections_results, year)
         if department_code == "15":
             department_congress = self.__construct_cantal_department_congress()
             return department_congress

@@ -14,7 +14,7 @@ class ProportionalDepartmentElectionService(ProportionalDepartmentElectionPort) 
         elections_results = self.json_service.get_results()
         congress_persons_elected = {}
         for dept in elections_results[year].all_departments : 
-            results = self.congress_persons_by_departments.Choose(elections_results, dept.code)
+            results = self.congress_persons_by_departments.Choose(elections_results, year, dept.code)
             congress_persons_elected[results.department_code] = results.parties
             
         all_parties = self.manage_congress_persons_by_department.group_by_parties(congress_persons_elected)
