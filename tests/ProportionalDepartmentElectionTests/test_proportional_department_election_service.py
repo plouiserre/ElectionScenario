@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.ManageCongressPersonsByDepartment import ManageCongressPersonsByDepartment
+from src.backend.domain.services.ProportionalDepartmentElection.NumberCongressPerson import NumberCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.ProportionalDepartmentElectionService import ProportionalDepartmentElectionService
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.data.catalogData import generate_datas
@@ -13,7 +14,8 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         json_files = Mock()
         json_files.get_elections_data.return_value = generate_datas("results_elections", "three_departments_tmp_no_objects")        
         json_service = JsonResultsElection(json_files)
-        congress_persons_by_departments = CongressPersonByDepartment()
+        total_congress_person = NumberCongressPerson()
+        congress_persons_by_departments = CongressPersonByDepartment(total_congress_person)
         manage_congress_persons_by_department = ManageCongressPersonsByDepartment()
         proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, manage_congress_persons_by_department)        
 
