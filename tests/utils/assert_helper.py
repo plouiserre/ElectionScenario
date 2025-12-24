@@ -17,6 +17,23 @@ def __assert_person(datas, person, unittest):
         unittest.assertEqual(data[8], person.district.department_name)
         unittest.assertEqual(data[9], str(person.district.department_code))
 
+def assert_candidate_with_district_and_percentage(datas, congress_person, unittest):
+        __assert_person_with_percentage(datas, congress_person, unittest)
+
+def __assert_person_with_percentage(datas, person, unittest):
+        data = datas.split("|")
+        person_vote_percentage = str.replace(person.vote_percentage, "%", "")
+        unittest.assertEqual(data[0], person.last_name)
+        unittest.assertEqual(data[1], person.first_name)
+        unittest.assertEqual(data[2], person.sexe)
+        unittest.assertEqual(data[3], person.parti_code)
+        unittest.assertEqual(int(data[4]), person.vote)
+        unittest.assertEqual(data[5], person_vote_percentage)
+        unittest.assertEqual(data[6], person.district.name)
+        unittest.assertEqual(data[7], str(person.district.code))
+        unittest.assertEqual(data[8], person.district.department_name)
+        unittest.assertEqual(data[9], str(person.district.department_code))
+
 def assert_party(datas, party_info, unittest):
         data = datas.split("|")
         unittest.assertEqual(data[0], party_info.name)
