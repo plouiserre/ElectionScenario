@@ -3,7 +3,7 @@ from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonBy
 from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
 from src.backend.domain.services.ProportionalDepartmentElection.MinimalVoteCongressPerson import MinimalVoteCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.NumberCongressPerson import NumberCongressPerson
-from src.backend.domain.services.ProportionalNationalElection.DetermineVoteByParty import DetermineVoteByParty
+from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.data.catalogData import generate_datas
 
