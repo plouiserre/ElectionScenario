@@ -1,5 +1,5 @@
 import unittest
-from src.backend.domain.services.ProportionalNationalElection.DetermineVoteByParty import DetermineVoteByParty
+from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from tests.utils.data.catalogData import generate_datas
 
 class DetermineVoteByPartyTest(unittest.TestCase):

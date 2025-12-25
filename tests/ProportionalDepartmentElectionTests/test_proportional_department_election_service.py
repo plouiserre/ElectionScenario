@@ -6,6 +6,7 @@ from src.backend.domain.services.ProportionalDepartmentElection.ManageCongressPe
 from src.backend.domain.services.ProportionalDepartmentElection.MinimalVoteCongressPerson import MinimalVoteCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.NumberCongressPerson import NumberCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.ProportionalDepartmentElectionService import ProportionalDepartmentElectionService
+from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.data.catalogData import generate_datas
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
@@ -19,8 +20,9 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         total_congress_person = NumberCongressPerson()
         minimal_vote_congress_person = MinimalVoteCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
-        congress_persons_by_departments = CongressPersonByDepartment(total_congress_person, minimal_vote_congress_person, districts_vote_from_dpt)
-        manage_congress_persons_by_department = ManageCongressPersonsByDepartment()
+        determinate_vote_by_party = DetermineVoteByParty()
+        congress_persons_by_departments = CongressPersonByDepartment(total_congress_person, minimal_vote_congress_person, districts_vote_from_dpt, determinate_vote_by_party)
+        manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
         proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, manage_congress_persons_by_department)        
 
         congress = proportional_department_election_service.Determinate(year)
