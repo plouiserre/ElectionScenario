@@ -4,18 +4,21 @@ from src.backend.domain.models.district import District
 from src.backend.domain.models.party import Party
 
 class CongressPersonByDepartment :          
-    def __init__(self, number_congress_person, minimal_vote_congress_person, districts_vote_from_dpt, determinate_vote_by_party):
+    def __init__(self, number_congress_person, minimal_vote_congress_person, districts_vote_from_dpt, determinate_vote_by_party, 
+                 determine_percentage_vote_by_party):
         self.number_congress_person = number_congress_person
         self.minimal_vote_congress_person = minimal_vote_congress_person
         self.districts_vote_from_dpt = districts_vote_from_dpt
         self.determinate_vote_by_party = determinate_vote_by_party
+        self.determine_percentage_vote_by_party = determine_percentage_vote_by_party
 
     def Choose(self, elections_results, year , department_code):
         total_congress_person = self.number_congress_person.Calculate(department_code, elections_results, year)
         minimal_vote = self.minimal_vote_congress_person.Calculate(total_congress_person)
         all_votes_from_dpt = self.districts_vote_from_dpt.Find(elections_results, department_code, year)
         all_candidates_from_districts = self.__regroup_all_candidates_from_districts(all_votes_from_dpt)
-        test = self.determinate_vote_by_party.Calculate(all_candidates_from_districts)
+        parties_by_vote = self.determinate_vote_by_party.Calculate(all_candidates_from_districts)
+        all_percentage_vote_by_party = self.determine_percentage_vote_by_party.Calculate(parties_by_vote)
         if department_code == "15":
             department_congress = self.__construct_cantal_department_congress()
             return department_congress

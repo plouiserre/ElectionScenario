@@ -1,9 +1,10 @@
 import unittest
+from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
+from src.backend.domain.services.GlobalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
 from src.backend.domain.services.ProportionalDepartmentElection.MinimalVoteCongressPerson import MinimalVoteCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.NumberCongressPerson import NumberCongressPerson
-from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.data.catalogData import generate_datas
 
@@ -15,7 +16,10 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         minimal_vote_congress_person = MinimalVoteCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         determinate_vote_by_party = DetermineVoteByParty()
-        congress_persons_by_department = CongressPersonByDepartment(number_congress_person, minimal_vote_congress_person, districts_vote_from_dpt, determinate_vote_by_party)
+        percentage_vote_by_party = DeterminePercentageVoteByParty()
+
+        congress_persons_by_department = CongressPersonByDepartment(number_congress_person, minimal_vote_congress_person, districts_vote_from_dpt, 
+                                                                    determinate_vote_by_party, percentage_vote_by_party)
 
         department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
 
@@ -31,7 +35,9 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         minimal_vote_congress_person = MinimalVoteCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         determinate_vote_by_party = DetermineVoteByParty()
-        congress_persons_by_department = CongressPersonByDepartment(number_congress_person, minimal_vote_congress_person, districts_vote_from_dpt, determinate_vote_by_party)
+        percentage_vote_by_party = DeterminePercentageVoteByParty()
+        congress_persons_by_department = CongressPersonByDepartment(number_congress_person, minimal_vote_congress_person, districts_vote_from_dpt, 
+                                                                    determinate_vote_by_party, percentage_vote_by_party)
 
         department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
 
@@ -48,7 +54,9 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         minimal_vote_congress_person = MinimalVoteCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         determinate_vote_by_party = DetermineVoteByParty()
-        congress_persons_by_department = CongressPersonByDepartment(number_congress_person, minimal_vote_congress_person, districts_vote_from_dpt, determinate_vote_by_party)
+        percentage_vote_by_party = DeterminePercentageVoteByParty()
+        congress_persons_by_department = CongressPersonByDepartment(number_congress_person, minimal_vote_congress_person, districts_vote_from_dpt, 
+                                                                    determinate_vote_by_party, percentage_vote_by_party)
 
         department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
 
