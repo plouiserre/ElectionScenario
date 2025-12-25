@@ -1,6 +1,6 @@
 import unittest
 from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
-from src.backend.domain.services.ProportionalNationalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
+from src.backend.domain.services.GlobalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
 from src.backend.domain.services.ProportionalDepartmentElection.MinimalVoteCongressPerson import MinimalVoteCongressPerson

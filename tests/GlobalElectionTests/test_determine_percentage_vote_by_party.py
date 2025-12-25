@@ -1,5 +1,5 @@
 import unittest
-from src.backend.domain.services.ProportionalNationalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
+from src.backend.domain.services.GlobalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
 
 class DeterminePercentageVoteByPartyTest(unittest.TestCase): 
     def test_calculate_all_percentage_vote_for_all_parties(self):
