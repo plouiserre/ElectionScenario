@@ -1,6 +1,7 @@
 from src.backend.domain.models.congressPerson import CongressPerson
 from src.backend.domain.models.congress_datas import CongressDatas
 from src.backend.domain.models.elections import Elections
+from src.backend.domain.models.ProportionalDepartemental.mode_design import ModeDesign
 
 def factory_congress_person(last_name, first_name, sexe, parti_code, vote, vote_percentage, district):
     congress_person = CongressPerson()
@@ -26,3 +27,9 @@ def factory_congress_datas(year, mode, parties):
     congress_datas.mode = mode
     congress_datas.parties = parties
     return congress_datas
+
+def factory_mode_design(type, minimal_vote): 
+    mode_design = ModeDesign()
+    mode_design.type = type
+    mode_design.minimal_vote = minimal_vote
+    return mode_design

@@ -5,7 +5,7 @@ from src.backend.domain.services.GlobalElection.DeterminePercentageVoteByParty i
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
 from src.backend.domain.services.ProportionalDepartmentElection.ManageCongressPersonsByDepartment import ManageCongressPersonsByDepartment
-from src.backend.domain.services.ProportionalDepartmentElection.MinimalVoteCongressPerson import MinimalVoteCongressPerson
+from src.backend.domain.services.ProportionalDepartmentElection.ModeDesignCongressPerson import ModeDesignCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.NumberCongressPerson import NumberCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.ProportionalDepartmentElectionService import ProportionalDepartmentElectionService
 from tests.utils.assert_helper import assert_congress_person_with_district
@@ -19,11 +19,11 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         json_files.get_elections_data.return_value = generate_datas("results_elections", "three_departments_tmp_no_objects")        
         json_service = JsonResultsElection(json_files)
         total_congress_person = NumberCongressPerson()
-        minimal_vote_congress_person = MinimalVoteCongressPerson()
+        mode_design_congress_person = ModeDesignCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         determinate_vote_by_party = DetermineVoteByParty()        
         percentage_vote_by_party = DeterminePercentageVoteByParty()
-        congress_persons_by_departments = CongressPersonByDepartment(total_congress_person, minimal_vote_congress_person, districts_vote_from_dpt, 
+        congress_persons_by_departments = CongressPersonByDepartment(total_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
                                                                      determinate_vote_by_party, percentage_vote_by_party)
         manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
         proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, manage_congress_persons_by_department)        
