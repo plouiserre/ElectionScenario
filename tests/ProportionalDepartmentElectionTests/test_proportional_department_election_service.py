@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from src.backend.domain.services.GlobalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
+from src.backend.domain.services.GlobalElection.SelectCongressPerson import SelectCongressPersons
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.DeterminateSeatByPartyInDept import DeterminateSeatsByPartyInDept
 from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
@@ -25,8 +26,11 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         determinate_vote_by_party = DetermineVoteByParty()        
         percentage_vote_by_party = DeterminePercentageVoteByParty()        
         determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
+        select_congress_persons = SelectCongressPersons()
+
         congress_persons_by_departments = CongressPersonByDepartment(total_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
-                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept)
+                                                                    determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
+                                                                    select_congress_persons)
         manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
         proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, manage_congress_persons_by_department)        
 
