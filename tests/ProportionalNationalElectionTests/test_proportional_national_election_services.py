@@ -9,7 +9,7 @@ from src.backend.domain.services.ProportionalNationalElection.DeterminateSeatsBy
 from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from src.backend.domain.services.ProportionalNationalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
 from src.backend.domain.services.ProportionalNationalElection.RemoveSmallParties import RemoveSmallParties
-from src.backend.domain.services.ProportionalNationalElection.SelectCongressPerson import SelectCongressPersons
+from src.backend.domain.services.GlobalElection.SelectCongressPerson import SelectCongressPersons
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.data.catalogData import generate_datas

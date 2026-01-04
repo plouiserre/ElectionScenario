@@ -1,5 +1,5 @@
 import unittest
-from src.backend.domain.services.ProportionalNationalElection.SelectCongressPerson import SelectCongressPersons
+from src.backend.domain.services.GlobalElection.SelectCongressPerson import SelectCongressPersons
 from tests.utils.data.catalogData import generate_datas
 from tests.utils.assert_helper import assert_congress_person_with_district
 
