@@ -5,7 +5,7 @@ from src.backend.domain.models.party import Party
 
 class CongressPersonByDepartment :          
     def __init__(self, number_congress_person, minimal_vote_congress_person, districts_vote_from_dpt, determinate_vote_by_party, 
-                 determine_percentage_vote_by_party, determinate_seats_by_party_in_dept, select_congress_persons):
+                 determine_percentage_vote_by_party, determinate_seats_by_party_in_dept, select_congress_persons, regroup_congress_persons_by_parties):
         self.number_congress_person = number_congress_person
         self.minimal_vote_congress_person = minimal_vote_congress_person
         self.districts_vote_from_dpt = districts_vote_from_dpt
@@ -13,6 +13,7 @@ class CongressPersonByDepartment :
         self.determine_percentage_vote_by_party = determine_percentage_vote_by_party
         self.determinate_seats_by_party_in_dept = determinate_seats_by_party_in_dept
         self.select_congress_persons = select_congress_persons
+        self.regroup_congress_persons_by_parties = regroup_congress_persons_by_parties
 
     def Choose(self, elections_results, year , department_code):
         total_congress_person = self.number_congress_person.Calculate(department_code, elections_results, year)
@@ -23,6 +24,7 @@ class CongressPersonByDepartment :
         mode_design = self.minimal_vote_congress_person.Calculate(total_congress_person, all_percentage_vote_by_party)
         parties_seats_by_dept = self.determinate_seats_by_party_in_dept.Determinate(all_percentage_vote_by_party, mode_design, total_congress_person)
         congress_persons_elected = self.select_congress_persons.Choose(parties_seats_by_dept, all_candidates_from_districts)
+        all_parties = self.regroup_congress_persons_by_parties.sort(congress_persons_elected, elections_results[year].all_parties)
         if department_code == "15":
             department_congress = self.__construct_cantal_department_congress()
             return department_congress
