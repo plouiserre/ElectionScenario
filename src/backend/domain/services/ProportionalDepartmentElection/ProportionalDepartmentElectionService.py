@@ -1,3 +1,4 @@
+import copy
 from src.backend.domain.ports.inside.ProportionalDepartmentElectionPort import ProportionalDepartmentElectionPort
 from src.backend.domain.models.congress import Congress
 from src.backend.domain.models.congressPerson import CongressPerson
@@ -15,7 +16,7 @@ class ProportionalDepartmentElectionService(ProportionalDepartmentElectionPort) 
         congress_persons_elected = {}
         for dept in elections_results[year].all_departments : 
             results = self.congress_persons_by_departments.Choose(elections_results, year, dept.code)
-            congress_persons_elected[results.department_code] = results.parties
+            congress_persons_elected[results.department_code] = copy.deepcopy(results.parties)
             
         all_parties = self.manage_congress_persons_by_department.group_by_parties(congress_persons_elected)
         parties = self.__ordered_all_parties(all_parties)
