@@ -11,7 +11,7 @@ from src.backend.domain.services.GlobalElection.DeterminePercentageVoteByParty i
 from src.backend.domain.services.ProportionalNationalElection.DeterminateSeatsByParty import DeterminateSeatsByParty
 from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from src.backend.domain.services.ProportionalNationalElection.ProportionalNationalElectionService import ProportionalNationalElectionService
-from src.backend.domain.services.ProportionalNationalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
+from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
 from src.backend.domain.services.ProportionalNationalElection.RemoveSmallParties import RemoveSmallParties
 from src.backend.domain.services.GlobalElection.SelectCongressPerson import SelectCongressPersons
 from src.backend.infrastructure.files.JsonFiles import JsonFiles

@@ -1,5 +1,5 @@
 import unittest
-from src.backend.domain.services.ProportionalNationalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
+from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.data.catalogData import generate_datas
 
