@@ -28,7 +28,9 @@ class ProportionalDepartmentElectionService(ProportionalDepartmentElectionPort) 
         parties = []
         for party_code  in all_parties:
             parties.append(all_parties[party_code])
-        return parties           
+
+        sorted_parties = sorted(parties, key = lambda x: (x.elected_congress_persons), reverse= True)
+        return sorted_parties           
 
     def __construct_congress(self, year, mode, stability_majority, representative_congress, parties):
         congress = Congress()
