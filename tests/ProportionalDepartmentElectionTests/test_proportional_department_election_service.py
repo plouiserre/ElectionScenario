@@ -1,9 +1,12 @@
 import unittest
 from unittest.mock import Mock
+from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
 from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from src.backend.domain.services.GlobalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
 from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
+from src.backend.domain.services.GlobalElection.RepresentativeCongress import RepresentativeCongress
 from src.backend.domain.services.GlobalElection.SelectCongressPerson import SelectCongressPersons
+from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.DeterminateSeatByPartyInDept import DeterminateSeatsByPartyInDept
 from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
@@ -17,7 +20,9 @@ from src.backend.infrastructure.services.JsonResultsElection import JsonResultsE
 
 class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
     def test_determinate_congress_with_proportional_department_election(self):
+        total_congress_persons = 16
         year = 2024
+        mode = "PROPORTIONALITYDEPARTMENT"
         json_files = Mock()
         json_files.get_elections_data.return_value = generate_datas("results_elections", "three_departments_tmp_no_objects")        
         json_service = JsonResultsElection(json_files)
@@ -34,14 +39,18 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
                                                                     select_congress_persons, regroup_congress_persons_by_parties)
         manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
-        proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, manage_congress_persons_by_department)        
+        stability_congress = StabilityCongress(total_congress_persons)
+        representative_congress = RepresentativeCongress(total_congress_persons)
+        build_congress = BuildCongress(stability_congress, representative_congress)
+        proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, manage_congress_persons_by_department, 
+                                                                                         build_congress, mode)        
 
         congress = proportional_department_election_service.Determinate(year)
 
         self.assertEqual(year, congress.year)
         self.assertEqual("PROPORTIONALITYDEPARTMENT", congress.mode)
-        self.assertEqual("GOOD", congress.stability_majority)
-        self.assertEqual("GOOD", congress.representative_congress)
+        self.assertEqual("QUITE", congress.stability_majority)
+        self.assertEqual("PERFECT", congress.representative_congress)
         self.assertEqual(5, len(congress.parties))            
         
         #RN 5
