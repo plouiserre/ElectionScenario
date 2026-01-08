@@ -22,7 +22,7 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
     def test_determinate_congress_with_proportional_department_election(self):
         total_congress_persons = 16
         year = 2024
-        mode = "PROPORTIONALITYDEPARTMENT"
+        mode = "proportionalDepartmental"
         json_files = Mock()
         json_files.get_elections_data.return_value = generate_datas("results_elections", "three_departments_tmp_no_objects")        
         json_service = JsonResultsElection(json_files)
@@ -48,7 +48,7 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         congress = proportional_department_election_service.Determinate(year)
 
         self.assertEqual(year, congress.year)
-        self.assertEqual("PROPORTIONALITYDEPARTMENT", congress.mode)
+        self.assertEqual("proportionalDepartmental", congress.mode)
         self.assertEqual("QUITE", congress.stability_majority)
         self.assertEqual("PERFECT", congress.representative_congress)
         self.assertEqual(5, len(congress.parties))            
