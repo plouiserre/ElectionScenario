@@ -1,5 +1,5 @@
 import unittest
-from src.backend.domain.models.factory import factory_dpt
+from tests.utils.assert_helper import assert_candidate_with_district_and_percentage
 from src.backend.domain.services.GlobalElection.CongressPersonsByDepartement import CongressPersonsByDepartments
 from tests.utils.data.catalogData import generate_datas
 
@@ -7,175 +7,47 @@ class CongressPersonsByDepartmentsTest(unittest.TestCase):
     def test_congress_persons_are_regrouped_by_dept_from_dpt_congress(self):
         congress_persons_by_dpts = CongressPersonsByDepartments()
         congress_departments = generate_datas("department_congress", "three_departments_congress")
-        departments = generate_datas("department", "load_three_departments")
         
-        congress_persons_regroup_by_dpt = congress_persons_by_dpts.regroup_from_congress_dpts(congress_departments, departments)
-        
-        #Cantal
-        congress_persons_cantal = congress_persons_regroup_by_dpt["15"]
+        congress_persons_regroup_by_dpt = congress_persons_by_dpts.regroup_from_congress_dpts(congress_departments)
+
+        self.__assert_cantal_congress_person_department(congress_persons_regroup_by_dpt["15"])
+        self.__assert_allier_congress_person_department(congress_persons_regroup_by_dpt["3"])
+        self.__assert_gironde_congress_person_department(congress_persons_regroup_by_dpt["33"])
+
+    def __assert_cantal_congress_person_department(self, congress_persons_cantal):        
         self.assertEqual(1, len(congress_persons_cantal))
-        self.assertEqual("DESCOEUR", congress_persons_cantal[0].last_name)
-        self.assertEqual("Vincent", congress_persons_cantal[0].first_name)
-        self.assertEqual("DVD", congress_persons_cantal[0].parti_code)
-        self.assertEqual("MASCULIN", congress_persons_cantal[0].sexe)
-        self.assertEqual(16615, congress_persons_cantal[0].vote)
-        self.assertEqual("37.66%", congress_persons_cantal[0].vote_percentage)
-        self.assertEqual("1501", congress_persons_cantal[0].district.code)
-        self.assertEqual("15", congress_persons_cantal[0].district.department_code)
-        self.assertEqual("1ère circonscription", congress_persons_cantal[0].district.name)            
+        assert_candidate_with_district_and_percentage("DESCOEUR|Vincent|MASCULIN|DVD|16615|37.66|1ère circonscription|1501||15", congress_persons_cantal[0], self)       
 
-        #Allier
-        congress_persons_allier = congress_persons_regroup_by_dpt["3"]
-        self.assertEqual(3, len(congress_persons_allier))
-        self.assertEqual("MONNET", congress_persons_allier[0].last_name)
-        self.assertEqual("Yannick", congress_persons_allier[0].first_name)
-        self.assertEqual("UG", congress_persons_allier[0].parti_code)
-        self.assertEqual("MASCULIN", congress_persons_allier[0].sexe)
-        self.assertEqual(17043, congress_persons_allier[0].vote)
-        self.assertEqual("28.84%", congress_persons_allier[0].vote_percentage)
-        self.assertEqual("301", congress_persons_allier[0].district.code)
-        self.assertEqual("3", congress_persons_allier[0].district.department_code)
-        self.assertEqual("1ère circonscription", congress_persons_allier[0].district.name)
+    def __assert_allier_congress_person_department(self, congress_persons_allier):     
+        self.assertEqual(3, len(congress_persons_allier))        
+        assert_candidate_with_district_and_percentage("MONNET|Yannick|MASCULIN|UG|17043|28.84|1ère circonscription|301||3", congress_persons_allier[0], self)
+        
+        assert_candidate_with_district_and_percentage("RAY|Nicolas|MASCULIN|LR|21464|40.05|3ème circonscription|303||3", congress_persons_allier[1], self)
 
-        self.assertEqual("RAY", congress_persons_allier[1].last_name)
-        self.assertEqual("Nicolas", congress_persons_allier[1].first_name)
-        self.assertEqual("LR", congress_persons_allier[1].parti_code)
-        self.assertEqual("MASCULIN", congress_persons_allier[1].sexe)
-        self.assertEqual(21464, congress_persons_allier[1].vote)
-        self.assertEqual("40.05%", congress_persons_allier[1].vote_percentage)
-        self.assertEqual("303", congress_persons_allier[1].district.code)
-        self.assertEqual("3", congress_persons_allier[1].district.department_code)
-        self.assertEqual("3ème circonscription", congress_persons_allier[1].district.name)
+        assert_candidate_with_district_and_percentage("THES|Anne-Marie|FEMININ|RN|22816|38.61|1ère circonscription|301||3", congress_persons_allier[2], self)
 
-        self.assertEqual("THES", congress_persons_allier[2].last_name)
-        self.assertEqual("Anne-Marie", congress_persons_allier[2].first_name)
-        self.assertEqual("RN", congress_persons_allier[2].parti_code)
-        self.assertEqual("FEMININ", congress_persons_allier[2].sexe)
-        self.assertEqual(22816, congress_persons_allier[2].vote)
-        self.assertEqual("38.61%", congress_persons_allier[2].vote_percentage)
-        self.assertEqual("301", congress_persons_allier[2].district.code)
-        self.assertEqual("3", congress_persons_allier[2].district.department_code)
-        self.assertEqual("1ère circonscription", congress_persons_allier[2].district.name)
-
-        #Gironde
-        congress_persons_gironde = congress_persons_regroup_by_dpt["33"]
+    def __assert_gironde_congress_person_department(self, congress_persons_gironde): 
         self.assertEqual(12, len(congress_persons_gironde))
-        self.assertEqual("CAZENAVE", congress_persons_gironde[0].last_name)
-        self.assertEqual("Thomas", congress_persons_gironde[0].first_name)
-        self.assertEqual("ENS", congress_persons_gironde[0].parti_code)
-        self.assertEqual("MASCULIN", congress_persons_gironde[0].sexe)
-        self.assertEqual(28564, congress_persons_gironde[0].vote)
-        self.assertEqual("38.31%", congress_persons_gironde[0].vote_percentage)
-        self.assertEqual("3301", congress_persons_gironde[0].district.code)
-        self.assertEqual("33", congress_persons_gironde[0].district.department_code)
-        self.assertEqual("1ère circonscription", congress_persons_gironde[0].district.name)
+        assert_candidate_with_district_and_percentage("CAZENAVE|Thomas|MASCULIN|ENS|28564|38.31|1ère circonscription|3301||33", congress_persons_gironde[0], self)
 
-        self.assertEqual("CHADOURNE", congress_persons_gironde[1].last_name)
-        self.assertEqual("Sandrine", congress_persons_gironde[1].first_name)
-        self.assertEqual("RN", congress_persons_gironde[1].parti_code)
-        self.assertEqual("FEMININ", congress_persons_gironde[1].sexe)
-        self.assertEqual(26547, congress_persons_gironde[1].vote)
-        self.assertEqual("43.80%", congress_persons_gironde[1].vote_percentage)
-        self.assertEqual("3310", congress_persons_gironde[1].district.code)
-        self.assertEqual("33", congress_persons_gironde[1].district.department_code)
-        self.assertEqual("10ème circonscription", congress_persons_gironde[1].district.name)
+        assert_candidate_with_district_and_percentage("CHADOURNE|Sandrine|FEMININ|RN|26547|43.80|10ème circonscription|3310||33", congress_persons_gironde[1], self)
 
-        self.assertEqual("COUILLARD", congress_persons_gironde[2].last_name)
-        self.assertEqual("Bérangère", congress_persons_gironde[2].first_name)
-        self.assertEqual("ENS", congress_persons_gironde[2].parti_code)
-        self.assertEqual("FEMININ", congress_persons_gironde[2].sexe)
-        self.assertEqual(18854, congress_persons_gironde[2].vote)
-        self.assertEqual("33.12%", congress_persons_gironde[2].vote_percentage)
-        self.assertEqual("3307", congress_persons_gironde[2].district.code)
-        self.assertEqual("33", congress_persons_gironde[2].district.department_code)
-        self.assertEqual("7ème circonscription", congress_persons_gironde[2].district.name)
+        assert_candidate_with_district_and_percentage("COUILLARD|Bérangère|FEMININ|ENS|18854|33.12|7ème circonscription|3307||33", congress_persons_gironde[2], self)
 
-        self.assertEqual("DAVID", congress_persons_gironde[3].last_name)
-        self.assertEqual("Alain", congress_persons_gironde[3].first_name)
-        self.assertEqual("UG", congress_persons_gironde[3].parti_code)
-        self.assertEqual("MASCULIN", congress_persons_gironde[3].sexe)
-        self.assertEqual(27092, congress_persons_gironde[3].vote)
-        self.assertEqual("42.36%", congress_persons_gironde[3].vote_percentage)
-        self.assertEqual("3304", congress_persons_gironde[3].district.code)
-        self.assertEqual("33", congress_persons_gironde[3].district.department_code)
-        self.assertEqual("4ème circonscription", congress_persons_gironde[3].district.name)
+        assert_candidate_with_district_and_percentage("DAVID|Alain|MASCULIN|UG|27092|42.36|4ème circonscription|3304||33", congress_persons_gironde[3], self)
 
-        self.assertEqual("DE FOURNAS", congress_persons_gironde[4].last_name)
-        self.assertEqual("Grégoire", congress_persons_gironde[4].first_name)
-        self.assertEqual("RN", congress_persons_gironde[4].parti_code)
-        self.assertEqual("MASCULIN", congress_persons_gironde[4].sexe)
-        self.assertEqual(35457, congress_persons_gironde[4].vote)
-        self.assertEqual("42.32%", congress_persons_gironde[4].vote_percentage)
-        self.assertEqual("3305", congress_persons_gironde[4].district.code)
-        self.assertEqual("33", congress_persons_gironde[4].district.department_code)
-        self.assertEqual("5ème circonscription", congress_persons_gironde[4].district.name)
-        
-        self.assertEqual("DIAZ", congress_persons_gironde[5].last_name)
-        self.assertEqual("Edwige", congress_persons_gironde[5].first_name)
-        self.assertEqual("RN", congress_persons_gironde[5].parti_code)
-        self.assertEqual("FEMININ", congress_persons_gironde[5].sexe)
-        self.assertEqual(34590, congress_persons_gironde[5].vote)
-        self.assertEqual("53.33%", congress_persons_gironde[5].vote_percentage)
-        self.assertEqual("3311", congress_persons_gironde[5].district.code)
-        self.assertEqual("33", congress_persons_gironde[5].district.department_code)
-        self.assertEqual("11ème circonscription", congress_persons_gironde[5].district.name)
-        
-        self.assertEqual("MARQUES", congress_persons_gironde[6].last_name)
-        self.assertEqual("François-Xavier", congress_persons_gironde[6].first_name)
-        self.assertEqual("RN", congress_persons_gironde[6].parti_code)
-        self.assertEqual("MASCULIN", congress_persons_gironde[6].sexe)
-        self.assertEqual(27868, congress_persons_gironde[6].vote)
-        self.assertEqual("38.54%", congress_persons_gironde[6].vote_percentage)
-        self.assertEqual("3309", congress_persons_gironde[6].district.code)
-        self.assertEqual("33", congress_persons_gironde[6].district.department_code)
-        self.assertEqual("9ème circonscription", congress_persons_gironde[6].district.name)
-        
-        self.assertEqual("PANONACLE", congress_persons_gironde[7].last_name)
-        self.assertEqual("Sophie", congress_persons_gironde[7].first_name)
-        self.assertEqual("ENS", congress_persons_gironde[7].parti_code)
-        self.assertEqual("FEMININ", congress_persons_gironde[7].sexe)
-        self.assertEqual(26881, congress_persons_gironde[7].vote)
-        self.assertEqual("31.71%", congress_persons_gironde[7].vote_percentage)
-        self.assertEqual("3308", congress_persons_gironde[7].district.code)
-        self.assertEqual("33", congress_persons_gironde[7].district.department_code)
-        self.assertEqual("8ème circonscription", congress_persons_gironde[7].district.name)
-        
-        self.assertEqual("POUILLAT", congress_persons_gironde[8].last_name)
-        self.assertEqual("Eric", congress_persons_gironde[8].first_name)
-        self.assertEqual("ENS", congress_persons_gironde[8].parti_code)
-        self.assertEqual("MASCULIN", congress_persons_gironde[8].sexe)
-        self.assertEqual(25636, congress_persons_gironde[8].vote)
-        self.assertEqual("32.78%", congress_persons_gironde[8].vote_percentage)
-        self.assertEqual("3306", congress_persons_gironde[8].district.code)
-        self.assertEqual("33", congress_persons_gironde[8].district.department_code)
-        self.assertEqual("6ème circonscription", congress_persons_gironde[8].district.name)
+        assert_candidate_with_district_and_percentage("DE FOURNAS|Grégoire|MASCULIN|RN|35457|42.32|5ème circonscription|3305||33", congress_persons_gironde[4], self)
 
-        self.assertEqual("PRUD'HOMME", congress_persons_gironde[9].last_name)
-        self.assertEqual("Loïc", congress_persons_gironde[9].first_name)
-        self.assertEqual("UG", congress_persons_gironde[9].parti_code)
-        self.assertEqual("MASCULIN", congress_persons_gironde[9].sexe)
-        self.assertEqual(30664, congress_persons_gironde[9].vote)
-        self.assertEqual("49.83%", congress_persons_gironde[9].vote_percentage)
-        self.assertEqual("3303", congress_persons_gironde[9].district.code)
-        self.assertEqual("33", congress_persons_gironde[9].district.department_code)
-        self.assertEqual("3ème circonscription", congress_persons_gironde[9].district.name)    
+        assert_candidate_with_district_and_percentage("DIAZ|Edwige|FEMININ|RN|34590|53.33|11ème circonscription|3311||33", congress_persons_gironde[5], self)
 
-        self.assertEqual("SAINT-PASTEUR", congress_persons_gironde[10].last_name)
-        self.assertEqual("Sébastien", congress_persons_gironde[10].first_name)
-        self.assertEqual("UG", congress_persons_gironde[10].parti_code)
-        self.assertEqual("MASCULIN", congress_persons_gironde[10].sexe)
-        self.assertEqual(21913, congress_persons_gironde[10].vote)
-        self.assertEqual("38.50%", congress_persons_gironde[10].vote_percentage)
-        self.assertEqual("3307", congress_persons_gironde[10].district.code)
-        self.assertEqual("33", congress_persons_gironde[10].district.department_code)
-        self.assertEqual("7ème circonscription", congress_persons_gironde[10].district.name)    
+        assert_candidate_with_district_and_percentage("MARQUES|François-Xavier|MASCULIN|RN|27868|38.54|9ème circonscription|3309||33", congress_persons_gironde[6], self)
 
-        self.assertEqual("THIERRY", congress_persons_gironde[11].last_name)
-        self.assertEqual("Nicolas", congress_persons_gironde[11].first_name)
-        self.assertEqual("UG", congress_persons_gironde[11].parti_code)
-        self.assertEqual("MASCULIN", congress_persons_gironde[11].sexe)
-        self.assertEqual(26547, congress_persons_gironde[11].vote)
-        self.assertEqual("49.45%", congress_persons_gironde[11].vote_percentage)
-        self.assertEqual("3302", congress_persons_gironde[11].district.code)
-        self.assertEqual("33", congress_persons_gironde[11].district.department_code)
-        self.assertEqual("2ème circonscription", congress_persons_gironde[11].district.name)
+        assert_candidate_with_district_and_percentage("PANONACLE|Sophie|FEMININ|ENS|26881|31.71|8ème circonscription|3308||33", congress_persons_gironde[7], self)
+
+        assert_candidate_with_district_and_percentage("POUILLAT|Eric|MASCULIN|ENS|25636|32.78|6ème circonscription|3306||33", congress_persons_gironde[8], self)
+
+        assert_candidate_with_district_and_percentage("PRUD'HOMME|Loïc|MASCULIN|UG|30664|49.83|3ème circonscription|3303||33", congress_persons_gironde[9], self)
+
+        assert_candidate_with_district_and_percentage("SAINT-PASTEUR|Sébastien|MASCULIN|UG|21913|38.50|7ème circonscription|3307||33", congress_persons_gironde[10], self)
+
+        assert_candidate_with_district_and_percentage("THIERRY|Nicolas|MASCULIN|UG|26547|49.45|2ème circonscription|3302||33", congress_persons_gironde[11], self)

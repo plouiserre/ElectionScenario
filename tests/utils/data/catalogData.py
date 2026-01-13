@@ -1,6 +1,5 @@
 from tests.utils.data.generateDataCongress import load_congress_very_stable, load_congress_stable, load_congress_quite_stable, load_congress_low_stable, load_congress_perfectly_representative, load_congress_good_representative, load_congress_quite_representative, load_congress_low_representative
 from tests.utils.data.generateDataCongressPersons import load_all_candidates, load_candidates_from_name, load_congress_persons_by_departments
-from tests.utils.data.generateDataDepartments import load_three_departments
 from tests.utils.data.generateDataDepartmentCongress import load_three_congress_departments
 from tests.utils.data.generateDataDistricts import build_first_district, build_second_district, build_third_district, build_fourth_district, build_fifth_district, build_sixth_district, build_seventh_district, build_eleventh_district
 from tests.utils.data.generateDataParties import load_all_parties, load_all_parties_with_candidates, load_all_parties_with_candidates_but_not_stability, load_all_parties_with_candidates_and_big_stability
@@ -22,8 +21,6 @@ def generate_datas(type_data, key):
         return __generate_results_elections(key)
     elif type_data == "department_congress":
         return __generate_department_congress(key)
-    elif type_data == "department":
-        return __generate_departments(key)
     return ""
 
 def __generate_district_datas(key):
@@ -116,9 +113,6 @@ def __generate_congress_datas(key):
     
 def __generate_department_congress(key):
     return load_three_congress_departments()
-
-def __generate_departments(key):
-    return load_three_departments()
     
 def __generate_results_elections(key):
     if key =="perfect" :
