@@ -1,9 +1,9 @@
 import unittest
-from src.backend.domain.services.GlobalElection.CongressPersonsElectedEachDepartment import CongressPersonsElectedEachDepartment
+from src.backend.domain.services.GlobalElection.CongressPersonsElectedForEachDepartment import CongressPersonsElectedEachDepartment
 from tests.utils.data.catalogData import generate_datas
  
 
-class CongressPersonsElectedEachDepartmentTest(unittest.TestCase):
+class CongressPersonsElectedForEachDepartmentTest(unittest.TestCase):
     def test_determine_number_congress_persons_for_3_dpts(self):
         elections_results = generate_datas("results_elections", "three_departments")
         congress_persons_elected_each_department = CongressPersonsElectedEachDepartment()

@@ -1,4 +1,4 @@
-class CongressPersonsElectedEachDepartment:
+class CongressPersonsElectedForEachDepartment:
 
     def __init__(self):
         pass
