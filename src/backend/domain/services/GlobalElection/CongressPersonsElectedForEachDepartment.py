@@ -3,7 +3,7 @@ class CongressPersonsElectedForEachDepartment:
     def __init__(self):
         pass
 
-    def determinate(self, elections_results, year):
+    def Determinate(self, elections_results, year):
         number_elected_persons_by_dept = {}
         depts_completed = []
         election = elections_results[year]
