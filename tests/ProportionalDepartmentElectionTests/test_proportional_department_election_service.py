@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import Mock
 from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
+from src.backend.domain.services.GlobalElection.CongressPersonsElectedForEachDepartment import CongressPersonsElectedForEachDepartment
 from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from src.backend.domain.services.GlobalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
 from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
@@ -34,6 +35,8 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
         select_congress_persons = SelectCongressPersons()
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
+        congress_persons_elected_for_each_department = CongressPersonsElectedForEachDepartment()
+        
 
         congress_persons_by_departments = CongressPersonByDepartment(total_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
@@ -43,7 +46,7 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         representative_congress = RepresentativeCongress(total_congress_persons)
         build_congress = BuildCongress(stability_congress, representative_congress)
         proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, manage_congress_persons_by_department, 
-                                                                                         build_congress, mode)        
+                                                                                         build_congress, congress_persons_elected_for_each_department, mode)        
 
         congress = proportional_department_election_service.Determinate(year)
 

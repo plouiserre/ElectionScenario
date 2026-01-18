@@ -8,7 +8,7 @@ class CongressPersonsElectedForEachDepartmentTest(unittest.TestCase):
         elections_results = generate_datas("results_elections", "three_departments")
         congress_persons_elected_each_department = CongressPersonsElectedForEachDepartment()
 
-        departments = congress_persons_elected_each_department.determinate(elections_results, 2024)        
+        departments = congress_persons_elected_each_department.Determinate(elections_results, 2024)        
         
         self.assertEqual(3, departments[0].number_congress_persons)
         self.assertEqual(1, departments[1].number_congress_persons)
