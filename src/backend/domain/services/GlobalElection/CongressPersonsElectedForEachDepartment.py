@@ -3,7 +3,8 @@ class CongressPersonsElectedForEachDepartment:
     def __init__(self):
         pass
 
-    def Determinate(self, elections_results, year):
+    #TODO à supprimer!!!!!!!!!!!!!
+    def DeterminateAllDepartments(self, elections_results, year):
         number_elected_persons_by_dept = {}
         depts_completed = []
         election = elections_results[year]
@@ -18,3 +19,13 @@ class CongressPersonsElectedForEachDepartment:
                 departement.number_congress_persons = number_elected_persons_by_dept[departement.code]
                 depts_completed.append(departement)
         return depts_completed
+    
+
+    def Determinate(self, elections_results, dpt_code, year): 
+        number_congress_persons = 0
+        election = elections_results[year]
+        for candidates_in_dpt in election.all_candidates : 
+            department_code = candidates_in_dpt[0].district.department_code
+            if department_code == dpt_code :
+                number_congress_persons += 1            
+        return number_congress_persons

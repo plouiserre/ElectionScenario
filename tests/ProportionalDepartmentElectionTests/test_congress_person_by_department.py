@@ -1,4 +1,5 @@
 import unittest
+from src.backend.domain.services.GlobalElection.CongressPersonsElectedForEachDepartment import CongressPersonsElectedForEachDepartment
 from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from src.backend.domain.services.GlobalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
 from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
@@ -8,7 +9,7 @@ from src.backend.domain.services.ProportionalDepartmentElection.DeterminateSeatB
 from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
 from src.backend.domain.services.ProportionalDepartmentElection.ModeDesignCongressPerson import ModeDesignCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.NumberCongressPerson import NumberCongressPerson
-from tests.utils.assert_helper import assert_congress_person_with_district, assert_candidate_with_district_and_percentage
+from tests.utils.assert_helper import assert_candidate_with_district_and_percentage
 from tests.utils.data.catalogData import generate_datas
 
 class CongressPersonByDepartmentTest(unittest.TestCase):
@@ -23,15 +24,17 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
         select_congress_persons = SelectCongressPersons()
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
+        congress_persons_elected_for_each_department = CongressPersonsElectedForEachDepartment()
 
         congress_persons_by_department = CongressPersonByDepartment(number_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
-                                                                    select_congress_persons, regroup_congress_persons_by_parties)
+                                                                    select_congress_persons, regroup_congress_persons_by_parties, congress_persons_elected_for_each_department)
 
         department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
 
         self.assertEqual("15", department_congress.department_code)
         self.assertEqual("Cantal", department_congress.department_name)
+        self.assertEqual(1, department_congress.number_congress_persons)
         assert_candidate_with_district_and_percentage("DESCOEUR|Vincent|MASCULIN|DVD|16615|37.66|1ère circonscription|1501||15", department_congress.parties[0].congress_persons[0], self)        
 
     def test_choose_congress_persons_for_allier_department(self):
@@ -45,15 +48,17 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
         select_congress_persons = SelectCongressPersons()
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
+        congress_persons_elected_for_each_department = CongressPersonsElectedForEachDepartment()
 
         congress_persons_by_department = CongressPersonByDepartment(number_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
-                                                                    select_congress_persons, regroup_congress_persons_by_parties)
+                                                                    select_congress_persons, regroup_congress_persons_by_parties, congress_persons_elected_for_each_department)
 
         department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
 
         self.assertEqual("3", department_congress.department_code)
         self.assertEqual("Allier", department_congress.department_name)
+        self.assertEqual(3, department_congress.number_congress_persons)
         assert_candidate_with_district_and_percentage("THÈS|Anne-Marie|FEMININ|RN|22816|38.61|1ère circonscription|301||3", department_congress.parties[0].congress_persons[0], self)
         assert_candidate_with_district_and_percentage("MONNET|Yannick|MASCULIN|UG|17043|28.84|1ère circonscription|301||3", department_congress.parties[1].congress_persons[0], self)                          
         assert_candidate_with_district_and_percentage("RAY|Nicolas|MASCULIN|LR|21464|40.05|3ème circonscription|303||3", department_congress.parties[2].congress_persons[0], self)                          
@@ -70,15 +75,17 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
         select_congress_persons = SelectCongressPersons()
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
+        congress_persons_elected_for_each_department = CongressPersonsElectedForEachDepartment()
 
         congress_persons_by_department = CongressPersonByDepartment(number_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
-                                                                    select_congress_persons, regroup_congress_persons_by_parties)
+                                                                    select_congress_persons, regroup_congress_persons_by_parties, congress_persons_elected_for_each_department)
 
         department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
 
         self.assertEqual("33", department_congress.department_code)
         self.assertEqual("Gironde", department_congress.department_name)
+        self.assertEqual(12, department_congress.number_congress_persons)
         assert_candidate_with_district_and_percentage("PRUD'HOMME|Loïc|MASCULIN|UG|30664|49.83|3ème circonscription|3303||33", department_congress.parties[0].congress_persons[0], self)                          
         assert_candidate_with_district_and_percentage("THIERRY|Nicolas|MASCULIN|UG|26547|49.45|2ème circonscription|3302||33", department_congress.parties[0].congress_persons[1], self)                          
         assert_candidate_with_district_and_percentage("DAVID|Alain|MASCULIN|UG|27092|42.36|4ème circonscription|3304||33", department_congress.parties[0].congress_persons[2], self)                          

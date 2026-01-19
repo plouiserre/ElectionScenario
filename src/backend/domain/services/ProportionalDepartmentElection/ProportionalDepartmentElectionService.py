@@ -5,19 +5,17 @@ from src.backend.domain.ports.inside.ProportionalDepartmentElectionPort import P
 
 
 class ProportionalDepartmentElectionService(ProportionalDepartmentElectionPort) : 
-    def __init__(self, json_service, congress_persons_by_departments, manage_congress_persons_by_department, build_congress, congress_persons_elected_for_each_department, mode):
+    def __init__(self, json_service, congress_persons_by_departments, manage_congress_persons_by_department, build_congress, mode):
         self.json_service = json_service
         self.congress_persons_by_departments = congress_persons_by_departments
         self.manage_congress_persons_by_department = manage_congress_persons_by_department
         self.build_congress = build_congress
-        self.congress_persons_elected_for_each_department = congress_persons_elected_for_each_department
         self.mode = mode
 
     def Determinate(self, year):
         elections_results = self.json_service.get_results()
         congress_persons_elected = {}
-        departments = self.congress_persons_elected_for_each_department.Determinate(elections_results, year)
-        for dept in departments: 
+        for dept in elections_results[2024].all_departments: 
             results = self.congress_persons_by_departments.Choose(elections_results, year, dept.code)
             congress_persons_elected[results.department_code] = copy.deepcopy(results.parties)
             
