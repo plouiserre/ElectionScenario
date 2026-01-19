@@ -40,13 +40,13 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
 
         congress_persons_by_departments = CongressPersonByDepartment(total_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
-                                                                    select_congress_persons, regroup_congress_persons_by_parties)
+                                                                    select_congress_persons, regroup_congress_persons_by_parties, congress_persons_elected_for_each_department)
         manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
         stability_congress = StabilityCongress(total_congress_persons)
         representative_congress = RepresentativeCongress(total_congress_persons)
         build_congress = BuildCongress(stability_congress, representative_congress)
         proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, manage_congress_persons_by_department, 
-                                                                                         build_congress, congress_persons_elected_for_each_department, mode)        
+                                                                                         build_congress, mode)        
 
         congress = proportional_department_election_service.Determinate(year)
 
