@@ -16,6 +16,6 @@ class OneTurnElectionService(OneTurnElectionPort) :
         congress_persons = self.all_elected_persons.find_them_all(results_data.all_candidates)
         self.determinate_party_info = DeterminatePartyInfo(results_data.all_parties)
         data_parties = self.determinate_party_info.Calculate(congress_persons)
-        congress_datas = factory_congress_datas(year, self.mode, data_parties)
+        congress_datas = factory_congress_datas(year, self.mode, data_parties, None)
         congress = self.build_congress.Build(congress_datas, results_data_all_years)
         return congress   
