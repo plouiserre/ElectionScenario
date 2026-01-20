@@ -22,11 +22,12 @@ def factory_elections(candidates, parties, departments):
     elections.all_departments = departments
     return elections
 
-def factory_congress_datas(year, mode, parties):
+def factory_congress_datas(year, mode, parties, departmental_assemblies):
     congress_datas = CongressDatas()
     congress_datas.year = year
     congress_datas.mode = mode
     congress_datas.parties = parties
+    congress_datas.departmental_assemblies = departmental_assemblies
     return congress_datas
 
 def factory_dpt(name, code):
