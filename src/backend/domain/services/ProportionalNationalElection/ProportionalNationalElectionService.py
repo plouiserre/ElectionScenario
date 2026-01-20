@@ -29,7 +29,7 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         _number_congress_persons_elected_by_parties = self.__calculate_number_congress_persons_elected_by_parties(_percentages_for_parties_importants)
         _congress_persons_elected = self.__choose_congress_persons_elected_for_parties(_number_congress_persons_elected_by_parties)
         _parties_with_congress_persons = self.__regroup_congress_persons_by_parties(_congress_persons_elected)
-        congress_datas = factory_congress_datas(year, self.mode, _parties_with_congress_persons)
+        congress_datas = factory_congress_datas(year, self.mode, _parties_with_congress_persons, None)
         congress = self.build_congress.Build(congress_datas, results_data_all_years)
         return congress    
     
