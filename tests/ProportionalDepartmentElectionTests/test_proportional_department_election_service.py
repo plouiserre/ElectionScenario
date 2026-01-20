@@ -56,6 +56,11 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         self.assertEqual("PERFECT", congress.representative_congress)
         self.assertEqual(5, len(congress.parties))            
         
+        self.__assert_congress_persons_by_parties(congress)
+        self.__assert_congress_persons_by_department(congress)
+
+
+    def __assert_congress_persons_by_parties(self, congress) : 
         #RN 5
         assert_congress_person_with_district("THÈS|Anne-Marie|FEMININ|RN|22816|38.61|1ère circonscription|301|Allier|3", congress.parties[0].congress_persons[0], self)
         assert_congress_person_with_district("DIAZ|Edwige|FEMININ|RN|34590|53.33|11ème circonscription|3311|Gironde|33", congress.parties[0].congress_persons[1], self)    
@@ -81,4 +86,25 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
 
         #DVD 1
         assert_congress_person_with_district("DESCOEUR|Vincent|MASCULIN|DVD|16615|37.66|1ère circonscription|1501|Cantal|15", congress.parties[4].congress_persons[0], self)
+
+
+    def __assert_congress_persons_by_department(self, congress):   
+        assert_congress_person_with_district("THÈS|Anne-Marie|FEMININ|RN|22816|38.61|1ère circonscription|301|Allier|3", congress.departmental_assemblies[0].congress_persons[0], self)     
+        assert_congress_person_with_district("MONNET|Yannick|MASCULIN|UG|17043|28.84|1ère circonscription|301|Allier|3", congress.departmental_assemblies[0].congress_persons[1], self)        
+        assert_congress_person_with_district("RAY|Nicolas|MASCULIN|LR|21464|40.05|3ème circonscription|303|Allier|3", congress.departmental_assemblies[0].congress_persons[2], self)
+
+        assert_congress_person_with_district("DESCOEUR|Vincent|MASCULIN|DVD|16615|37.66|1ère circonscription|1501|Cantal|15", congress.departmental_assemblies[1].congress_persons[0], self)
+
+        assert_congress_person_with_district("PRUD'HOMME|Loïc|MASCULIN|UG|30664|49.83|3ème circonscription|3303|Gironde|33", congress.departmental_assemblies[2].congress_persons[0], self)
+        assert_congress_person_with_district("THIERRY|Nicolas|MASCULIN|UG|26547|49.45|2ème circonscription|3302|Gironde|33", congress.departmental_assemblies[2].congress_persons[1], self)
+        assert_congress_person_with_district("DAVID|Alain|MASCULIN|UG|27092|42.36|4ème circonscription|3304|Gironde|33", congress.departmental_assemblies[2].congress_persons[2], self)
+        assert_congress_person_with_district("SAINT-PASTEUR|Sébastien|MASCULIN|UG|21913|38.50|7ème circonscription|3307|Gironde|33", congress.departmental_assemblies[2].congress_persons[3], self)
+        assert_congress_person_with_district("DIAZ|Edwige|FEMININ|RN|34590|53.33|11ème circonscription|3311|Gironde|33", congress.departmental_assemblies[2].congress_persons[4], self)
+        assert_congress_person_with_district("CHADOURNE|Sandrine|FEMININ|RN|25037|43.80|10ème circonscription|3310|Gironde|33", congress.departmental_assemblies[2].congress_persons[5], self)
+        assert_congress_person_with_district("DE FOURNAS|Grégoire|MASCULIN|RN|35457|42.32|5ème circonscription|3305|Gironde|33", congress.departmental_assemblies[2].congress_persons[6], self)
+        assert_congress_person_with_district("MARQUES|François-Xavier|MASCULIN|RN|27868|38.54|9ème circonscription|3309|Gironde|33", congress.departmental_assemblies[2].congress_persons[7], self)
+        assert_congress_person_with_district("CAZENAVE|Thomas|MASCULIN|ENS|28564|38.31|1ère circonscription|3301|Gironde|33", congress.departmental_assemblies[2].congress_persons[8], self)
+        assert_congress_person_with_district("COUILLARD|Bérangère|FEMININ|ENS|18854|33.12|7ème circonscription|3307|Gironde|33", congress.departmental_assemblies[2].congress_persons[9], self)
+        assert_congress_person_with_district("POULLIAT|Eric|MASCULIN|ENS|25636|32.78|6ème circonscription|3306|Gironde|33", congress.departmental_assemblies[2].congress_persons[10], self)
+        assert_congress_person_with_district("PANONACLE|Sophie|FEMININ|ENS|26881|31.71|8ème circonscription|3308|Gironde|33", congress.departmental_assemblies[2].congress_persons[11], self)
         

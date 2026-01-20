@@ -11,10 +11,11 @@ class BuildCongress :
         parties = congress_datas.parties
         year = congress_datas.year
         mode = congress_datas.mode
+        departmental_assemblies = congress_datas.departmental_assemblies
         self.votes_results = votes_results
         self.__ordered_parties_by_percentage(parties)
         self.__count_congress_person_totality()
-        congress = self.__build_congress(year, mode, self.parties_ordered)
+        congress = self.__build_congress(year, mode, self.parties_ordered, departmental_assemblies)
         congress.stability_majority = self.study_stability.Calculate(congress)
         congress.representative_congress = self.study_representative.Calculate(congress, self.votes_results, year)
         return congress
@@ -37,9 +38,10 @@ class BuildCongress :
         for party in self.parties_ordered : 
             self.total_congress_person += party.elected_congress_persons 
    
-    def __build_congress(self, year, mode, parties):
+    def __build_congress(self, year, mode, parties, departmental_assemblies):
         congress = Congress()
         congress.year = year 
         congress.mode = mode 
         congress.parties = parties
+        congress.departmental_assemblies = departmental_assemblies
         return congress
