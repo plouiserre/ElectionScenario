@@ -50,17 +50,33 @@ def __transform_to_parties_with_candidates(parties_obj):
         party.elected_congress_persons = party_obj["elected persons"]
         party.congress_persons = []
         for candidate_obj in party_obj["congressPersons"]:
-            congress_person = CongressPerson()
-            congress_person.last_name = candidate_obj["last_name"]
-            congress_person.first_name = candidate_obj["first_name"]
-            congress_person.sexe = candidate_obj["sexe"]
-            congress_person.parti_code = candidate_obj["parti_code"]
-            congress_person.vote = candidate_obj["vote"]
-            congress_person.vote_percentage = candidate_obj["vote_percentage"]
-            congress_person.district.code = candidate_obj["district"]["code"]
-            congress_person.district.name = candidate_obj["district"]["name"]
-            congress_person.district.department_code = candidate_obj["district"]["department_code"]
-            congress_person.district.department_name = candidate_obj["district"]["department_name"]
+            congress_person = __get_congress_person_from_json(candidate_obj)
             party.congress_persons.append(congress_person)
         all_parties.append(party)
     return all_parties
+
+def load_parties_info(): 
+    json_parties_info = "{\"parties_info\":{\"5\":[{\"last_name\":\"ALBRAND\",\"first_name\":\"Louis\",\"sexe\":\"MASCULIN\",\"parti_code\":\"RN\",\"vote\":13115,\"vote_percentage\":33.88,\"district\":{\"name\":\"2ème circonscription\",\"code\":\"502\",\"department_name\":\"Hautes-Alpes\",\"department_code\":\"5\"}}],\"15\":[{\"last_name\":\"BONY\",\"first_name\":\"Jean-Yves\",\"sexe\":\"MASCULIN\",\"parti_code\":\"LR\",\"vote\":12383,\"vote_percentage\":34.29,\"district\":{\"name\":\"2ème circonscription\",\"code\":\"1502\",\"department_name\":\"Cantal\",\"department_code\":\"15\"}}],\"25\":[{\"last_name\":\"VOYNET\",\"first_name\":\"Dominique\",\"sexe\":\"FEMININ\",\"parti_code\":\"UG\",\"vote\":19160,\"vote_percentage\":34.16,\"district\":{\"name\":\"2ème circonscription\",\"code\":\"2502\",\"department_name\":\"Doubs\",\"department_code\":\"25\"}}],\"35\":[{\"last_name\":\"DECOURCELLE\",\"first_name\":\"Christophe\",\"sexe\":\"MASCULIN\",\"parti_code\":\"LR\",\"vote\":5218,\"vote_percentage\":6.93,\"district\":{\"name\":\"2ème circonscription\",\"code\":\"3502\",\"department_name\":\"Ille-et-Vilaine\",\"department_code\":\"35\"}},{\"last_name\":\"LAHAIS\",\"first_name\":\"Tristan\",\"sexe\":\"MASCULIN\",\"parti_code\":\"UG\",\"vote\":30361,\"vote_percentage\":40.31,\"district\":{\"name\":\"2ème circonscription\",\"code\":\"3502\",\"department_name\":\"Ille-et-Vilaine\",\"department_code\":\"35\"}}],\"65\":[{\"last_name\":\"MONTEIL\",\"first_name\":\"Olivier\",\"sexe\":\"MASCULIN\",\"parti_code\":\"RN\",\"vote\":22436,\"vote_percentage\":36.96,\"district\":{\"name\":\"2ème circonscription\",\"code\":\"6502\",\"department_name\":\"Hautes-Pyrénées\",\"department_code\":\"65\"}}],\"75\":[{\"last_name\":\"ROSSET\",\"first_name\":\"Marine\",\"sexe\":\"FEMININ\",\"parti_code\":\"UG\",\"vote\":18845,\"vote_percentage\":33.4,\"district\":{\"name\":\"2ème circonscription\",\"code\":\"7502\",\"department_name\":\"Paris\",\"department_code\":\"75\"}},{\"last_name\":\"LE GENDRE\",\"first_name\":\"Gilles\",\"sexe\":\"MASCULIN\",\"parti_code\":\"DVC\",\"vote\":11071,\"vote_percentage\":19.62,\"district\":{\"name\":\"2ème circonscription\",\"code\":\"7502\",\"department_name\":\"Paris\",\"department_code\":\"75\"}}]}}"
+    parties_info_json_obj = json.loads(json_parties_info)
+    parties_info_obj = {}
+    for key in parties_info_json_obj["parties_info"] : 
+        congress_persons_obj = parties_info_json_obj["parties_info"][key]
+        parties_info_obj[key] = []
+        for congress_person_obj in congress_persons_obj:
+            congress_person = __get_congress_person_from_json(congress_person_obj)            
+            parties_info_obj[key].append(congress_person)
+    return parties_info_obj
+
+def __get_congress_person_from_json(congress_person_obj): 
+            congress_person = CongressPerson()
+            congress_person.last_name = congress_person_obj["last_name"]
+            congress_person.first_name = congress_person_obj["first_name"]
+            congress_person.sexe = congress_person_obj["sexe"]
+            congress_person.parti_code = congress_person_obj["parti_code"]
+            congress_person.vote = congress_person_obj["vote"]
+            congress_person.vote_percentage = congress_person_obj["vote_percentage"]
+            congress_person.district.code = congress_person_obj["district"]["code"]
+            congress_person.district.name = congress_person_obj["district"]["name"]
+            congress_person.district.department_code = congress_person_obj["district"]["department_code"]
+            congress_person.district.department_name = congress_person_obj["district"]["department_name"]
+            return congress_person
