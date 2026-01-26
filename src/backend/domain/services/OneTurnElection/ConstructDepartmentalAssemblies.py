@@ -8,13 +8,21 @@ class ConstructDepartmentalAssemblies :
     def Build(self, parties_info, parties, departments): 
         departmentals_assemblies = []
         for dpt_code in parties_info : 
-            dpt = self.__find_dpt(departments, dpt_code)
-            congress_persons = parties_info[dpt_code]
+            dpt_code_not_clean = dpt_code
+            dpt_code_clean = self.__fix_dpt_code(dpt_code)
+            dpt = self.__find_dpt(departments, dpt_code_clean)
+            congress_persons = parties_info[dpt_code_not_clean]
             all_parties_completed = self.__get_all_parties_completed(congress_persons, parties)
             dpt_assembly = self.__build_department_assembly(dpt, all_parties_completed, congress_persons)
             departmentals_assemblies.append(dpt_assembly)
         return departmentals_assemblies
 
+    #tmp
+    def __fix_dpt_code(self, dpt_code): 
+        if len(dpt_code) == 2 and dpt_code[0] == '0' : 
+            return dpt_code[1]
+        else :
+            return dpt_code
 
     def __find_dpt(self, departments, dpt_code): 
         department = None
