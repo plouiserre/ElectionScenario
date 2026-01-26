@@ -17,7 +17,7 @@ class BuildCongressTest(unittest.TestCase):
         stability_congress = StabilityCongress(all_congress_persons_number)
         representative_congress = RepresentativeCongress(all_congress_persons_number)
         build_congress = BuildCongress(stability_congress, representative_congress)  
-        congress_datas = factory_congress_datas(year, "OneTurn", parties_2024)      
+        congress_datas = factory_congress_datas(year, "OneTurn", parties_2024, None)      
 
         congress = build_congress.Build(congress_datas, votes_results)
 
@@ -38,7 +38,7 @@ class BuildCongressTest(unittest.TestCase):
         stability_congress = StabilityCongress(all_congress_persons_number)
         representative_congress = RepresentativeCongress(all_congress_persons_number)
         build_congress = BuildCongress(stability_congress, representative_congress)
-        congress_datas = factory_congress_datas(year, "OneTurn", parties_2024)
+        congress_datas = factory_congress_datas(year, "OneTurn", parties_2024, None)
 
         congress = build_congress.Build(congress_datas, votes_results)
 
@@ -59,7 +59,7 @@ class BuildCongressTest(unittest.TestCase):
         stability_congress = StabilityCongress(all_congress_persons_number)
         representative_congress = RepresentativeCongress(all_congress_persons_number)
         build_congress = BuildCongress(stability_congress, representative_congress)
-        congress_datas = factory_congress_datas(year, "OneTurn", parties_2024)
+        congress_datas = factory_congress_datas(year, "OneTurn", parties_2024, None)
 
         congress = build_congress.Build(congress_datas, votes_results)
 
