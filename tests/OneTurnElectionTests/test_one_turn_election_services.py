@@ -3,11 +3,13 @@ from unittest.mock import Mock
 from src.backend.domain.services.GlobalElection.RepresentativeCongress import RepresentativeCongress
 from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
 from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
+from src.backend.domain.services.OneTurnElection.ConstructDepartmentalAssemblies import ConstructDepartmentalAssemblies
 from src.backend.domain.services.OneTurnElection.DeterminateAllElectedPersons import DeterminateAllElectedPersons
 from src.backend.domain.services.OneTurnElection.DeterminateElectedPersonByDistrict import DeterminateElectedPersonByDistrict
+from src.backend.domain.services.OneTurnElection.DeterminatePartyInfo import DeterminatePartyInfo
 from src.backend.domain.services.OneTurnElection.OneTurnElectionService import OneTurnElectionService
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
-from tests.utils.assert_helper import assert_congress_person_with_district
+from tests.utils.assert_helper import assert_congress_person_with_district, assert_party
 from tests.utils.data.catalogData import generate_datas
 
 
@@ -21,14 +23,16 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         representative_congress = RepresentativeCongress(total_congress_persons)
         stability_congress = StabilityCongress(total_congress_persons)
         build_congress = BuildCongress(stability_congress, representative_congress)
+        determinate_party_info = DeterminatePartyInfo()
         elected_persons_by_district = DeterminateElectedPersonByDistrict()
         all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)
-        election = OneTurnElectionService(json_service, all_elected_persons, build_congress)
+        contruct_departmental_assemblies = ConstructDepartmentalAssemblies()
+        election = OneTurnElectionService(json_service, all_elected_persons, build_congress, determinate_party_info, contruct_departmental_assemblies)
         
         congress = election.Determinate(year)
 
         self.__assert_congress_2024(congress)
-
+        self.__assert_departmental_assemblies_2024(congress.departmental_assemblies)
     
     def __assert_congress_2024(self, congress):
         self.assertEqual(2024, congress.year)
@@ -65,7 +69,81 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         self.assertEqual(1, dvd_party.elected_congress_persons)
         assert_congress_person_with_district("BONY|Jean Yves|MASCULIN|DVD|12383|34.29|2ème circonscription|1502|Cantal|15", dvd_party.congress_persons[0], self)        
     
+    def __assert_departmental_assemblies_2024(self, departmental_assemblies) : 
+        self.__assert_departmental_assembly_5_2024(departmental_assemblies[0])
+        self.__assert_departmental_assembly_15_2024(departmental_assemblies[1])
+        self.__assert_departmental_assembly_25_2024(departmental_assemblies[2])
+        self.__assert_departmental_assembly_35_2024(departmental_assemblies[3])
+        self.__assert_departmental_assembly_45_2024(departmental_assemblies[4])
+        self.__assert_departmental_assembly_55_2024(departmental_assemblies[5])
+        self.__assert_departmental_assembly_65_2024(departmental_assemblies[6])
+        self.__assert_departmental_assembly_75_2024(departmental_assemblies[7])
+
+        
+    def __assert_departmental_assembly_5_2024(self, departmental_assembly):
+        self.assertEqual("5", departmental_assembly.department_code)
+        self.assertEqual("Hautes-Alpes", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("ALBRAND|Louis|MASCULIN|RN|13115|33.88|2ème circonscription|502|Hautes-Alpes|5", departmental_assembly.congress_persons[0], self)
+        assert_party('Rassemblement National|RN|5|1', departmental_assembly.parties[0], self)
+        assert_congress_person_with_district("ALBRAND|Louis|MASCULIN|RN|13115|33.88|2ème circonscription|502|Hautes-Alpes|5", departmental_assembly.parties[0].congress_persons[0], self)
+
+    def __assert_departmental_assembly_15_2024(self, departmental_assembly):
+        self.assertEqual("15", departmental_assembly.department_code)
+        self.assertEqual("Cantal", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("BONY|Jean Yves|MASCULIN|DVD|12383|34.29|2ème circonscription|1502|Cantal|15", departmental_assembly.congress_persons[0], self)     
+        assert_party('Divers Droite|DVD|4|1', departmental_assembly.parties[0], self)
+        assert_congress_person_with_district("BONY|Jean Yves|MASCULIN|DVD|12383|34.29|2ème circonscription|1502|Cantal|15", departmental_assembly.parties[0].congress_persons[0], self)  
+
+    def __assert_departmental_assembly_25_2024(self, departmental_assembly):
+        self.assertEqual("25", departmental_assembly.department_code)
+        self.assertEqual("Doubs", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("VOYNET|Dominique|FEMININ|UG|19160|34.16|2ème circonscription|2502|Doubs|25", departmental_assembly.congress_persons[0], self)     
+        assert_party('Union de la gauche|UG|2|1', departmental_assembly.parties[0], self)
+        assert_congress_person_with_district("VOYNET|Dominique|FEMININ|UG|19160|34.16|2ème circonscription|2502|Doubs|25", departmental_assembly.parties[0].congress_persons[0], self)  
+
+    def __assert_departmental_assembly_35_2024(self, departmental_assembly):
+        self.assertEqual("35", departmental_assembly.department_code)
+        self.assertEqual("Ille-et-Vilaine", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("LAHAIS|Tristan|MASCULIN|UG|30361|40.31|2ème circonscription|3502|Ille-et-Vilaine|35", departmental_assembly.congress_persons[0], self)     
+        assert_party('Union de la gauche|UG|2|1', departmental_assembly.parties[1], self)
+        assert_congress_person_with_district("LAHAIS|Tristan|MASCULIN|UG|30361|40.31|2ème circonscription|3502|Ille-et-Vilaine|35", departmental_assembly.parties[0].congress_persons[0], self)
+
+    def __assert_departmental_assembly_45_2024(self, departmental_assembly):
+        self.assertEqual("45", departmental_assembly.department_code)
+        self.assertEqual("Loiret", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("BABIN|Elodie|FEMININ|RN|18957|32.91|2ème circonscription|4502|Loiret|45", departmental_assembly.congress_persons[0], self)     
+        assert_party('Rassemblement National|RN|5|1', departmental_assembly.parties[1], self)
+        assert_congress_person_with_district("BABIN|Elodie|FEMININ|RN|18957|32.91|2ème circonscription|4502|Loiret|45", departmental_assembly.parties[0].congress_persons[0], self)
+
+    def __assert_departmental_assembly_55_2024(self, departmental_assembly):
+        self.assertEqual("55", departmental_assembly.department_code)
+        self.assertEqual("Meuse", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("GOULET|Florence|FEMININ|RN|19011|50.63|2ème circonscription|5502|Meuse|55", departmental_assembly.congress_persons[0], self)     
+        assert_party('Rassemblement National|RN|5|1', departmental_assembly.parties[1], self)
+        assert_congress_person_with_district("GOULET|Florence|FEMININ|RN|19011|50.63|2ème circonscription|5502|Meuse|55", departmental_assembly.parties[0].congress_persons[0], self)
     
+    def __assert_departmental_assembly_65_2024(self, departmental_assembly):
+        self.assertEqual("65", departmental_assembly.department_code)
+        self.assertEqual("Hautes-Pyrénées", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("MONTEIL|Olivier|MASCULIN|RN|22436|36.96|2ème circonscription|6502|Hautes-Pyrénées|65", departmental_assembly.congress_persons[0], self)     
+        assert_party('Rassemblement National|RN|5|1', departmental_assembly.parties[0], self)
+        assert_congress_person_with_district("MONTEIL|Olivier|MASCULIN|RN|22436|36.96|2ème circonscription|6502|Hautes-Pyrénées|65", departmental_assembly.parties[0].congress_persons[0], self)      
+
+    def __assert_departmental_assembly_75_2024(self, departmental_assembly):
+        self.assertEqual("75", departmental_assembly.department_code)
+        self.assertEqual("Paris", departmental_assembly.department_name)
+        self.assertEqual(2, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("ROSSET|Marine|FEMININ|UG|18845|33.4|2ème circonscription|7502|Paris|75", departmental_assembly.congress_persons[0], self)    
+        assert_party('Union de la gauche|UG|2|1', departmental_assembly.parties[0], self)
+        assert_congress_person_with_district("ROSSET|Marine|FEMININ|UG|18845|33.4|2ème circonscription|7502|Paris|75", departmental_assembly.parties[0].congress_persons[0], self)             
+
     def test_one_turn_election_2022_determinate_good_congress_persons(self):
         total_congress_persons = 8
         year = 2022
@@ -82,6 +160,7 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         congress = election.Determinate(year)
 
         self.__assert_congress_2022(congress)
+        self.__assert_departmental_assemblies_2022(congress.departmental_assemblies)
 
 
     def __assert_congress_2022(self, congress):
@@ -91,13 +170,11 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         self.assertEqual("LOW", congress.representative_congress)
         self.__assert_parties_2022(congress.parties)
 
-
     def __assert_parties_2022(self, parties):
         self.__assert_ens_2022(parties[0])
         self.__assert_nupes_2022(parties[1])
         self.__assert_lr_2022(parties[2])
         self.__assert_rn_2022(parties[3])
-
 
     def __assert_ens_2022(self, ens_party):
         self.assertEqual("Ensemble ! (Majorité présidentielle)", ens_party.name)
@@ -126,3 +203,78 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         self.assertEqual("RN", rn_party.code)
         self.assertEqual(1, rn_party.elected_congress_persons)
         assert_congress_person_with_district("GOULET|Florence|FEMININ|RN|8693|32.68|2ème circonscription|2|Meuse|55", rn_party.congress_persons[0], self)            
+
+    def __assert_departmental_assemblies_2022(self, departmental_assemblies) : 
+        self.__assert_departmental_assembly_5_2022(departmental_assemblies[0])
+        self.__assert_departmental_assembly_15_2022(departmental_assemblies[1])
+        self.__assert_departmental_assembly_25_2022(departmental_assemblies[2])
+        self.__assert_departmental_assembly_35_2022(departmental_assemblies[3])
+        self.__assert_departmental_assembly_45_2022(departmental_assemblies[4])
+        self.__assert_departmental_assembly_55_2022(departmental_assemblies[5])
+        self.__assert_departmental_assembly_65_2022(departmental_assemblies[6])
+        self.__assert_departmental_assembly_75_2022(departmental_assemblies[7])
+        
+    def __assert_departmental_assembly_5_2022(self, departmental_assembly):
+        self.assertEqual("5", departmental_assembly.department_code)
+        self.assertEqual("Hautes-Alpes", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("GIRAUD|Joel|MASCULIN|ENS|10889|38.04|2ème circonscription|2|Hautes-Alpes|05", departmental_assembly.congress_persons[0], self)
+        assert_party('Ensemble ! (Majorité présidentielle)|ENS|3|1', departmental_assembly.parties[0], self)
+        assert_congress_person_with_district("GIRAUD|Joel|MASCULIN|ENS|10889|38.04|2ème circonscription|2|Hautes-Alpes|05", departmental_assembly.parties[0].congress_persons[0], self)
+
+    def __assert_departmental_assembly_15_2022(self, departmental_assembly):
+        self.assertEqual("15", departmental_assembly.department_code)
+        self.assertEqual("Cantal", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("BONY|Jean-Yves|MASCULIN|LR|10472|37.71|2ème circonscription|2|Cantal|15", departmental_assembly.congress_persons[0], self)     
+        assert_party('Les Républicains|LR|4|1', departmental_assembly.parties[0], self)
+        assert_congress_person_with_district("BONY|Jean-Yves|MASCULIN|LR|10472|37.71|2ème circonscription|2|Cantal|15", departmental_assembly.parties[0].congress_persons[0], self)  
+
+    def __assert_departmental_assembly_25_2022(self, departmental_assembly):
+        self.assertEqual("25", departmental_assembly.department_code)
+        self.assertEqual("Doubs", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("RAVACLEY|Stéphane|MASCULIN|NUP|13112|32.51|2ème circonscription|2|Doubs|25", departmental_assembly.congress_persons[0], self)     
+        assert_party('Nouvelle union populaire écologique et sociale|NUP|2|1', departmental_assembly.parties[0], self)
+        assert_congress_person_with_district("RAVACLEY|Stéphane|MASCULIN|NUP|13112|32.51|2ème circonscription|2|Doubs|25", departmental_assembly.parties[0].congress_persons[0], self)  
+
+    def __assert_departmental_assembly_35_2022(self, departmental_assembly):
+        self.assertEqual("35", departmental_assembly.department_code)
+        self.assertEqual("Ille-et-Vilaine", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("MAILLART-MÉHAIGNERIE|Laurence|FEMININ|ENS|22630|41.41|2ème circonscription|2|Ille-et-Vilaine|35", departmental_assembly.congress_persons[0], self)     
+        assert_party('Ensemble ! (Majorité présidentielle)|ENS|3|1', departmental_assembly.parties[0], self)
+        assert_congress_person_with_district("MAILLART-MÉHAIGNERIE|Laurence|FEMININ|ENS|22630|41.41|2ème circonscription|2|Ille-et-Vilaine|35", departmental_assembly.parties[0].congress_persons[0], self)
+
+    def __assert_departmental_assembly_45_2022(self, departmental_assembly):
+        self.assertEqual("45", departmental_assembly.department_code)
+        self.assertEqual("Loiret", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("JANVIER|Caroline|FEMININ|ENS|11978|29.1|2ème circonscription|2|Loiret|45", departmental_assembly.congress_persons[0], self)     
+        assert_party('Ensemble ! (Majorité présidentielle)|ENS|3|1', departmental_assembly.parties[1], self)
+        assert_congress_person_with_district("JANVIER|Caroline|FEMININ|ENS|11978|29.1|2ème circonscription|2|Loiret|45", departmental_assembly.parties[0].congress_persons[0], self)
+
+    def __assert_departmental_assembly_55_2022(self, departmental_assembly):
+        self.assertEqual("55", departmental_assembly.department_code)
+        self.assertEqual("Meuse", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("GOULET|Florence|FEMININ|RN|19011|50.63|2ème circonscription|5502|Meuse|55", departmental_assembly.congress_persons[0], self)     
+        assert_party('Rassemblement National|RN|5|1', departmental_assembly.parties[1], self)
+        assert_congress_person_with_district("GOULET|Florence|FEMININ|RN|19011|50.63|2ème circonscription|5502|Meuse|55", departmental_assembly.parties[0].congress_persons[0], self)
+    
+    def __assert_departmental_assembly_65_2022(self, departmental_assembly):
+        self.assertEqual("65", departmental_assembly.department_code)
+        self.assertEqual("Hautes-Pyrénées", departmental_assembly.department_name)
+        self.assertEqual(1, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("MOURNET|Benoit|MASCULIN|ENS|10870|23.75|2ème circonscription|2|Hautes-Pyrénées|65", departmental_assembly.congress_persons[0], self)     
+        assert_party('Ensemble ! (Majorité présidentielle)|ENS|3|1', departmental_assembly.parties[0], self)
+        assert_congress_person_with_district("MOURNET|Benoit|MASCULIN|ENS|10870|23.75|2ème circonscription|2|Hautes-Pyrénées|65", departmental_assembly.parties[0].congress_persons[0], self)      
+
+    def __assert_departmental_assembly_75_2022(self, departmental_assembly):
+        self.assertEqual("75", departmental_assembly.department_code)
+        self.assertEqual("Paris", departmental_assembly.department_name)
+        self.assertEqual(2, departmental_assembly.number_congress_persons)
+        assert_congress_person_with_district("LE GENDRE|Gilles|MASCULIN|ENS|15547|35.66|2ème circonscription|2|Paris|75", departmental_assembly.congress_persons[0], self)    
+        assert_party('Ensemble ! (Majorité présidentielle)|ENS|3|1', departmental_assembly.parties[0], self)
+        assert_congress_person_with_district("LE GENDRE|Gilles|MASCULIN|ENS|15547|35.66|2ème circonscription|2|Paris|75", departmental_assembly.parties[0].congress_persons[0], self)     
+        
