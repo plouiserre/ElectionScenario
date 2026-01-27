@@ -15,7 +15,8 @@ class CongressPersonByDepartment :
         self.congress_persons_elected_for_each_department = congress_persons_elected_for_each_department
 
     def Choose(self, elections_results, year , department_code):
-        total_congress_person = self.number_congress_person.Calculate(department_code, elections_results, year)
+        all_datas_elections = elections_results[year]
+        total_congress_person = self.number_congress_person.Calculate(department_code, all_datas_elections)
         all_votes_from_dpt = self.districts_vote_from_dpt.Find(elections_results, department_code, year)
         all_candidates_from_districts = self.__regroup_all_candidates_from_districts(all_votes_from_dpt)
         parties_by_vote = self.determinate_vote_by_party.Calculate(all_candidates_from_districts)

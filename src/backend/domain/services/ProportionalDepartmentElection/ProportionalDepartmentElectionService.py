@@ -13,9 +13,10 @@ class ProportionalDepartmentElectionService(ProportionalDepartmentElectionPort) 
 
     def Determinate(self, year):
         elections_results = self.json_service.get_results()
+        all_datas_elections = elections_results[year]
         congress_persons_elected = {}
         departmental_assemblies = []
-        for dept in elections_results[2024].all_departments: 
+        for dept in all_datas_elections.all_departments: 
             departmental_assembly = self.congress_persons_by_departments.Choose(elections_results, year, dept.code)
             departmental_assembly_unique = copy.deepcopy(departmental_assembly)
             departmental_assemblies.append(departmental_assembly_unique)
