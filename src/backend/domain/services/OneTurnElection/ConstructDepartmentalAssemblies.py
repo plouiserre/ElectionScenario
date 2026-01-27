@@ -8,6 +8,9 @@ class ConstructDepartmentalAssemblies :
     def Build(self, parties_info, parties, departments): 
         departmentals_assemblies = []
         for dpt_code in parties_info : 
+            #Code TMP le temps d'apporter le correctif
+            if 'Z' in dpt_code: 
+                continue
             dpt_code_not_clean = dpt_code
             dpt_code_clean = self.__fix_dpt_code(dpt_code)
             dpt = self.__find_dpt(departments, dpt_code_clean)
