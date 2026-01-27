@@ -26,7 +26,7 @@ class CongressPersonByDepartment :
         congress_persons_elected = self.select_congress_persons.Choose(parties_seats_by_dept, all_candidates_from_districts)
         all_parties = self.regroup_congress_persons_by_parties.sort(congress_persons_elected, elections_results[year].all_parties)
         department_name = self.__find_department_name(elections_results[year].all_departments, department_code)
-        number_congress_persons = self.congress_persons_elected_for_each_department.Determinate(elections_results, department_code, year)
+        number_congress_persons = self.congress_persons_elected_for_each_department.Determinate(department_code, all_datas_elections)
         congress_departmental = self.__construct_department_congress(department_code, department_name, all_parties, number_congress_persons)
         return congress_departmental       
         

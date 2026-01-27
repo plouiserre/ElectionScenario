@@ -28,7 +28,7 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
 
         congress_persons_by_department = CongressPersonByDepartment(number_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
-                                                                    select_congress_persons, regroup_congress_persons_by_parties, congress_persons_elected_for_each_department)
+                                                                    select_congress_persons, regroup_congress_persons_by_parties, congress_persons_elected_for_each_department)                                                                    
 
         department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
 
