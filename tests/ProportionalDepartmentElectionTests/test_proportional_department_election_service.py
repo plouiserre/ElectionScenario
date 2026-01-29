@@ -13,7 +13,7 @@ from src.backend.domain.services.ProportionalDepartmentElection.DeterminateSeatB
 from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
 from src.backend.domain.services.ProportionalDepartmentElection.ManageCongressPersonsByDepartment import ManageCongressPersonsByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.ModeDesignCongressPerson import ModeDesignCongressPerson
-from src.backend.domain.services.ProportionalDepartmentElection.NumberCongressPerson import NumberCongressPerson
+# from src.backend.domain.services.ProportionalDepartmentElection.NumberCongressPerson import NumberCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.ProportionalDepartmentElectionService import ProportionalDepartmentElectionService
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.data.catalogData import generate_datas
@@ -27,7 +27,7 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         json_files = Mock()
         json_files.get_elections_data.return_value = generate_datas("results_elections", "three_departments_tmp_no_objects")        
         json_service = JsonResultsElection(json_files)
-        number_congress_person = NumberCongressPerson()
+        # number_congress_person = NumberCongressPerson()
         mode_design_congress_person = ModeDesignCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         determinate_vote_by_party = DetermineVoteByParty()        
@@ -38,7 +38,7 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         total_congress_person = TotalCongressPerson()
         
 
-        congress_persons_by_departments = CongressPersonByDepartment(number_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
+        congress_persons_by_departments = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, 
                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
                                                                     select_congress_persons, regroup_congress_persons_by_parties, total_congress_person)
         manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        

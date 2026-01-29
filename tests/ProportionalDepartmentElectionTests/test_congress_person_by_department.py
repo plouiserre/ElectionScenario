@@ -8,7 +8,6 @@ from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonBy
 from src.backend.domain.services.ProportionalDepartmentElection.DeterminateSeatByPartyInDept import DeterminateSeatsByPartyInDept
 from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
 from src.backend.domain.services.ProportionalDepartmentElection.ModeDesignCongressPerson import ModeDesignCongressPerson
-from src.backend.domain.services.ProportionalDepartmentElection.NumberCongressPerson import NumberCongressPerson
 from tests.utils.assert_helper import assert_candidate_with_district_and_percentage
 from tests.utils.data.catalogData import generate_datas
 
@@ -16,7 +15,6 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
     def test_choose_congress_persons_for_cantal_department(self):
         elections_results = generate_datas("results_elections", "three_departments_tmp")
         department_code = "15"
-        number_congress_person = NumberCongressPerson()
         mode_design_congress_person = ModeDesignCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         determinate_vote_by_party = DetermineVoteByParty()
@@ -26,8 +24,8 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
         total_congress_person = TotalCongressPerson()
 
-        congress_persons_by_department = CongressPersonByDepartment(number_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
-                                                                    determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
+        congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, determinate_vote_by_party, 
+                                                                    percentage_vote_by_party, determinate_seats_by_party_in_dept,
                                                                     select_congress_persons, regroup_congress_persons_by_parties, total_congress_person)                                                                    
 
         all_datas_elections = elections_results[2024]
@@ -41,7 +39,6 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
     def test_choose_congress_persons_for_allier_department(self):
         elections_results = generate_datas("results_elections", "three_departments_tmp")
         department_code = "3"
-        number_congress_person = NumberCongressPerson()
         mode_design_congress_person = ModeDesignCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         determinate_vote_by_party = DetermineVoteByParty()
@@ -51,8 +48,8 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
         total_congress_person = TotalCongressPerson()
 
-        congress_persons_by_department = CongressPersonByDepartment(number_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
-                                                                    determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
+        congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, determinate_vote_by_party, 
+                                                                    percentage_vote_by_party, determinate_seats_by_party_in_dept,
                                                                     select_congress_persons, regroup_congress_persons_by_parties, total_congress_person)
         all_datas_elections = elections_results[2024]
         department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)
@@ -68,7 +65,6 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
     def test_choose_congress_persons_for_gironde_department(self):
         elections_results = generate_datas("results_elections", "three_departments_tmp")
         department_code = "33"
-        number_congress_person = NumberCongressPerson()
         mode_design_congress_person = ModeDesignCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         determinate_vote_by_party = DetermineVoteByParty()
@@ -78,8 +74,8 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
         total_congress_person = TotalCongressPerson()
 
-        congress_persons_by_department = CongressPersonByDepartment(number_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
-                                                                    determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
+        congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, determinate_vote_by_party, 
+                                                                    percentage_vote_by_party, determinate_seats_by_party_in_dept,
                                                                     select_congress_persons, regroup_congress_persons_by_parties, total_congress_person)
 
         all_datas_elections = elections_results[2024]
