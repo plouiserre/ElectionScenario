@@ -2,7 +2,7 @@ from src.backend.domain.ports.inside.OneTurnElectionPort import OneTurnElectionP
 from src.backend.domain.ports.inside.ProportionalNationalElectionPort import ProportionalNationalElectionPort
 from src.backend.domain.ports.outside.ResultsElectionsPort import ResultsElectionsPort
 from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
-from src.backend.domain.services.GlobalElection.CongressPersonsElectedForEachDepartment import CongressPersonsElectedForEachDepartment
+from src.backend.domain.services.GlobalElection.TotalCongressPerson import CongressPersonsElectedForEachDepartment
 from src.backend.domain.services.GlobalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
 from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties

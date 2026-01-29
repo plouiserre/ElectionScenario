@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
-from src.backend.domain.services.GlobalElection.CongressPersonsElectedForEachDepartment import CongressPersonsElectedForEachDepartment
+from src.backend.domain.services.GlobalElection.TotalCongressPerson import TotalCongressPerson
 from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from src.backend.domain.services.GlobalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
 from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
@@ -21,13 +21,13 @@ from src.backend.infrastructure.services.JsonResultsElection import JsonResultsE
 
 class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
     def test_determinate_congress_with_proportional_department_election(self):
-        total_congress_persons = 16
+        total_congress_persons_in_dpt = 16
         year = 2024
         mode = "proportionalDepartmental"
         json_files = Mock()
         json_files.get_elections_data.return_value = generate_datas("results_elections", "three_departments_tmp_no_objects")        
         json_service = JsonResultsElection(json_files)
-        total_congress_person = NumberCongressPerson()
+        number_congress_person = NumberCongressPerson()
         mode_design_congress_person = ModeDesignCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         determinate_vote_by_party = DetermineVoteByParty()        
@@ -35,15 +35,15 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
         select_congress_persons = SelectCongressPersons()
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
-        congress_persons_elected_for_each_department = CongressPersonsElectedForEachDepartment()
+        total_congress_person = TotalCongressPerson()
         
 
-        congress_persons_by_departments = CongressPersonByDepartment(total_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
+        congress_persons_by_departments = CongressPersonByDepartment(number_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
-                                                                    select_congress_persons, regroup_congress_persons_by_parties, congress_persons_elected_for_each_department)
+                                                                    select_congress_persons, regroup_congress_persons_by_parties, total_congress_person)
         manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
-        stability_congress = StabilityCongress(total_congress_persons)
-        representative_congress = RepresentativeCongress(total_congress_persons)
+        stability_congress = StabilityCongress(total_congress_persons_in_dpt)
+        representative_congress = RepresentativeCongress(total_congress_persons_in_dpt)
         build_congress = BuildCongress(stability_congress, representative_congress)
         proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, manage_congress_persons_by_department, 
                                                                                          build_congress, mode)        
