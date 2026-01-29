@@ -30,8 +30,9 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
                                                                     select_congress_persons, regroup_congress_persons_by_parties, congress_persons_elected_for_each_department)                                                                    
 
-        department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
-
+        all_datas_elections = elections_results[2024]
+        department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)
+        
         self.assertEqual("15", department_congress.department_code)
         self.assertEqual("Cantal", department_congress.department_name)
         self.assertEqual(1, department_congress.number_congress_persons)
@@ -53,8 +54,8 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         congress_persons_by_department = CongressPersonByDepartment(number_congress_person, mode_design_congress_person, districts_vote_from_dpt, 
                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
                                                                     select_congress_persons, regroup_congress_persons_by_parties, congress_persons_elected_for_each_department)
-
-        department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
+        all_datas_elections = elections_results[2024]
+        department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)
 
         self.assertEqual("3", department_congress.department_code)
         self.assertEqual("Allier", department_congress.department_name)
@@ -81,7 +82,8 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
                                                                     determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
                                                                     select_congress_persons, regroup_congress_persons_by_parties, congress_persons_elected_for_each_department)
 
-        department_congress = congress_persons_by_department.Choose(elections_results, 2024, department_code)
+        all_datas_elections = elections_results[2024]
+        department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)
 
         self.assertEqual("33", department_congress.department_code)
         self.assertEqual("Gironde", department_congress.department_name)
