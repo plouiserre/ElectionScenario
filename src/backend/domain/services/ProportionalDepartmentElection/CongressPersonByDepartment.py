@@ -1,31 +1,27 @@
 from src.backend.domain.models.department_congress import DepartmentCongress
 
 class CongressPersonByDepartment :          
-    def __init__(self, number_congress_person, minimal_vote_congress_person, districts_vote_from_dpt, determinate_vote_by_party, 
-                 determine_percentage_vote_by_party, determinate_seats_by_party_in_dept, select_congress_persons, regroup_congress_persons_by_parties, 
-                 congress_persons_elected_for_each_department):
-        self.number_congress_person = number_congress_person
+    def __init__(self, minimal_vote_congress_person, districts_vote_from_dpt, seats_results, determinate_seats_by_party_in_dept, 
+                 select_congress_persons, regroup_congress_persons_by_parties, total_congress_person):
         self.minimal_vote_congress_person = minimal_vote_congress_person
         self.districts_vote_from_dpt = districts_vote_from_dpt
-        self.determinate_vote_by_party = determinate_vote_by_party
-        self.determine_percentage_vote_by_party = determine_percentage_vote_by_party
+        self.seats_results = seats_results
         self.determinate_seats_by_party_in_dept = determinate_seats_by_party_in_dept
         self.select_congress_persons = select_congress_persons
         self.regroup_congress_persons_by_parties = regroup_congress_persons_by_parties
-        self.congress_persons_elected_for_each_department = congress_persons_elected_for_each_department
+        self.total_congress_person = total_congress_person
 
     def Choose(self, all_datas_elections , department_code):
-        total_congress_person = self.number_congress_person.Calculate(department_code, all_datas_elections)
+        number_congress_persons = self.total_congress_person.count_for_each_dpt(department_code, all_datas_elections)
         all_votes_from_dpt = self.districts_vote_from_dpt.Find(department_code, all_datas_elections)
         all_candidates_from_districts = self.__regroup_all_candidates_from_districts(all_votes_from_dpt)
-        parties_by_vote = self.determinate_vote_by_party.Calculate(all_candidates_from_districts)
-        all_percentage_vote_by_party = self.determine_percentage_vote_by_party.Calculate(parties_by_vote)
-        mode_design = self.minimal_vote_congress_person.Calculate(total_congress_person, all_percentage_vote_by_party)
-        parties_seats_by_dept = self.determinate_seats_by_party_in_dept.Determinate(all_percentage_vote_by_party, mode_design, total_congress_person)
+        parties_by_vote = self.seats_results.calculate_vote_each_party(all_candidates_from_districts)
+        all_percentage_vote_by_party = self.seats_results.calculate_percentage(parties_by_vote)
+        mode_design = self.minimal_vote_congress_person.Calculate(number_congress_persons, all_percentage_vote_by_party)
+        parties_seats_by_dept = self.determinate_seats_by_party_in_dept.Determinate(all_percentage_vote_by_party, mode_design, number_congress_persons)
         congress_persons_elected = self.select_congress_persons.Choose(parties_seats_by_dept, all_candidates_from_districts)
         all_parties = self.regroup_congress_persons_by_parties.sort(congress_persons_elected, all_datas_elections.all_parties)
         department_name = self.__find_department_name(all_datas_elections.all_departments, department_code)
-        number_congress_persons = self.congress_persons_elected_for_each_department.Determinate(department_code, all_datas_elections)
         congress_departmental = self.__construct_department_congress(department_code, department_name, all_parties, number_congress_persons)
         return congress_departmental       
         
