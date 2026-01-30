@@ -11,3 +11,4 @@ class DetermineVoteByParty :
             else : 
                 results[parti_code] = candidate.vote
         return results
+    

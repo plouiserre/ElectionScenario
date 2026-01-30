@@ -3,7 +3,7 @@ from src.backend.domain.ports.inside.ProportionalNationalElectionPort import Pro
 from src.backend.domain.ports.outside.ResultsElectionsPort import ResultsElectionsPort
 from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
 from src.backend.domain.services.GlobalElection.TotalCongressPerson import TotalCongressPerson
-from src.backend.domain.services.GlobalElection.DeterminePercentageVoteByParty import DeterminePercentageVoteByParty
+from src.backend.domain.services.GlobalElection.SeatsResults import SeatsResults
 from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
 from src.backend.domain.services.GlobalElection.RepresentativeCongress import RepresentativeCongress
@@ -41,7 +41,7 @@ def get_one_turn_election_service() -> OneTurnElectionPort:
 def get_proportional_national_election_service() -> ProportionalNationalElectionPort:
     json_service = __get_json_service()
     determine_vote_by_party = DetermineVoteByParty()
-    determine_percentage_vote_by_party = DeterminePercentageVoteByParty()
+    seats_results = SeatsResults()
     remove_small_parties = RemoveSmallParties()
     #TODO externalize conf
     determine_seats_by_parties = DeterminateSeatsByParty(577)
@@ -50,7 +50,7 @@ def get_proportional_national_election_service() -> ProportionalNationalElection
     representative_congress = RepresentativeCongress(577)
     stability_congress = StabilityCongress(577)
     build_congress = BuildCongress(stability_congress, representative_congress)
-    election = ProportionalNationalElectionService(json_service, determine_vote_by_party, determine_percentage_vote_by_party, remove_small_parties, 
+    election = ProportionalNationalElectionService(json_service, determine_vote_by_party, seats_results, remove_small_parties, 
                                                     determine_seats_by_parties, select_congress_persons, regroup_congress_persons_by_parties, build_congress)
     return election
 
@@ -59,14 +59,14 @@ def get_proportional_departmental_election_service () -> ProportionalDepartmentE
     mode_design_congress_person = ModeDesignCongressPerson()
     districts_vote_from_dpt = DistrictsVoteFromDpt()
     determinate_vote_by_party = DetermineVoteByParty()        
-    percentage_vote_by_party = DeterminePercentageVoteByParty()        
+    seats_results = SeatsResults()        
     determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
     select_congress_persons = SelectCongressPersons()
     regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
     total_congress_person = TotalCongressPerson()
 
     congress_persons_by_departments = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, 
-                                                                determinate_vote_by_party, percentage_vote_by_party, determinate_seats_by_party_in_dept,
+                                                                determinate_vote_by_party, seats_results, determinate_seats_by_party_in_dept,
                                                                 select_congress_persons, regroup_congress_persons_by_parties, total_congress_person)
     manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
     stability_congress = StabilityCongress(577)
