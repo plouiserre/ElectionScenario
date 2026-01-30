@@ -2,10 +2,9 @@ from src.backend.domain.models.factory import  factory_congress_datas
 from src.backend.domain.ports.inside.ProportionalNationalElectionPort import ProportionalNationalElectionPort
 
 class ProportionalNationalElectionService(ProportionalNationalElectionPort):
-    def __init__(self, json_results_election, determinate_vote_by_party, seats_results, remove_small_parties, 
-                 determinate_seats_by_party, select_congress_person, regroup_by_parties, build_congress):
+    def __init__(self, json_results_election, seats_results, remove_small_parties, determinate_seats_by_party, select_congress_person, 
+                 regroup_by_parties, build_congress):
         self.json_results_election = json_results_election
-        self.determinate_vote_by_party = determinate_vote_by_party
         self.seats_results = seats_results
         self.remove_small_parties = remove_small_parties
         self.determinate_seats_by_party = determinate_seats_by_party
@@ -41,7 +40,7 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         return all_candidates_mixed
 
     def __calculate_each_party_votes(self):
-        results = self.determinate_vote_by_party.Calculate(self.candidates_results)
+        results = self.seats_results.calculate_vote_each_party(self.candidates_results)
         return results
     
     def __calculate_each_vote_percentage(self, parties_by_vote):

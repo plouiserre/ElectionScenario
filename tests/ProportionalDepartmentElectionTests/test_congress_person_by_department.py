@@ -1,6 +1,5 @@
 import unittest
 from src.backend.domain.services.GlobalElection.TotalCongressPerson import TotalCongressPerson
-from src.backend.domain.services.GlobalElection.DetermineVoteByParty import DetermineVoteByParty
 from src.backend.domain.services.GlobalElection.SeatsResults import SeatsResults
 from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
 from src.backend.domain.services.GlobalElection.SelectCongressPerson import SelectCongressPersons
@@ -17,16 +16,15 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         department_code = "15"
         mode_design_congress_person = ModeDesignCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
-        determinate_vote_by_party = DetermineVoteByParty()
         seats_results = SeatsResults()
         determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
         select_congress_persons = SelectCongressPersons()
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
         total_congress_person = TotalCongressPerson()
 
-        congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, determinate_vote_by_party, 
-                                                                    seats_results, determinate_seats_by_party_in_dept,
-                                                                    select_congress_persons, regroup_congress_persons_by_parties, total_congress_person)                                                                    
+        congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
+                                                                    determinate_seats_by_party_in_dept, select_congress_persons, 
+                                                                    regroup_congress_persons_by_parties, total_congress_person)                                                                    
 
         all_datas_elections = elections_results[2024]
         department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)
@@ -41,16 +39,15 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         department_code = "3"
         mode_design_congress_person = ModeDesignCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
-        determinate_vote_by_party = DetermineVoteByParty()
         seats_results = SeatsResults()
         determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
         select_congress_persons = SelectCongressPersons()
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
         total_congress_person = TotalCongressPerson()
 
-        congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, determinate_vote_by_party, 
-                                                                    seats_results, determinate_seats_by_party_in_dept,
-                                                                    select_congress_persons, regroup_congress_persons_by_parties, total_congress_person)
+        congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
+                                                                    determinate_seats_by_party_in_dept, select_congress_persons, 
+                                                                    regroup_congress_persons_by_parties, total_congress_person)
         all_datas_elections = elections_results[2024]
         department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)
 
@@ -67,16 +64,15 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         department_code = "33"
         mode_design_congress_person = ModeDesignCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
-        determinate_vote_by_party = DetermineVoteByParty()
         seats_results = SeatsResults()
         determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
         select_congress_persons = SelectCongressPersons()
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
         total_congress_person = TotalCongressPerson()
 
-        congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, determinate_vote_by_party, 
-                                                                    seats_results, determinate_seats_by_party_in_dept,
-                                                                    select_congress_persons, regroup_congress_persons_by_parties, total_congress_person)
+        congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
+                                                                    determinate_seats_by_party_in_dept, select_congress_persons, 
+                                                                    regroup_congress_persons_by_parties, total_congress_person)
 
         all_datas_elections = elections_results[2024]
         department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)

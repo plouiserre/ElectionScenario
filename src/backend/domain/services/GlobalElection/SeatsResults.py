@@ -12,7 +12,16 @@ class SeatsResults :
             percentages[key] = percentage
         return percentages
     
-
+    def calculate_vote_each_party(self, candidates):
+        results = {}
+        for candidate in candidates:
+            parti_code = candidate.parti_code
+            if parti_code in results :
+                results[parti_code] += candidate.vote
+            else : 
+                results[parti_code] = candidate.vote
+        return results
+    
 
     def __determinate_all_votes(self) :
         all_votes_number = 0
