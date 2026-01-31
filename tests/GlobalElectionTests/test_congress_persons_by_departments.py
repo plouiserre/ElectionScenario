@@ -1,5 +1,5 @@
 import unittest
-from tests.utils.assert_helper import assert_candidate_with_district_and_percentage
+from tests.utils.assert_helper import assert_candidate_with_district_and_percentage, assert_congress_person_with_district
 from src.backend.domain.services.GlobalElection.CongressPersonsByDepartement import CongressPersonsByDepartments
 from tests.utils.data.catalogData import generate_datas
 
