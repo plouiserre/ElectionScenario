@@ -36,7 +36,7 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
 
         congress_persons_by_departments = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
                                                                      determinate_seats_by_party_in_dept, congress_person_elected, 
-                                                                     regroup_congress_persons_by_parties, total_congress_person)
+                                                                     regroup_congress_persons_by_parties, total_congress_person, mode)
         manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
         stability_congress = StabilityCongress(total_congress_persons_in_dpt)
         representative_congress = RepresentativeCongress(total_congress_persons_in_dpt)

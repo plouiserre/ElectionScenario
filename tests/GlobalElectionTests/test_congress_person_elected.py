@@ -9,7 +9,7 @@ class CongressPersonElectedTest(unittest.TestCase):
         congress_person_elected = CongressPersonElected()
         score = {'UG': 3, 'RN': 3, 'ENS': 2, 'LR': 0}
 
-        congress_persons = congress_person_elected.Choose(score, candidates)
+        congress_persons = congress_person_elected.Select(score, candidates, "proportionalDepartmental")
 
         self.assertEqual(8, len(congress_persons))
         assert_congress_person_with_district("LAHAIS|Tristan|MASCULIN|UG|30361|40.31|2ème circonscription|3502|Ille-et-Vilaine|35", congress_persons[0], self)

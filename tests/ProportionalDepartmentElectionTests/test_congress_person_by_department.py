@@ -24,7 +24,7 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
 
         congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
                                                                     determinate_seats_by_party_in_dept, congress_person_elected, 
-                                                                    regroup_congress_persons_by_parties, total_congress_person)                                                                    
+                                                                    regroup_congress_persons_by_parties, total_congress_person, "proportionalDepartmental")                                                                    
 
         all_datas_elections = elections_results[2024]
         department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)
@@ -47,7 +47,7 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
 
         congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
                                                                     determinate_seats_by_party_in_dept, congress_person_elected, 
-                                                                    regroup_congress_persons_by_parties, total_congress_person)
+                                                                    regroup_congress_persons_by_parties, total_congress_person, "proportionalDepartmental")
         all_datas_elections = elections_results[2024]
         department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)
 
@@ -72,7 +72,7 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
 
         congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
                                                                     determinate_seats_by_party_in_dept, congress_person_elected, 
-                                                                    regroup_congress_persons_by_parties, total_congress_person)
+                                                                    regroup_congress_persons_by_parties, total_congress_person, "proportionalDepartmental")
 
         all_datas_elections = elections_results[2024]
         department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)

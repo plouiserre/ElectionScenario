@@ -2,7 +2,7 @@ class CongressPersonElected():
     def __init__(self):
         self.all_candidates = []
 
-    def Choose(self, partys_seats, all_candidates): 
+    def Select(self, partys_seats, all_candidates, mode): 
         all_candidates_elected = []
         self.all_candidates = all_candidates
         for party in partys_seats :

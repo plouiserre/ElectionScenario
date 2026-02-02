@@ -56,7 +56,7 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         return number_congress_persons_by_parties
     
     def __choose_congress_persons_elected_for_parties(self, number_congress_persons_elected_by_parties): 
-        congress_persons_elected = self.select_congress_person.Choose(number_congress_persons_elected_by_parties, self.candidates_results)
+        congress_persons_elected = self.select_congress_person.Select(number_congress_persons_elected_by_parties, self.candidates_results, self.mode)
         return congress_persons_elected
     
     def __regroup_congress_persons_by_parties(self, congress_persons_elected):
