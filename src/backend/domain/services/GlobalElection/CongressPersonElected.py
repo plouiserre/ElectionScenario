@@ -1,19 +1,40 @@
-class SelectCongressPersons(): 
+from src.backend.domain.models.congressPerson import CongressPerson
+
+class CongressPersonElected(): 
     def __init__(self):
         self.all_candidates = []
 
-    def Choose(self, partys_seats, all_candidates): 
-        all_candidates_elected = []
+    def Select(self, partys_seats, all_candidates, mode): 
+        self.all_candidates_elected = []
         self.all_candidates = all_candidates
-        for party in partys_seats :
-            number_seats = partys_seats[party]
+        self.partys_seats = partys_seats
+        if mode =="PROPORTIONALITYNATIONAL" or mode =="proportionalDepartmental" :
+            self.__select_proportional_elected_congress_persons()
+        else : 
+            self.__select_one_turn_election_congress_person()
+        
+        return self.all_candidates_elected
+    
+    def __select_one_turn_election_congress_person(self) : 
+        for candidates in self.all_candidates:
+            elected_person = CongressPerson()
+            vote_percentage = 0.0
+            for candidate in candidates:
+                if(candidate.vote_percentage > vote_percentage):
+                    vote_percentage = candidate.vote_percentage
+                    elected_person = candidate
+            self.all_candidates_elected.append(elected_person)
+        return self.all_candidates_elected
+    
+    def __select_proportional_elected_congress_persons(self) : 
+        for party in self.partys_seats :
+            number_seats = self.partys_seats[party]
             if(number_seats > 0) :
                 all_candidates_this_party = self.__get_all_candidates_for_specific_party(party)
                 best_candidates = self.__keep_best_candidates(number_seats, all_candidates_this_party)
                 elected_persons_sorted = self.__sorted_best_candidates(best_candidates)
                 for candidate_elected in elected_persons_sorted : 
-                    all_candidates_elected.append(candidate_elected)
-        return all_candidates_elected
+                    self.all_candidates_elected.append(candidate_elected)
 
     def __get_all_candidates_for_specific_party(self, party):
         candidates_belongs_this_party = []

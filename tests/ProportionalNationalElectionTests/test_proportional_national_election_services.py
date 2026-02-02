@@ -8,7 +8,7 @@ from src.backend.domain.services.GlobalElection.SeatsResults import SeatsResults
 from src.backend.domain.services.ProportionalNationalElection.DeterminateSeatsByParty import DeterminateSeatsByParty
 from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
 from src.backend.domain.services.ProportionalNationalElection.RemoveSmallParties import RemoveSmallParties
-from src.backend.domain.services.GlobalElection.SelectCongressPerson import SelectCongressPersons
+from src.backend.domain.services.GlobalElection.CongressPersonElected import CongressPersonElected
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.data.catalogData import generate_datas
@@ -27,10 +27,10 @@ class ProportionalNationalElectionServiceTest(unittest.TestCase):
         seats_results = SeatsResults()
         remove = RemoveSmallParties()
         determine_seats_by_party = DeterminateSeatsByParty(total_elected_congress_persons)
-        select_congress_persons = SelectCongressPersons()
+        congress_person_elected = CongressPersonElected()
         regroup_by_parties = RegroupCongressPersonsByParties()
         proportional_national_election_service = ProportionalNationalElectionService(json_service, seats_results, remove, determine_seats_by_party, 
-                                                                                     select_congress_persons, regroup_by_parties, build_congress)
+                                                                                     congress_person_elected, regroup_by_parties, build_congress)
 
         congress = proportional_national_election_service.Determinate(year)
 

@@ -1,11 +1,10 @@
 import unittest
 from unittest.mock import Mock
+from src.backend.domain.services.GlobalElection.CongressPersonElected import CongressPersonElected
 from src.backend.domain.services.GlobalElection.RepresentativeCongress import RepresentativeCongress
 from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
 from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
 from src.backend.domain.services.OneTurnElection.ConstructDepartmentalAssemblies import ConstructDepartmentalAssemblies
-from src.backend.domain.services.OneTurnElection.DeterminateAllElectedPersons import DeterminateAllElectedPersons
-from src.backend.domain.services.OneTurnElection.DeterminateElectedPersonByDistrict import DeterminateElectedPersonByDistrict
 from src.backend.domain.services.OneTurnElection.DeterminatePartyInfo import DeterminatePartyInfo
 from src.backend.domain.services.OneTurnElection.OneTurnElectionService import OneTurnElectionService
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
@@ -24,10 +23,9 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         stability_congress = StabilityCongress(total_congress_persons)
         build_congress = BuildCongress(stability_congress, representative_congress)
         determinate_party_info = DeterminatePartyInfo()
-        elected_persons_by_district = DeterminateElectedPersonByDistrict()
-        all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)
+        congress_person_elected = CongressPersonElected()
         contruct_departmental_assemblies = ConstructDepartmentalAssemblies()
-        election = OneTurnElectionService(json_service, all_elected_persons, build_congress, determinate_party_info, contruct_departmental_assemblies)
+        election = OneTurnElectionService(json_service, congress_person_elected, build_congress, determinate_party_info, contruct_departmental_assemblies)
         
         congress = election.Determinate(year)
 
@@ -154,10 +152,9 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         stability_congress = StabilityCongress(total_congress_persons)
         build_congress = BuildCongress(stability_congress, representative_congress)
         determinate_party_info = DeterminatePartyInfo()
-        elected_persons_by_district = DeterminateElectedPersonByDistrict()
-        all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)
+        congress_person_elected = CongressPersonElected()
         contruct_departmental_assemblies = ConstructDepartmentalAssemblies()
-        election = OneTurnElectionService(json_service, all_elected_persons, build_congress, determinate_party_info, contruct_departmental_assemblies)        
+        election = OneTurnElectionService(json_service, congress_person_elected, build_congress, determinate_party_info, contruct_departmental_assemblies)        
         
         congress = election.Determinate(year)
 
