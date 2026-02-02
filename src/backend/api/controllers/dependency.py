@@ -6,7 +6,7 @@ from src.backend.domain.services.GlobalElection.TotalCongressPerson import Total
 from src.backend.domain.services.GlobalElection.SeatsResults import SeatsResults
 from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
 from src.backend.domain.services.GlobalElection.RepresentativeCongress import RepresentativeCongress
-from src.backend.domain.services.GlobalElection.SelectCongressPerson import SelectCongressPersons
+from src.backend.domain.services.GlobalElection.CongressPersonElected import SelectCongressPersons
 from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
 from src.backend.domain.services.OneTurnElection.ConstructDepartmentalAssemblies import ConstructDepartmentalAssemblies
 from src.backend.domain.services.OneTurnElection.DeterminateAllElectedPersons import DeterminateAllElectedPersons
