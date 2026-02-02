@@ -9,8 +9,6 @@ from src.backend.domain.services.GlobalElection.RepresentativeCongress import Re
 from src.backend.domain.services.GlobalElection.CongressPersonElected import CongressPersonElected
 from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
 from src.backend.domain.services.OneTurnElection.ConstructDepartmentalAssemblies import ConstructDepartmentalAssemblies
-from src.backend.domain.services.OneTurnElection.DeterminateAllElectedPersons import DeterminateAllElectedPersons
-from src.backend.domain.services.OneTurnElection.DeterminateElectedPersonByDistrict import DeterminateElectedPersonByDistrict
 from src.backend.domain.services.OneTurnElection.DeterminatePartyInfo import DeterminatePartyInfo
 from src.backend.domain.services.OneTurnElection.OneTurnElectionService import OneTurnElectionService
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
@@ -30,11 +28,10 @@ def get_one_turn_election_service() -> OneTurnElectionPort:
     stability_congress = StabilityCongress(577)
     representative_congress = RepresentativeCongress(577)
     build_congress = BuildCongress(stability_congress, representative_congress)
-    elected_persons_by_district = DeterminateElectedPersonByDistrict()
-    all_elected_persons = DeterminateAllElectedPersons(elected_persons_by_district)
+    congress_person_elected = CongressPersonElected()
     determinate_party_info = DeterminatePartyInfo()
     contruct_departmental_assemblies = ConstructDepartmentalAssemblies()
-    election = OneTurnElectionService(json_service, all_elected_persons, build_congress, determinate_party_info, contruct_departmental_assemblies)
+    election = OneTurnElectionService(json_service, congress_person_elected, build_congress, determinate_party_info, contruct_departmental_assemblies)
     return election
 
 def get_proportional_national_election_service() -> ProportionalNationalElectionPort:

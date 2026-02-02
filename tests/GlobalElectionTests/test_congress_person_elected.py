@@ -4,7 +4,7 @@ from tests.utils.data.catalogData import generate_datas
 from tests.utils.assert_helper import assert_congress_person_with_district
 
 class CongressPersonElectedTest(unittest.TestCase):
-    def test_select_candidates_elected(self): 
+    def test_select_candidates_elected_proportional(self): 
         candidates = generate_datas("candidate", "")
         congress_person_elected = CongressPersonElected()
         score = {'UG': 3, 'RN': 3, 'ENS': 2, 'LR': 0}
@@ -22,4 +22,19 @@ class CongressPersonElectedTest(unittest.TestCase):
 
         assert_congress_person_with_district("MAILLART-MÉHAIGNERIE|Laurence|FEMININ|ENS|25792|34.24|2ème circonscription|3502|Ille-et-Vilaine|35", congress_persons[6], self)
         assert_congress_person_with_district("VUILLEMIN|Benoît|MASCULIN|ENS|15026|26.79|2ème circonscription|2502|Doubs|25", congress_persons[7], self)
+
+    def test_find_all_elected_persons_one_turn_majority(self): 
+        candidates = generate_datas("candidate", "groupby_district")
+        congress_person_elected = CongressPersonElected()
+
+        congress_persons = congress_person_elected.Select(None, candidates, "OneTurnElection")
+    
+        assert_congress_person_with_district("ALBRAND|Louis|MASCULIN|RN|13115|33.88|2ème circonscription|502|Hautes-Alpes|5", congress_persons[0], self)
+        assert_congress_person_with_district("BONY|Jean-Yves|MASCULIN|LR|12383|34.29|2ème circonscription|1502|Cantal|15", congress_persons[1], self)
+        assert_congress_person_with_district("VOYNET|Dominique|FEMININ|UG|19160|34.16|2ème circonscription|2502|Doubs|25", congress_persons[2], self)
+        assert_congress_person_with_district("LAHAIS|Tristan|MASCULIN|UG|30361|40.31|2ème circonscription|3502|Ille-et-Vilaine|35", congress_persons[3], self)
+        assert_congress_person_with_district("BABIN|Elodie|FEMININ|RN|18957|32.91|2ème circonscription|4502|Loiret|45", congress_persons[4], self)
+        assert_congress_person_with_district("GOULET|Florence|FEMININ|RN|19011|50.63|2ème circonscription|5502|Meuse|55", congress_persons[5], self)
+        assert_congress_person_with_district("MONTEIL|Olivier|MASCULIN|RN|22436|36.96|2ème circonscription|6502|Hautes-Pyrénées|65", congress_persons[6], self)                                    
+        assert_congress_person_with_district("ROSSET|Marine|FEMININ|UG|18845|33.4|2ème circonscription|7502|Paris|75", congress_persons[7], self)
         
