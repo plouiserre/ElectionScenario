@@ -1,4 +1,4 @@
-class SelectCongressPersons(): 
+class CongressPersonElected(): 
     def __init__(self):
         self.all_candidates = []
 

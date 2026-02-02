@@ -5,7 +5,7 @@ from src.backend.domain.services.GlobalElection.TotalCongressPerson import Total
 from src.backend.domain.services.GlobalElection.SeatsResults import SeatsResults
 from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
 from src.backend.domain.services.GlobalElection.RepresentativeCongress import RepresentativeCongress
-from src.backend.domain.services.GlobalElection.SelectCongressPerson import SelectCongressPersons
+from src.backend.domain.services.GlobalElection.CongressPersonElected import CongressPersonElected
 from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.DeterminateSeatByPartyInDept import DeterminateSeatsByPartyInDept
@@ -29,13 +29,13 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         seats_results = SeatsResults()        
         determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
-        select_congress_persons = SelectCongressPersons()
+        congress_person_elected = CongressPersonElected()
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
         total_congress_person = TotalCongressPerson()
         
 
         congress_persons_by_departments = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
-                                                                     determinate_seats_by_party_in_dept, select_congress_persons, 
+                                                                     determinate_seats_by_party_in_dept, congress_person_elected, 
                                                                      regroup_congress_persons_by_parties, total_congress_person)
         manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
         stability_congress = StabilityCongress(total_congress_persons_in_dpt)

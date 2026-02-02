@@ -1,15 +1,15 @@
 import unittest
-from src.backend.domain.services.GlobalElection.SelectCongressPerson import SelectCongressPersons
+from src.backend.domain.services.GlobalElection.CongressPersonElected import CongressPersonElected
 from tests.utils.data.catalogData import generate_datas
 from tests.utils.assert_helper import assert_congress_person_with_district
 
-class SelectCongressPersonsTest(unittest.TestCase):
+class CongressPersonElectedTest(unittest.TestCase):
     def test_select_candidates_elected(self): 
         candidates = generate_datas("candidate", "")
-        congress_persons_select = SelectCongressPersons()
+        congress_person_elected = CongressPersonElected()
         score = {'UG': 3, 'RN': 3, 'ENS': 2, 'LR': 0}
 
-        congress_persons = congress_persons_select.Choose(score, candidates)
+        congress_persons = congress_person_elected.Choose(score, candidates)
 
         self.assertEqual(8, len(congress_persons))
         assert_congress_person_with_district("LAHAIS|Tristan|MASCULIN|UG|30361|40.31|2ème circonscription|3502|Ille-et-Vilaine|35", congress_persons[0], self)
