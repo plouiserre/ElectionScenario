@@ -1,11 +1,11 @@
 #TODO changer noms
-class DeterminatePartyInfo : 
+class OneTurnCongressPersonElectedByDpt : 
     def __init__(self):
         self.elected_persons = []
         self.elected_persons_count = 0
         self.all_congress_persons_by_dpt = {}
 
-    def Calculate(self, elected_persons):
+    def regroup(self, elected_persons):
         self.elected_persons = elected_persons
         self.__order_congress_persons_by_dpt()
         return self.all_congress_persons_by_dpt

@@ -9,10 +9,10 @@ from src.backend.domain.services.GlobalElection.RepresentativeCongress import Re
 from src.backend.domain.services.GlobalElection.CongressPersonElected import CongressPersonElected
 from src.backend.domain.services.GlobalElection.StabilityCongress import StabilityCongress
 from src.backend.domain.services.OneTurnElection.ConstructDepartmentalAssemblies import ConstructDepartmentalAssemblies
-from src.backend.domain.services.OneTurnElection.DeterminatePartyInfo import DeterminatePartyInfo
+from src.backend.domain.services.OneTurnElection.OneTurnCongressPersonElectedByDpt import OneTurnCongressPersonElectedByDpt
 from src.backend.domain.services.OneTurnElection.OneTurnElectionService import OneTurnElectionService
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
-from src.backend.domain.services.ProportionalDepartmentElection.DeterminateSeatByPartyInDept import DeterminateSeatsByPartyInDept
+from src.backend.domain.services.ProportionalDepartmentElection.SeatDistributionRule import SeatDistributionRule
 from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
 from src.backend.domain.services.ProportionalDepartmentElection.ManageCongressPersonsByDepartment import ManageCongressPersonsByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.ModeDesignCongressPerson import ModeDesignCongressPerson
@@ -29,9 +29,9 @@ def get_one_turn_election_service() -> OneTurnElectionPort:
     representative_congress = RepresentativeCongress(577)
     build_congress = BuildCongress(stability_congress, representative_congress)
     congress_person_elected = CongressPersonElected()
-    determinate_party_info = DeterminatePartyInfo()
+    one_turn_congress_person_elected_by_dpt = OneTurnCongressPersonElectedByDpt()
     contruct_departmental_assemblies = ConstructDepartmentalAssemblies()
-    election = OneTurnElectionService(json_service, congress_person_elected, build_congress, determinate_party_info, contruct_departmental_assemblies)
+    election = OneTurnElectionService(json_service, congress_person_elected, build_congress, one_turn_congress_person_elected_by_dpt, contruct_departmental_assemblies)
     return election
 
 def get_proportional_national_election_service() -> ProportionalNationalElectionPort:
@@ -55,13 +55,13 @@ def get_proportional_departmental_election_service () -> ProportionalDepartmentE
     mode_design_congress_person = ModeDesignCongressPerson()
     districts_vote_from_dpt = DistrictsVoteFromDpt()
     seats_results = SeatsResults()        
-    determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
+    seat_distribution_rule = SeatDistributionRule()
     select_congress_persons = CongressPersonElected()
     regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
     total_congress_person = TotalCongressPerson()
 
     congress_persons_by_departments = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
-                                                                 determinate_seats_by_party_in_dept, select_congress_persons, 
+                                                                 seat_distribution_rule, select_congress_persons, 
                                                                  regroup_congress_persons_by_parties, total_congress_person, mode)
     manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
     stability_congress = StabilityCongress(577)

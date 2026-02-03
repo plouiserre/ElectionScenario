@@ -1,9 +1,9 @@
-class DeterminateSeatsByPartyInDept : 
+class SeatDistributionRule : 
     def __init__(self):
         self.number_congress_persons = 0
         self.mode_design = None
 
-    def Determinate(self, parties_votes, mode_design, number_congress_persons):
+    def calculate(self, parties_votes, mode_design, number_congress_persons):
         self.mode_design = mode_design
         self.number_congress_persons = number_congress_persons
         parties_votes_ordered_by_scores = self.__ordered_by_scores(parties_votes)
