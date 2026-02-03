@@ -12,7 +12,7 @@ class CongressPersonByDepartment :
         self.total_congress_person = total_congress_person
         self.mode = mode
 
-    def Choose(self, all_datas_elections , department_code):
+    def find_congress_persons(self, all_datas_elections , department_code):
         number_congress_persons = self.total_congress_person.count_for_each_dpt(department_code, all_datas_elections)
         all_votes_from_dpt = self.districts_vote_from_dpt.Find(department_code, all_datas_elections)
         all_candidates_from_districts = self.__regroup_all_candidates_from_districts(all_votes_from_dpt)

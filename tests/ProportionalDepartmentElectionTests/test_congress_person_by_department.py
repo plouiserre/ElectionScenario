@@ -27,7 +27,7 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
                                                                     regroup_congress_persons_by_parties, total_congress_person, "proportionalDepartmental")                                                                    
 
         all_datas_elections = elections_results[2024]
-        department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)
+        department_congress = congress_persons_by_department.find_congress_persons(all_datas_elections, department_code)
         
         self.assertEqual("15", department_congress.department_code)
         self.assertEqual("Cantal", department_congress.department_name)
@@ -49,7 +49,7 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
                                                                     determinate_seats_by_party_in_dept, congress_person_elected, 
                                                                     regroup_congress_persons_by_parties, total_congress_person, "proportionalDepartmental")
         all_datas_elections = elections_results[2024]
-        department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)
+        department_congress = congress_persons_by_department.find_congress_persons(all_datas_elections, department_code)
 
         self.assertEqual("3", department_congress.department_code)
         self.assertEqual("Allier", department_congress.department_name)
@@ -75,7 +75,7 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
                                                                     regroup_congress_persons_by_parties, total_congress_person, "proportionalDepartmental")
 
         all_datas_elections = elections_results[2024]
-        department_congress = congress_persons_by_department.Choose(all_datas_elections, department_code)
+        department_congress = congress_persons_by_department.find_congress_persons(all_datas_elections, department_code)
 
         self.assertEqual("33", department_congress.department_code)
         self.assertEqual("Gironde", department_congress.department_name)
