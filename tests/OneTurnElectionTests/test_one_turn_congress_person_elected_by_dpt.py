@@ -1,14 +1,14 @@
 import unittest
-from src.backend.domain.services.OneTurnElection.DeterminatePartyInfo import DeterminatePartyInfo
+from src.backend.domain.services.OneTurnElection.OneTurnCongressPersonElectedByDpt import OneTurnCongressPersonElectedByDpt
 from utils.assert_helper import assert_congress_person_with_district, assert_party
 from tests.utils.data.catalogData import generate_datas
 
-class DeterminatePartyInfoTest(unittest.TestCase):
+class OneTurnCongressPersonElectedByDptTest(unittest.TestCase):
     def test_calculate_party_info(self):
         elected_persons = generate_datas("candidate", ["ALBRAND", "BONY", "VOYNET", "LAHAIS", "BABIN", "MONTEIL", "ROSSET"])
-        determinate_party_info = DeterminatePartyInfo()
+        one_turn_congress_person_elected_by_dpt = OneTurnCongressPersonElectedByDpt()
 
-        parties_infos = determinate_party_info.Calculate(elected_persons)
+        parties_infos = one_turn_congress_person_elected_by_dpt.regroup(elected_persons)
 
         assert_congress_person_with_district("ALBRAND|Louis|MASCULIN|RN|13115|33.88|2ème circonscription|502|Hautes-Alpes|5", parties_infos["5"][0], self)
         assert_congress_person_with_district("BONY|Jean-Yves|MASCULIN|LR|12383|34.29|2ème circonscription|1502|Cantal|15", parties_infos["15"][0], self)
