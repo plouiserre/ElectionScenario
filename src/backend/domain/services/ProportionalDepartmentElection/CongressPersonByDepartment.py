@@ -1,12 +1,12 @@
 from src.backend.domain.models.department_congress import DepartmentCongress
 
 class CongressPersonByDepartment :          
-    def __init__(self, minimal_vote_congress_person, districts_vote_from_dpt, seats_results, determinate_seats_by_party_in_dept, 
+    def __init__(self, minimal_vote_congress_person, districts_vote_from_dpt, seats_results, seat_distribution_rule, 
                  select_congress_persons, regroup_congress_persons_by_parties, total_congress_person, mode):
         self.minimal_vote_congress_person = minimal_vote_congress_person
         self.districts_vote_from_dpt = districts_vote_from_dpt
         self.seats_results = seats_results
-        self.determinate_seats_by_party_in_dept = determinate_seats_by_party_in_dept
+        self.seat_distribution_rule = seat_distribution_rule
         self.select_congress_persons = select_congress_persons
         self.regroup_congress_persons_by_parties = regroup_congress_persons_by_parties
         self.total_congress_person = total_congress_person
@@ -19,7 +19,7 @@ class CongressPersonByDepartment :
         parties_by_vote = self.seats_results.calculate_vote_each_party(all_candidates_from_districts)
         all_percentage_vote_by_party = self.seats_results.calculate_percentage(parties_by_vote)
         mode_design = self.minimal_vote_congress_person.Calculate(number_congress_persons, all_percentage_vote_by_party)
-        parties_seats_by_dept = self.determinate_seats_by_party_in_dept.Determinate(all_percentage_vote_by_party, mode_design, number_congress_persons)
+        parties_seats_by_dept = self.seat_distribution_rule.calculate(all_percentage_vote_by_party, mode_design, number_congress_persons)
         congress_persons_elected = self.select_congress_persons.Select(parties_seats_by_dept, all_candidates_from_districts, self.mode)
         all_parties = self.regroup_congress_persons_by_parties.sort(congress_persons_elected, all_datas_elections.all_parties)
         department_name = self.__find_department_name(all_datas_elections.all_departments, department_code)

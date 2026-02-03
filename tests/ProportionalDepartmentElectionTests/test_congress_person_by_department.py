@@ -4,7 +4,7 @@ from src.backend.domain.services.GlobalElection.SeatsResults import SeatsResults
 from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
 from src.backend.domain.services.GlobalElection.CongressPersonElected import CongressPersonElected
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
-from src.backend.domain.services.ProportionalDepartmentElection.DeterminateSeatByPartyInDept import DeterminateSeatsByPartyInDept
+from src.backend.domain.services.ProportionalDepartmentElection.SeatDistributionRule import SeatDistributionRule
 from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
 from src.backend.domain.services.ProportionalDepartmentElection.ModeDesignCongressPerson import ModeDesignCongressPerson
 from tests.utils.assert_helper import assert_candidate_with_district_and_percentage
@@ -17,13 +17,13 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         mode_design_congress_person = ModeDesignCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         seats_results = SeatsResults()
-        determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
+        seat_distribution_rule = SeatDistributionRule()
         congress_person_elected = CongressPersonElected()
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
         total_congress_person = TotalCongressPerson()
 
         congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
-                                                                    determinate_seats_by_party_in_dept, congress_person_elected, 
+                                                                    seat_distribution_rule, congress_person_elected, 
                                                                     regroup_congress_persons_by_parties, total_congress_person, "proportionalDepartmental")                                                                    
 
         all_datas_elections = elections_results[2024]
@@ -40,13 +40,13 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         mode_design_congress_person = ModeDesignCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         seats_results = SeatsResults()
-        determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
+        seat_distribution_rule = SeatDistributionRule()
         congress_person_elected = CongressPersonElected()
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
         total_congress_person = TotalCongressPerson()
 
         congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
-                                                                    determinate_seats_by_party_in_dept, congress_person_elected, 
+                                                                    seat_distribution_rule, congress_person_elected, 
                                                                     regroup_congress_persons_by_parties, total_congress_person, "proportionalDepartmental")
         all_datas_elections = elections_results[2024]
         department_congress = congress_persons_by_department.find_congress_persons(all_datas_elections, department_code)
@@ -65,13 +65,13 @@ class CongressPersonByDepartmentTest(unittest.TestCase):
         mode_design_congress_person = ModeDesignCongressPerson()
         districts_vote_from_dpt = DistrictsVoteFromDpt()
         seats_results = SeatsResults()
-        determinate_seats_by_party_in_dept = DeterminateSeatsByPartyInDept()
+        seat_distribution_rule = SeatDistributionRule()
         congress_person_elected = CongressPersonElected()
         regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
         total_congress_person = TotalCongressPerson()
 
         congress_persons_by_department = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
-                                                                    determinate_seats_by_party_in_dept, congress_person_elected, 
+                                                                    seat_distribution_rule, congress_person_elected, 
                                                                     regroup_congress_persons_by_parties, total_congress_person, "proportionalDepartmental")
 
         all_datas_elections = elections_results[2024]
