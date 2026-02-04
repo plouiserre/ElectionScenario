@@ -18,7 +18,7 @@ from tests.utils.data.catalogData import generate_datas
 from src.backend.infrastructure.services.JsonResultsElection import JsonResultsElection
 
 class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
-    def test_determinate_congress_with_proportional_department_election(self):
+    def test_simulate_congress_with_proportional_department_election(self):
         total_congress_persons_in_dpt = 16
         year = 2024
         mode = "proportionalDepartmental"
@@ -44,7 +44,7 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, manage_congress_persons_by_department, 
                                                                                          build_congress, mode)        
 
-        congress = proportional_department_election_service.Determinate(year)
+        congress = proportional_department_election_service.Simulate(year)
 
         self.assertEqual(year, congress.year)
         self.assertEqual("proportionalDepartmental", congress.mode)

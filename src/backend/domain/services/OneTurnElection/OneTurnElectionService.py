@@ -11,7 +11,7 @@ class OneTurnElectionService(OneTurnElectionPort) :
         self.contruct_departmental_assemblies = construct_departmental_assemblies
         self.mode = "OneTurn"
 
-    def Determinate(self, year):
+    def Simulate(self, year):
         results_data_all_years = self.json_results_election.get_results()
         results_data = results_data_all_years[year]
         congress_persons = self.all_elected_persons.Select(None, results_data.all_candidates, self.mode)
@@ -22,8 +22,6 @@ class OneTurnElectionService(OneTurnElectionPort) :
         congress = self.build_congress.Build(congress_datas, results_data_all_years)
         return congress
 
-
-    #TODO externalize in a autonomous class call determinate_party_info and rename determinate_party_info in other name 
     def __get_all_data_parties_good(self, departmental_assemblies): 
         all_parties = {}
         data_parties = []

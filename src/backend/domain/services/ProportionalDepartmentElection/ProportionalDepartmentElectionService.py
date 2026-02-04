@@ -11,7 +11,7 @@ class ProportionalDepartmentElectionService(ProportionalDepartmentElectionPort) 
         self.build_congress = build_congress
         self.mode = mode
 
-    def Determinate(self, year):
+    def Simulate(self, year):
         elections_results = self.json_service.get_results()
         all_datas_elections = elections_results[year]
         congress_persons_elected = {}

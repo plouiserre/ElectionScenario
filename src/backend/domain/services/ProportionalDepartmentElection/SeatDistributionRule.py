@@ -8,7 +8,7 @@ class SeatDistributionRule :
         self.number_congress_persons = number_congress_persons
         parties_votes_ordered_by_scores = self.__ordered_by_scores(parties_votes)
         parties_votes_selected = self.__keep_selected_parties(parties_votes_ordered_by_scores)
-        seats_by_parties = self.__determinate_each_party_candidates_elected(parties_votes_selected)
+        seats_by_parties = self.__count_congress_person_for_each_party(parties_votes_selected)
         return seats_by_parties
     
     def __ordered_by_scores(self, parties_votes): 
@@ -26,7 +26,7 @@ class SeatDistributionRule :
                 break
         return parties_votes_selected
     
-    def __determinate_each_party_candidates_elected(self, parties_votes_selected): 
+    def __count_congress_person_for_each_party(self, parties_votes_selected): 
         results = self.__give_bonus_winner(parties_votes_selected)
         while self.number_congress_persons > 0:
             for party in parties_votes_selected : 

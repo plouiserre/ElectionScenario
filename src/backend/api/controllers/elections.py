@@ -10,15 +10,15 @@ async def get_results_elections(year : str, mode : str, one_election_service = D
                                 proportional_departmentElection_service = Depends(get_proportional_departmental_election_service)):
     year_param = int(year)
     if mode == "oneTurnMajority":
-        congress_domain = one_election_service.Determinate(year_param)
+        congress_domain = one_election_service.Simulate(year_param)
         congress = to_mapper_congress_response(congress_domain)
         return {"congress":{"year": congress.year, "mode": congress.mode, "parties" : congress.parties, "stability_majority" : congress.stability_majority, "representative_congress" : congress.representative_congress}}
     elif mode =="proportionalNational":
-        congress_domain = proportional_nationalElection_service.Determinate(year_param)
+        congress_domain = proportional_nationalElection_service.Simulate(year_param)
         congress = to_mapper_congress_response(congress_domain)
         return {"congress":{"year": congress.year, "mode": congress.mode, "parties" : congress.parties, "stability_majority" : congress.stability_majority, "representative_congress" : congress.representative_congress}}
     elif mode == "proportionalDepartmental": 
-        congress_domain = proportional_departmentElection_service.Determinate(year_param)
+        congress_domain = proportional_departmentElection_service.Simulate(year_param)
         congress = to_mapper_congress_response(congress_domain)
         return {"congress":{"year": congress.year, "mode": congress.mode, "parties" : congress.parties, "stability_majority" : congress.stability_majority, "representative_congress" : congress.representative_congress}}
     else : 

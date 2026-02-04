@@ -17,7 +17,7 @@ from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFro
 from src.backend.domain.services.ProportionalDepartmentElection.ManageCongressPersonsByDepartment import ManageCongressPersonsByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.ModeDesignCongressPerson import ModeDesignCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.ProportionalDepartmentElectionService import ProportionalDepartmentElectionService
-from src.backend.domain.services.ProportionalNationalElection.DeterminateSeatsByParty import DeterminateSeatsByParty
+from src.backend.domain.services.ProportionalNationalElection.AllocateSeatsForParties import AllocateSeatsForParties
 from src.backend.domain.services.ProportionalNationalElection.ProportionalNationalElectionService import ProportionalNationalElectionService
 from src.backend.domain.services.ProportionalNationalElection.RemoveSmallParties import RemoveSmallParties
 from src.backend.infrastructure.files.JsonFiles import JsonFiles
@@ -39,13 +39,13 @@ def get_proportional_national_election_service() -> ProportionalNationalElection
     seats_results = SeatsResults()
     remove_small_parties = RemoveSmallParties()
     #TODO externalize conf
-    determine_seats_by_parties = DeterminateSeatsByParty(577)
+    allocate_seats_by_parties = AllocateSeatsForParties(577)
     select_congress_persons = CongressPersonElected()
     regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
     representative_congress = RepresentativeCongress(577)
     stability_congress = StabilityCongress(577)
     build_congress = BuildCongress(stability_congress, representative_congress)
-    election = ProportionalNationalElectionService(json_service, seats_results, remove_small_parties, determine_seats_by_parties, 
+    election = ProportionalNationalElectionService(json_service, seats_results, remove_small_parties, allocate_seats_by_parties, 
                                                    select_congress_persons, regroup_congress_persons_by_parties, build_congress)
     return election
 
