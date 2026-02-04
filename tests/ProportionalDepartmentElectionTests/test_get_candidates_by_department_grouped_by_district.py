@@ -1,5 +1,5 @@
 import unittest
-from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
+from src.backend.domain.services.ProportionalDepartmentElection.GetCandidatesByDepartmentGroupedByDistrict import GetCandidatesByDepartmentGroupedByDistrict
 from tests.utils.assert_helper import assert_candidate_with_district_and_percentage
 from tests.utils.data.catalogData import generate_datas
 
@@ -7,9 +7,9 @@ class DistrictsVoteFromDptTest(unittest.TestCase):
     def test_find_all_districts_from_allier_dpt(self):
         elections_results  = generate_datas("results_elections", "three_departments_tmp")     
         all_datas_elections = elections_results[2024]   
-        districts_vote_from_dpt = DistrictsVoteFromDpt()
+        get_candidates_by_department_grouped_by_district = GetCandidatesByDepartmentGroupedByDistrict()
         
-        candidates_district_allier_department = districts_vote_from_dpt.Find("3", all_datas_elections)
+        candidates_district_allier_department = get_candidates_by_department_grouped_by_district.execute("3", all_datas_elections)
     
         self.assertEqual(3, len(candidates_district_allier_department))
         assert_candidate_with_district_and_percentage("AGEZ|Blandine|FEMININ|REC|602|1.02|1ère circonscription|301||3", candidates_district_allier_department[0][0], self)

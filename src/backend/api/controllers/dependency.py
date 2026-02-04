@@ -13,7 +13,7 @@ from src.backend.domain.services.OneTurnElection.OneTurnCongressPersonElectedByD
 from src.backend.domain.services.OneTurnElection.OneTurnElectionService import OneTurnElectionService
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.SeatDistributionRule import SeatDistributionRule
-from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
+from src.backend.domain.services.ProportionalDepartmentElection.GetCandidatesByDepartmentGroupedByDistrict import GetCandidatesByDepartmentGroupedByDistrict
 from src.backend.domain.services.ProportionalDepartmentElection.ManageCongressPersonsByDepartment import ManageCongressPersonsByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.ModeDesignCongressPerson import ModeDesignCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.ProportionalDepartmentElectionService import ProportionalDepartmentElectionService
@@ -53,14 +53,14 @@ def get_proportional_departmental_election_service () -> ProportionalDepartmentE
     mode = "proportionalDepartmental"
     json_service = __get_json_service()
     mode_design_congress_person = ModeDesignCongressPerson()
-    districts_vote_from_dpt = DistrictsVoteFromDpt()
+    get_candidates_by_department_grouped_by_district = get_candidates_by_department_grouped_by_district()
     seats_results = SeatsResults()        
     seat_distribution_rule = SeatDistributionRule()
     select_congress_persons = CongressPersonElected()
     regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
     total_congress_person = TotalCongressPerson()
 
-    congress_persons_by_departments = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
+    congress_persons_by_departments = CongressPersonByDepartment(mode_design_congress_person, get_candidates_by_department_grouped_by_district, seats_results, 
                                                                  seat_distribution_rule, select_congress_persons, 
                                                                  regroup_congress_persons_by_parties, total_congress_person, mode)
     manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
