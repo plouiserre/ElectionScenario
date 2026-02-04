@@ -1,14 +1,14 @@
 import unittest
-from src.backend.domain.services.ProportionalDepartmentElection.ManageCongressPersonsByDepartment import ManageCongressPersonsByDepartment
+from src.backend.domain.services.ProportionalDepartmentElection.RegroupPartiesFromDepartment import RegroupPartiesFromDepartment
 from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.data.catalogData import generate_datas
 
-class ManageCongressPersonsByDepartmentTest(unittest.TestCase):
+class RegroupPartiesFromDepartmentTest(unittest.TestCase):
     def test_regroup_congress_persons_by_parties(self) : 
         datas = generate_datas("candidate", "by_department")
-        manage = ManageCongressPersonsByDepartment()
+        regroup_parties_from_department = RegroupPartiesFromDepartment()
 
-        results = manage.group_by_parties(datas)
+        results = regroup_parties_from_department.group_by_parties(datas)
 
         #RN 6
         assert_congress_person_with_district("THÈS|Anne-Marie|FEMININ|RN|22816|38.61|1ère circonscription|301|Allier|3", results["RN"].congress_persons[0], self)

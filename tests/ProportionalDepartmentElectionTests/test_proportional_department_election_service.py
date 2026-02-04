@@ -10,7 +10,7 @@ from src.backend.domain.services.GlobalElection.StabilityCongress import Stabili
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.SeatDistributionRule import SeatDistributionRule
 from src.backend.domain.services.ProportionalDepartmentElection.GetCandidatesByDepartmentGroupedByDistrict import GetCandidatesByDepartmentGroupedByDistrict
-from src.backend.domain.services.ProportionalDepartmentElection.ManageCongressPersonsByDepartment import ManageCongressPersonsByDepartment
+from src.backend.domain.services.ProportionalDepartmentElection.RegroupPartiesFromDepartment import RegroupPartiesFromDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.ModeDesignCongressPerson import ModeDesignCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.ProportionalDepartmentElectionService import ProportionalDepartmentElectionService
 from tests.utils.assert_helper import assert_congress_person_with_district
@@ -37,11 +37,11 @@ class ProportionalDepartmentElectionServiceTest(unittest.TestCase):
         congress_persons_by_departments = CongressPersonByDepartment(mode_design_congress_person, get_candidates_by_department_grouped_by_district, seats_results, 
                                                                      seat_distribution_rule, congress_person_elected, 
                                                                      regroup_congress_persons_by_parties, total_congress_person, mode)
-        manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
+        regroup_parties_from_department = RegroupPartiesFromDepartment()        
         stability_congress = StabilityCongress(total_congress_persons_in_dpt)
         representative_congress = RepresentativeCongress(total_congress_persons_in_dpt)
         build_congress = BuildCongress(stability_congress, representative_congress)
-        proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, manage_congress_persons_by_department, 
+        proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, regroup_parties_from_department, 
                                                                                          build_congress, mode)        
 
         congress = proportional_department_election_service.Simulate(year)
