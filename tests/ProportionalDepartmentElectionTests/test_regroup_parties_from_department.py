@@ -8,7 +8,7 @@ class RegroupPartiesFromDepartmentTest(unittest.TestCase):
         datas = generate_datas("candidate", "by_department")
         regroup_parties_from_department = RegroupPartiesFromDepartment()
 
-        results = regroup_parties_from_department.group_by_parties(datas)
+        results = regroup_parties_from_department.execute(datas)
 
         #RN 6
         assert_congress_person_with_district("THÈS|Anne-Marie|FEMININ|RN|22816|38.61|1ère circonscription|301|Allier|3", results["RN"].congress_persons[0], self)
