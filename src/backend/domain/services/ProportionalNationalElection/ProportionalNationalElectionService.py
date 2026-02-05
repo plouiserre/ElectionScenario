@@ -48,7 +48,7 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         return results
     
     def __keep_only_important_parties(self, percentage_by_parties):
-        importantes_parties_with_percentage = self.remove_small_parties.Choose(percentage_by_parties)
+        importantes_parties_with_percentage = self.remove_small_parties.execute(percentage_by_parties)
         return importantes_parties_with_percentage
     
     def __calculate_number_congress_persons_elected_by_parties(self, percentages_for_parties_importants):
