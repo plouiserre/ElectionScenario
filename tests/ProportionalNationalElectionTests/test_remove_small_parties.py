@@ -6,7 +6,7 @@ class RemoveSmallPartiesTest(unittest.TestCase):
         datas = {'EXG': 0.93, 'ENS': 22.91, 'UG': 29.75, 'DIV': 0.54, 'RN': 29.07, 'REC': 0.59, 'DVD': 4.86, 'LR': 7.05, 'ECO': 0.67, 'DVG': 0.52, 'REG': 0.36, 'DVC': 2.75}        
         remove = RemoveSmallParties()
 
-        results = remove.Choose(datas)
+        results = remove.execute(datas)
 
         self.assertEqual(4, len(results))
         self.assertEqual(22.91, results['ENS'])

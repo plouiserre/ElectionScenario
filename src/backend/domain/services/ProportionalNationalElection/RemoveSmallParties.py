@@ -2,7 +2,7 @@ class RemoveSmallParties :
     def __init__(self):
         pass
 
-    def Choose(self, results):
+    def execute(self, results):
         results_kept = {}
         for key in results : 
             value = results[key]
