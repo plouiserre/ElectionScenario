@@ -1,13 +1,13 @@
 import math
 
-class DeterminateSeatsByParty : 
+class AllocateSeatsForParties : 
     def __init__(self, seats_in_total):
         self.seats_in_total = seats_in_total
         self.results_seats = {}
         self.percentages_for_parties_importants = {}
         self.seats_remaining = 0
 
-    def Calculate(self, percentages_for_parties_importants):
+    def allocate(self, percentages_for_parties_importants):
         self.percentages_for_parties_importants = percentages_for_parties_importants
         self.percentages_for_parties_importants = self.__ordered_percentages_for_parties_importants()
         self.__first_calcul_seat()
@@ -24,7 +24,6 @@ class DeterminateSeatsByParty :
     def __ordered_percentages_for_parties_importants(self) :
         new_ordered_percentages = dict(sorted(self.percentages_for_parties_importants.items(), key=lambda x: x[1], reverse= True))
         return new_ordered_percentages
-
 
     def __calculate_seats_remaining(self):
         seats_affected = 0

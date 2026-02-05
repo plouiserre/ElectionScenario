@@ -1,11 +1,10 @@
-import math
 from src.backend.domain.models.factory import factory_mode_design
 
-class ModeDesignCongressPerson : 
+class RulesDesignatedCongressPerson : 
     def __init__(self):
         self.minimal_vote = 12.5
 
-    def Calculate(self, number_congress_persons, percentage_parties_results): 
+    def find(self, number_congress_persons, percentage_parties_results): 
         big_difference_winner = self.__determine_big_difference_for_bonus_winner(number_congress_persons)
         is_bonus_winner = self.__is_bonus_winner(percentage_parties_results, big_difference_winner)
         if number_congress_persons == 1 :

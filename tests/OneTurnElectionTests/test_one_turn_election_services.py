@@ -13,7 +13,7 @@ from tests.utils.data.catalogData import generate_datas
 
 
 class OneTurnElectionServiceCaseTest(unittest.TestCase):
-    def test_one_turn_election_2024_determinate_good_congress_persons(self):
+    def test_one_turn_election_2024_simulate_good_congress_persons(self):
         total_congress_persons = 8
         year = 2024
         json_files = Mock()
@@ -27,7 +27,7 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         contruct_departmental_assemblies = ConstructDepartmentalAssemblies()
         election = OneTurnElectionService(json_service, congress_person_elected, build_congress, one_turn_congress_person_elected_by_dpt, contruct_departmental_assemblies)
         
-        congress = election.Determinate(year)
+        congress = election.Simulate(year)
 
         self.__assert_congress_2024(congress)
         self.__assert_departmental_assemblies_2024(congress.departmental_assemblies)
@@ -142,7 +142,7 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         assert_party('Union de la gauche|UG|2|1', departmental_assembly.parties[0], self)
         assert_congress_person_with_district("ROSSET|Marine|FEMININ|UG|18845|33.4|2ème circonscription|7502|Paris|75", departmental_assembly.parties[0].congress_persons[0], self)             
 
-    def test_one_turn_election_2022_determinate_good_congress_persons(self):
+    def test_one_turn_election_2022_simulate_good_congress_persons(self):
         total_congress_persons = 8
         year = 2022
         json_files = Mock()
@@ -156,7 +156,7 @@ class OneTurnElectionServiceCaseTest(unittest.TestCase):
         contruct_departmental_assemblies = ConstructDepartmentalAssemblies()
         election = OneTurnElectionService(json_service, congress_person_elected, build_congress, one_turn_congress_person_elected_by_dpt, contruct_departmental_assemblies)        
         
-        congress = election.Determinate(year)
+        congress = election.Simulate(year)
 
         self.__assert_congress_2022(congress)
         self.__assert_departmental_assemblies_2022(congress.departmental_assemblies)

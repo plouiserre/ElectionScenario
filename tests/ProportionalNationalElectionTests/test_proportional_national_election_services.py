@@ -5,7 +5,7 @@ from src.backend.domain.services.GlobalElection.StabilityCongress import Stabili
 from src.backend.domain.services.GlobalElection.BuildCongress import BuildCongress
 from src.backend.domain.services.ProportionalNationalElection.ProportionalNationalElectionService import ProportionalNationalElectionService
 from src.backend.domain.services.GlobalElection.SeatsResults import SeatsResults
-from src.backend.domain.services.ProportionalNationalElection.DeterminateSeatsByParty import DeterminateSeatsByParty
+from src.backend.domain.services.ProportionalNationalElection.AllocateSeatsForParties import AllocateSeatsForParties
 from src.backend.domain.services.GlobalElection.RegroupCongressPersonsByParties import RegroupCongressPersonsByParties
 from src.backend.domain.services.ProportionalNationalElection.RemoveSmallParties import RemoveSmallParties
 from src.backend.domain.services.GlobalElection.CongressPersonElected import CongressPersonElected
@@ -14,7 +14,7 @@ from tests.utils.assert_helper import assert_congress_person_with_district
 from tests.utils.data.catalogData import generate_datas
 
 class ProportionalNationalElectionServiceTest(unittest.TestCase):
-    def test_determinate_congress_with_proportional_election(self):
+    def test_simulate_congress_with_proportional_election(self):
         total_elected_congress_persons = 8
         year = 2024
         json_files = Mock()
@@ -26,13 +26,13 @@ class ProportionalNationalElectionServiceTest(unittest.TestCase):
 
         seats_results = SeatsResults()
         remove = RemoveSmallParties()
-        determine_seats_by_party = DeterminateSeatsByParty(total_elected_congress_persons)
+        allocate_seats_by_parties = AllocateSeatsForParties(total_elected_congress_persons)
         congress_person_elected = CongressPersonElected()
         regroup_by_parties = RegroupCongressPersonsByParties()
-        proportional_national_election_service = ProportionalNationalElectionService(json_service, seats_results, remove, determine_seats_by_party, 
+        proportional_national_election_service = ProportionalNationalElectionService(json_service, seats_results, remove, allocate_seats_by_parties, 
                                                                                      congress_person_elected, regroup_by_parties, build_congress)
 
-        congress = proportional_national_election_service.Determinate(year)
+        congress = proportional_national_election_service.Simulate(year)
 
         self.assertEqual(year, congress.year)
         self.assertEqual("PROPORTIONALITYNATIONAL", congress.mode)

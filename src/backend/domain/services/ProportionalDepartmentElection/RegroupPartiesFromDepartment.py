@@ -1,8 +1,8 @@
-class ManageCongressPersonsByDepartment : 
+class RegroupPartiesFromDepartment : 
     def __init__(self):
         self.parties = {}
 
-    def group_by_parties(self, parties_by_departments): 
+    def execute(self, parties_by_departments): 
         for dpt in parties_by_departments : 
             parties = parties_by_departments[dpt]
             for party in parties:

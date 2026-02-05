@@ -2,12 +2,12 @@ from src.backend.domain.models.factory import  factory_congress_datas
 from src.backend.domain.ports.inside.ProportionalNationalElectionPort import ProportionalNationalElectionPort
 
 class ProportionalNationalElectionService(ProportionalNationalElectionPort):
-    def __init__(self, json_results_election, seats_results, remove_small_parties, determinate_seats_by_party, select_congress_person, 
+    def __init__(self, json_results_election, seats_results, remove_small_parties, allocate_seats_by_parties, select_congress_person, 
                  regroup_by_parties, build_congress):
         self.json_results_election = json_results_election
         self.seats_results = seats_results
         self.remove_small_parties = remove_small_parties
-        self.determinate_seats_by_party = determinate_seats_by_party
+        self.allocate_seats_by_parties = allocate_seats_by_parties
         self.select_congress_person = select_congress_person
         self.regroup_by_parties = regroup_by_parties
         self.build_congress = build_congress
@@ -16,7 +16,7 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         self.year = 0
         self.mode = "PROPORTIONALITYNATIONAL"
 
-    def Determinate(self, year):
+    def Simulate(self, year):
         self.year = year
         results_data_all_years = self.json_results_election.get_results()
         all_datas_needed = results_data_all_years[year]
@@ -52,7 +52,7 @@ class ProportionalNationalElectionService(ProportionalNationalElectionPort):
         return importantes_parties_with_percentage
     
     def __calculate_number_congress_persons_elected_by_parties(self, percentages_for_parties_importants):
-        number_congress_persons_by_parties = self.determinate_seats_by_party.Calculate(percentages_for_parties_importants)
+        number_congress_persons_by_parties = self.allocate_seats_by_parties.allocate(percentages_for_parties_importants)
         return number_congress_persons_by_parties
     
     def __choose_congress_persons_elected_for_parties(self, number_congress_persons_elected_by_parties): 

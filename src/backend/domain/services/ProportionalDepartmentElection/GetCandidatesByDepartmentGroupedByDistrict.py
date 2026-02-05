@@ -1,8 +1,8 @@
-class DistrictsVoteFromDpt():
+class GetCandidatesByDepartmentGroupedByDistrict():
     def __init__(self):
         pass
 
-    def Find(self, dpt_code, all_datas_elections):
+    def execute(self, dpt_code, all_datas_elections):
         all_candidates_good_year = all_datas_elections.all_candidates
         last_district = ""
         all_candidates_from_district = []

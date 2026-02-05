@@ -4,14 +4,14 @@ from src.backend.domain.ports.inside.ProportionalDepartmentElectionPort import P
 
 
 class ProportionalDepartmentElectionService(ProportionalDepartmentElectionPort) : 
-    def __init__(self, json_service, congress_persons_by_departments, manage_congress_persons_by_department, build_congress, mode):
+    def __init__(self, json_service, congress_persons_by_departments, regroup_parties_from_department, build_congress, mode):
         self.json_service = json_service
         self.congress_persons_by_departments = congress_persons_by_departments
-        self.manage_congress_persons_by_department = manage_congress_persons_by_department
+        self.regroup_parties_from_department = regroup_parties_from_department
         self.build_congress = build_congress
         self.mode = mode
 
-    def Determinate(self, year):
+    def Simulate(self, year):
         elections_results = self.json_service.get_results()
         all_datas_elections = elections_results[year]
         congress_persons_elected = {}
@@ -22,7 +22,7 @@ class ProportionalDepartmentElectionService(ProportionalDepartmentElectionPort) 
             departmental_assemblies.append(departmental_assembly_unique)
             congress_persons_elected[departmental_assembly_unique.department_code] = copy.deepcopy(departmental_assembly_unique.parties)
             
-        all_parties = self.manage_congress_persons_by_department.group_by_parties(congress_persons_elected)
+        all_parties = self.regroup_parties_from_department.execute(congress_persons_elected)
         parties = self.__ordered_all_parties(all_parties)
         
         all_departmental_assemblies = self.__regroup_all_departmental_assemblies(departmental_assemblies)

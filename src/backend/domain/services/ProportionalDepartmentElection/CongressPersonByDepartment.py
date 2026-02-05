@@ -1,10 +1,10 @@
 from src.backend.domain.models.department_congress import DepartmentCongress
 
 class CongressPersonByDepartment :          
-    def __init__(self, minimal_vote_congress_person, districts_vote_from_dpt, seats_results, seat_distribution_rule, 
+    def __init__(self, rules_designated_congress_person, get_candidates_by_department_grouped_by_district, seats_results, seat_distribution_rule, 
                  select_congress_persons, regroup_congress_persons_by_parties, total_congress_person, mode):
-        self.minimal_vote_congress_person = minimal_vote_congress_person
-        self.districts_vote_from_dpt = districts_vote_from_dpt
+        self.rules_designated_congress_person = rules_designated_congress_person
+        self.get_candidates_by_department_grouped_by_district = get_candidates_by_department_grouped_by_district
         self.seats_results = seats_results
         self.seat_distribution_rule = seat_distribution_rule
         self.select_congress_persons = select_congress_persons
@@ -14,11 +14,11 @@ class CongressPersonByDepartment :
 
     def find_congress_persons(self, all_datas_elections , department_code):
         number_congress_persons = self.total_congress_person.count_for_each_dpt(department_code, all_datas_elections)
-        all_votes_from_dpt = self.districts_vote_from_dpt.Find(department_code, all_datas_elections)
+        all_votes_from_dpt = self.get_candidates_by_department_grouped_by_district.execute(department_code, all_datas_elections)
         all_candidates_from_districts = self.__regroup_all_candidates_from_districts(all_votes_from_dpt)
         parties_by_vote = self.seats_results.calculate_vote_each_party(all_candidates_from_districts)
         all_percentage_vote_by_party = self.seats_results.calculate_percentage(parties_by_vote)
-        mode_design = self.minimal_vote_congress_person.Calculate(number_congress_persons, all_percentage_vote_by_party)
+        mode_design = self.rules_designated_congress_person.find(number_congress_persons, all_percentage_vote_by_party)
         parties_seats_by_dept = self.seat_distribution_rule.calculate(all_percentage_vote_by_party, mode_design, number_congress_persons)
         congress_persons_elected = self.select_congress_persons.Select(parties_seats_by_dept, all_candidates_from_districts, self.mode)
         all_parties = self.regroup_congress_persons_by_parties.sort(congress_persons_elected, all_datas_elections.all_parties)

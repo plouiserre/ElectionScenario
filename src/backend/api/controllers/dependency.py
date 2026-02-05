@@ -13,11 +13,11 @@ from src.backend.domain.services.OneTurnElection.OneTurnCongressPersonElectedByD
 from src.backend.domain.services.OneTurnElection.OneTurnElectionService import OneTurnElectionService
 from src.backend.domain.services.ProportionalDepartmentElection.CongressPersonByDepartment import CongressPersonByDepartment
 from src.backend.domain.services.ProportionalDepartmentElection.SeatDistributionRule import SeatDistributionRule
-from src.backend.domain.services.ProportionalDepartmentElection.DistrictsVoteFromDpt import DistrictsVoteFromDpt
-from src.backend.domain.services.ProportionalDepartmentElection.ManageCongressPersonsByDepartment import ManageCongressPersonsByDepartment
-from src.backend.domain.services.ProportionalDepartmentElection.ModeDesignCongressPerson import ModeDesignCongressPerson
+from src.backend.domain.services.ProportionalDepartmentElection.GetCandidatesByDepartmentGroupedByDistrict import GetCandidatesByDepartmentGroupedByDistrict
+from src.backend.domain.services.ProportionalDepartmentElection.RegroupPartiesFromDepartment import RegroupPartiesFromDepartment
+from src.backend.domain.services.ProportionalDepartmentElection.RulesDesignatedCongressPerson import RulesDesignatedCongressPerson
 from src.backend.domain.services.ProportionalDepartmentElection.ProportionalDepartmentElectionService import ProportionalDepartmentElectionService
-from src.backend.domain.services.ProportionalNationalElection.DeterminateSeatsByParty import DeterminateSeatsByParty
+from src.backend.domain.services.ProportionalNationalElection.AllocateSeatsForParties import AllocateSeatsForParties
 from src.backend.domain.services.ProportionalNationalElection.ProportionalNationalElectionService import ProportionalNationalElectionService
 from src.backend.domain.services.ProportionalNationalElection.RemoveSmallParties import RemoveSmallParties
 from src.backend.infrastructure.files.JsonFiles import JsonFiles
@@ -39,35 +39,35 @@ def get_proportional_national_election_service() -> ProportionalNationalElection
     seats_results = SeatsResults()
     remove_small_parties = RemoveSmallParties()
     #TODO externalize conf
-    determine_seats_by_parties = DeterminateSeatsByParty(577)
+    allocate_seats_by_parties = AllocateSeatsForParties(577)
     select_congress_persons = CongressPersonElected()
     regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
     representative_congress = RepresentativeCongress(577)
     stability_congress = StabilityCongress(577)
     build_congress = BuildCongress(stability_congress, representative_congress)
-    election = ProportionalNationalElectionService(json_service, seats_results, remove_small_parties, determine_seats_by_parties, 
+    election = ProportionalNationalElectionService(json_service, seats_results, remove_small_parties, allocate_seats_by_parties, 
                                                    select_congress_persons, regroup_congress_persons_by_parties, build_congress)
     return election
 
 def get_proportional_departmental_election_service () -> ProportionalDepartmentElectionService:
     mode = "proportionalDepartmental"
     json_service = __get_json_service()
-    mode_design_congress_person = ModeDesignCongressPerson()
-    districts_vote_from_dpt = DistrictsVoteFromDpt()
+    rules_designated_congress_person = RulesDesignatedCongressPerson()
+    get_candidates_by_department_grouped_by_district = GetCandidatesByDepartmentGroupedByDistrict()
     seats_results = SeatsResults()        
     seat_distribution_rule = SeatDistributionRule()
     select_congress_persons = CongressPersonElected()
     regroup_congress_persons_by_parties = RegroupCongressPersonsByParties()
     total_congress_person = TotalCongressPerson()
 
-    congress_persons_by_departments = CongressPersonByDepartment(mode_design_congress_person, districts_vote_from_dpt, seats_results, 
+    congress_persons_by_departments = CongressPersonByDepartment(rules_designated_congress_person, get_candidates_by_department_grouped_by_district, seats_results, 
                                                                  seat_distribution_rule, select_congress_persons, 
                                                                  regroup_congress_persons_by_parties, total_congress_person, mode)
-    manage_congress_persons_by_department = ManageCongressPersonsByDepartment()        
+    regroup_parties_from_department = RegroupPartiesFromDepartment()        
     stability_congress = StabilityCongress(577)
     representative_congress = RepresentativeCongress(577)
     build_congress = BuildCongress(stability_congress, representative_congress)
-    proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, manage_congress_persons_by_department, 
+    proportional_department_election_service = ProportionalDepartmentElectionService(json_service, congress_persons_by_departments, regroup_parties_from_department, 
                                                                                         build_congress, mode)    
     return proportional_department_election_service
 
